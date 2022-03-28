@@ -1,0 +1,22 @@
+.overview {
+    border-radius: 3em;
+    overflow: hidden;
+    width: 100%;
+}
+
+.overview__header {
+    background: white;  /* default background color */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview__header__title {
+}
+
+.overview__content {
+    width: 70%;
+    margin: auto;
+    padding-top: 40px;
+}
