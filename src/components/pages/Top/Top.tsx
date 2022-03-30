@@ -1,20 +1,27 @@
 import type { NextPage } from 'next'
 
-import styles from './Top.module.css'
-
-import Layout from '@/components/ui/Layout';
 import Video from '@/components/ui/Video';
 import { Overview } from '@/components/ui/Overview/Overview';
 import EmbedSoundCloud from '@/components/ui/EmbedSoundCloud';
 
+import { ResponsiveCard } from '@/components/ui/Cards';
+import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList';
+import { Section } from '@/components/ui/Layouts/Sections';
+
+import React from 'react';
+
+
+// dev sample
+import { blogData } from '@/samples/BlogData'
+
+
 export const Top: NextPage = () => {
-  return (
-    <Layout>
-        <div className={styles.pages}>
-            <div className={styles.pages__div}>
+    return (
+        <div className="w-full pt-20 pb-16 md:pb-24">
+            <Section>
                 <Video/>
-            </div>
-            <div className={styles.pages__div}>
+            </Section>
+            <Section>
                 <Overview page="musics">
                     <EmbedSoundCloud
                         embedUrl="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/23436938&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
@@ -25,14 +32,33 @@ export const Top: NextPage = () => {
                         size={{height: "400px"}}
                     />
                 </Overview>
-            </div>
-            <div className={styles.pages__div}>
+            </Section>
+            <Section>
                 <Overview page="blogs">
-                    <div>blogs</div>
+                    <ColumnsListParent>
+                        {blogData.map((blog) => (
+                            <ColumnsListChild key={blog.slug}>
+                                <article>
+                                    <ResponsiveCard
+                                        href={`/blog/${blog.slug}`}
+                                        description={blog.description}
+                                        title={blog.title}
+                                        img={blog.img}
+                                        tags={blog.tags}
+                                    />
+                                </article>
+                            </ColumnsListChild>
+                        ))}
+                    </ColumnsListParent>
                 </Overview>
-            </div>
+            </Section>
+            <Section>
+                <Overview page="contact" hideLink={true}>
+                    <div className={`sm:grid sm:grid-cols-2 sm:gap-10`}>
+                        contact
+                    </div>
+                </Overview>
+            </Section>
         </div>
-    </Layout>
-  )
+    )
 }
-

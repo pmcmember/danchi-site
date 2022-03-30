@@ -1,0 +1,67 @@
+.house__roof {
+    width: 100%;
+    background: black;
+    height: 100px;
+    position: relative;
+}
+
+.house__roof__leftT {
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 100px 700px 0 0;
+    border-color: white transparent transparent transparent;
+}
+
+.house__roof__rightT {
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 700px 100px 0;
+    border-color: transparent white transparent transparent;
+}
+
+.house__body {
+    background: #fd7373;  /* default background color */
+    width: 100%;
+}
+
+.house__body__content {
+    background: white;  /* default background color */
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+@media (max-width: 800px) {
+    .house__roof__leftT {
+        border-width: 100px 500px 0 0;
+    }
+
+    .house__roof__rightT {
+        border-width: 0 500px 100px 0;
+    }
+
+    .house__body__content {
+        width: 90%
+    }
+}
+
+@media (max-width: 640px) {
+    .house__roof__leftT {
+        border-width: 100px 350px 0 0;
+    }
+
+    .house__roof__rightT {
+        border-width: 0 350px 100px 0;
+    }
+
+    .house__body__content {
+        width: 90%
+    }
+}

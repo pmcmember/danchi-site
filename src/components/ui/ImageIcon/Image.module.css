@@ -1,0 +1,17 @@
+.iconLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconLine__icon {
+    margin-right: 15px;
+}
+
+.iconLine__icon__content {
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    border-radius: 0.5em;
+    /* border: 1px solid rgb(226, 226, 226) !important; */
+}
