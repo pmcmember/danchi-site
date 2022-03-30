@@ -6,18 +6,19 @@ type Props = {
     songHref: string;
     artistName: string;
     songName: string;
+    className?: string;
     size?: Partial<{
         width: string;
         height: string;
     }>
 }
 
-export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHref, artistName, songName, size}) => {
+export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHref, artistName, songName, size, className}) => {
     const DEFAULT_EMBED_WIDTH = "100%"
     const DEFAULT_EMBED_HEIGHT = "300px"
 
     return (
-        <>
+        <div className={className}>
             <iframe
                 width={size && size.width || DEFAULT_EMBED_WIDTH}
                 height={size && size.height || DEFAULT_EMBED_HEIGHT}
@@ -40,6 +41,6 @@ export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHre
                     style={{color: "#cccccc", textDecoration: "none"}}
                 >{songName}</a>
             </div>
-        </>
+        </div>
     )
 }

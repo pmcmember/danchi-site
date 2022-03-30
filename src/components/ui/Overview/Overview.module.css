@@ -15,8 +15,19 @@
 .overview__header__title {
 }
 
-.overview__content {
-    width: 70%;
+.overview__main {
+    width: 100%;
+    padding: 40px 0;
+    background: white;
+}
+
+.overview__main__content {
+    width: 80%;
     margin: auto;
-    padding-top: 40px;
+}
+
+.overview__main__link {
+    width: 80%;
+    margin: 50px auto 50px;
+    text-align: center;
 }

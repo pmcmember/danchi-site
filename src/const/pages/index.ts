@@ -1,12 +1,15 @@
-import pageColors from './pageColors';
-import pageTitles from './pageTitles';
-import { pageAssociation } from './page.type';
+import PageColors from './PageColors';
+import PageTitles from './PageTitles';
+import PageIcons from './PageIcons';
+import { PageAssociation, PageNames } from './page.type';
 
 export {
-    pageColors,
-    pageTitles
+    PageColors,
+    PageTitles,
+    PageIcons
 }
 
 export type {
-    pageAssociation
+    PageAssociation,
+    PageNames
 }
