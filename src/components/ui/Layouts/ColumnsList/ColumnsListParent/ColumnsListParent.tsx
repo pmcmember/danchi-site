@@ -1,8 +1,7 @@
 import React from 'react'
 
-
 type Props = {
-  children: React.ReactNode;
+  children: React.ReactElement[];
   columns?: number;
   className?: string;
   style?: React.CSSProperties;

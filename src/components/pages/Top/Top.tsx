@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 
 import Video from '@/components/ui/Video';
-import { Overview } from '@/components/ui/Overview/Overview';
+import { Overview } from '@/components/ui/Layouts/Overview';
 import EmbedSoundCloud from '@/components/ui/EmbedSoundCloud';
 
 import { ResponsiveCard } from '@/components/ui/Cards';
 import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList';
-import { Section } from '@/components/ui/Layouts/Sections';
+import { Section } from '@/components/ui/Layouts/Section';
 
 import React from 'react';
 
@@ -38,15 +38,13 @@ export const Top: NextPage = () => {
                     <ColumnsListParent>
                         {blogData.map((blog) => (
                             <ColumnsListChild key={blog.slug}>
-                                <article>
-                                    <ResponsiveCard
-                                        href={`/blog/${blog.slug}`}
-                                        description={blog.description}
-                                        title={blog.title}
-                                        img={blog.img}
-                                        tags={blog.tags}
-                                    />
-                                </article>
+                                <ResponsiveCard
+                                    href={`/blog/${blog.slug}`}
+                                    description={blog.description}
+                                    title={blog.title}
+                                    img={blog.img}
+                                    tags={blog.tags}
+                                />
                             </ColumnsListChild>
                         ))}
                     </ColumnsListParent>

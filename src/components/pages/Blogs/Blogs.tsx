@@ -3,8 +3,8 @@ import type { NextPage } from 'next'
 import { ResponsiveCard } from '@/components/ui/Cards'
 
 import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList'
-import { Overview } from '@/components/ui/Overview/Overview'
-import { Section } from '@/components/ui/Layouts/Sections'
+import { Overview } from '@/components/ui/Layouts/Overview'
+import { Section } from '@/components/ui/Layouts/Section'
 
 // dev sample
 import { blogData } from '@/samples/BlogData'
@@ -18,15 +18,13 @@ export const Blogs: NextPage = () => {
                     <ColumnsListParent>
                         {blogData.map((blog) => (
                             <ColumnsListChild key={blog.slug}>
-                                <article>
-                                    <ResponsiveCard
-                                        href={`/blogs/${blog.slug}`}
-                                        description={blog.description}
-                                        title={blog.title}
-                                        img={blog.img}
-                                        tags={blog.tags}
-                                    />
-                                </article>
+                                <ResponsiveCard
+                                    href={`/blogs/${blog.slug}`}
+                                    description={blog.description}
+                                    title={blog.title}
+                                    img={blog.img}
+                                    tags={blog.tags}
+                                />
                             </ColumnsListChild>
                         ))}
                     </ColumnsListParent>
