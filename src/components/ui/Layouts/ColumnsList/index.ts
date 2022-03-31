@@ -15,5 +15,7 @@ import { ColumnsListParent } from "./ColumnsListParent";
 
 export {
     ColumnsListChild,
-    ColumnsListParent
+    ColumnsListParent,
+    ColumnsListParent as Parent,
+    ColumnsListChild as Child
 }

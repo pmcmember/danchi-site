@@ -2,9 +2,12 @@ import type { NextPage } from 'next'
 
 import { ResponsiveCard } from '@/components/ui/Cards'
 
-import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList'
-import { Overview } from '@/components/ui/Layouts/Overview'
-import { Section } from '@/components/ui/Layouts/Section'
+import {
+    ColumnsList,
+    Overview,
+    Section
+} from '@/components/ui/Layouts'
+// import { Overview } from '@/components/ui/Layouts/Overview'
 
 // dev sample
 import { blogData } from '@/samples/BlogData'
@@ -15,9 +18,9 @@ export const Blogs: NextPage = () => {
         <div className="bg-white w-full pt-20 pb-16 md:pb-24">
             <Section>
                 <Overview page="blogs" hideHeader hideLink>
-                    <ColumnsListParent>
+                    <ColumnsList.Parent>
                         {blogData.map((blog) => (
-                            <ColumnsListChild key={blog.slug}>
+                            <ColumnsList.Child key={blog.slug}>
                                 <ResponsiveCard
                                     href={`/blogs/${blog.slug}`}
                                     description={blog.description}
@@ -25,9 +28,9 @@ export const Blogs: NextPage = () => {
                                     img={blog.img}
                                     tags={blog.tags}
                                 />
-                            </ColumnsListChild>
+                            </ColumnsList.Child>
                         ))}
-                    </ColumnsListParent>
+                    </ColumnsList.Parent>
                     
                     <div className="text-center mt-10 sm:mt-20">
                         <div className="m-auto">

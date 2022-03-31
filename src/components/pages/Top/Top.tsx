@@ -1,12 +1,14 @@
 import type { NextPage } from 'next'
 
 import Video from '@/components/ui/Video';
-import { Overview } from '@/components/ui/Layouts/Overview';
+import {
+    Overview,
+    Section,
+    ColumnsList
+} from '@/components/ui/Layouts';
 import EmbedSoundCloud from '@/components/ui/EmbedSoundCloud';
 
 import { ResponsiveCard } from '@/components/ui/Cards';
-import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList';
-import { Section } from '@/components/ui/Layouts/Section';
 
 import React from 'react';
 
@@ -35,9 +37,9 @@ export const Top: NextPage = () => {
             </Section>
             <Section>
                 <Overview page="blogs">
-                    <ColumnsListParent>
+                    <ColumnsList.Parent>
                         {blogData.map((blog) => (
-                            <ColumnsListChild key={blog.slug}>
+                            <ColumnsList.Child key={blog.slug}>
                                 <ResponsiveCard
                                     href={`/blog/${blog.slug}`}
                                     description={blog.description}
@@ -45,16 +47,14 @@ export const Top: NextPage = () => {
                                     img={blog.img}
                                     tags={blog.tags}
                                 />
-                            </ColumnsListChild>
+                            </ColumnsList.Child>
                         ))}
-                    </ColumnsListParent>
+                    </ColumnsList.Parent>
                 </Overview>
             </Section>
             <Section>
                 <Overview page="contact" hideLink={true}>
-                    <div className={`sm:grid sm:grid-cols-2 sm:gap-10`}>
-                        contact
-                    </div>
+                    contact
                 </Overview>
             </Section>
         </div>
