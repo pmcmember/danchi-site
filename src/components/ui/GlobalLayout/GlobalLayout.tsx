@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    CustomHead,
     Header,
     Footer,
     Main,
@@ -13,17 +12,12 @@ import { PageNames } from '@/const/pages';
 
 type Props = {
     children: React.ReactNode;
-    headInfo?: React.ComponentProps<typeof CustomHead>;
     currentPage: PageNames;
 }
 
-export const GlobalLayout: React.VFC<Props> = ({children, headInfo, currentPage}) => {
+export const GlobalLayout: React.VFC<Props> = ({children, currentPage}) => {
     return (
         <div className="relative">
-            {/* <CustomHead
-                {{...headInfo}}
-            /> */}
-
             <Header
                 className="fixed h-12"
             />

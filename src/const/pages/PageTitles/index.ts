@@ -1,4 +1,4 @@
-import { PageAssociation } from "../page.type";
+import { PageAssociation } from "../pages.type";
 
 const titles: PageAssociation = new Map([
     ["top", "トップページ"],

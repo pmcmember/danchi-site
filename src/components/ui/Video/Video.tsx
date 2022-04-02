@@ -4,9 +4,15 @@ import styles from './Video.module.css'
 
 type Props = {
     width?: string;
+    url: string;
+    title: string;
   }
   
-export const Video: React.VFC<Props> = ({width}) => {
+export const Video: React.VFC<Props> = ({
+  width,
+  url,
+  title
+}) => {
     return (
       <div
         style={width? {width: width}: {}}
@@ -16,8 +22,8 @@ export const Video: React.VFC<Props> = ({width}) => {
           // width="560"
           // height="315"
           className={styles.video__content}
-          src="https://www.youtube.com/embed/_XCwIrCPAys"
-          title="YouTube video player"
+          src={url}
+          title={title}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

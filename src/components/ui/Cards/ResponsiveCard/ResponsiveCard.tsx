@@ -29,7 +29,7 @@ export const ResponsiveCard: React.VFC<Props> = ({img, title, description, tags,
                         </div>
                         <div className="px-6 pt-4 pb-2 rsm:px-2 rsm:flex-1">
                             {tags?.map((tag) => (
-                                <Budge>{tag}</Budge>
+                                <Budge key={tag}>{tag}</Budge>
                             ))}
                         </div>
                     </div>

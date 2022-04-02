@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ImageIcon } from '@/components/ui/ImageIcon';
+import { ImageIconButton } from '@/components/ui/Buttons';
 
 import SoundCloudIcon from '@/assets/soundcloud-icon.png'
 import TiktokIcon from '@/assets/tiktok-icon.png'
@@ -83,7 +83,7 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                     <ul className={`flex mx-auto justify-center`}>
                         {snsInfo.map((sns) => (
                             <li className={`mx-2`} key={sns.href}>
-                                <ImageIcon
+                                <ImageIconButton
                                     {...sns}
                                 />
                             </li>

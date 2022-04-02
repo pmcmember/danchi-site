@@ -1,7 +1,5 @@
 import React from 'react'
 
-import styles from './ImageIcon.module.css';
-
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -14,19 +12,21 @@ type Props = {
     href: string;
 }
 
-export const ImageIcon: React.VFC<Props> = ({icon, href}) => {
+export const ImageIconButton: React.VFC<Props> = ({icon, href}) => {
     return (
         <Link href={href}>
-            <div
-                className={`rounded-full`}
-            >
-                <Image
-                    src={icon.src}
+            <a>
+                <div
                     className={`rounded-full`}
-                    height={icon.height}
-                    width={icon.width}
-                />
-            </div>
+                >
+                    <Image
+                        src={icon.src}
+                        className={`rounded-full`}
+                        height={icon.height}
+                        width={icon.width}
+                    />
+                </div>
+            </a>
         </Link>
     )
 }

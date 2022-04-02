@@ -65,10 +65,10 @@ export const Pagination: React.VFC<Props> = ({currentNumber,numberOfPages,basePa
                 )}
 
 
-                {/* ページ番号前半用 */}
+                {/* ページ番号 */}
                 {Array.from({length: (displayScope + 1)}).map((_, i) => {
                     return (
-                        <li>
+                        <li key={`pagenation-${i}`}>
                             <MoveToNumberButton
                                 {...{
                                     numberOfPages,

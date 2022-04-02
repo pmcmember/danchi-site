@@ -6,7 +6,7 @@ import { ColumnsListParent } from "./ColumnsListParent";
  * <ColumnsListParent>
  *    {data.map((datum) => (
  *        <ColumnsListChild>
- *             {data.text}
+ *             {datum.text}
  *        </ColumnsListChild>
  *    ))}
  * </ColumnsListParent>
