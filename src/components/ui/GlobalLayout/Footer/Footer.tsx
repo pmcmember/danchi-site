@@ -42,7 +42,7 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                 width: iconWidthSize,
                 height: iconHeightSize
             },
-            href: "https://mobile.twitter.com/danchirooms"
+            href: "https://twitter.com/DANCHi_YKHM"
         },
         {
             icon: {
