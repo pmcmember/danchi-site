@@ -1,7 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# danchi-site
+DANCHi 公式サイト
 
+## 事前準備
+開発に使用する各種ツールをインストールする
+
+| ツール        | 手順                                                        |
+| ------------- | ----------------------------------------------------------- |
+| Node.js / npm | https://qiita.com/mk185/items/7ad004bf202f400daea1          |
+| TypeScript    | https://qiita.com/eiji-noguchi/items/8c1d3741ac9f2857b230   |
+| React.js      | https://qiita.com/rspmharada7645/items/25c496aee87973bcc7a5 |
+| Next.js       | https://qiita.com/masarufuruya/items/2db55c6b514297e805b6   |
+
+## ローカルでの実行方法
+プロジェクトのルートディレクトリで ターミナルから以下のコマンドを実行する
+
+```bash
+- npm install(初回のみ)
+- npm run dev
+```
+
+ブラウザから http://localhost:3000 にアクセスし、DANCHiのサイトが表示出来たら成功
+
+
+## Next.js 
 ## Getting Started
-
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 First, run the development server:
 
 ```bash
