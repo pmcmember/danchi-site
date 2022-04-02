@@ -33,7 +33,6 @@ export class FormatDate {
             + FormatDate.toDoubleDigit(time.getSeconds());
     }
 
-
     /**
      * yyyy/MM/dd HH:mm:ss形式の日時文字列を返却する(デフォルトで現在日時を出力)
      * @param dateTime 出力する日時を指定したい場合指定
