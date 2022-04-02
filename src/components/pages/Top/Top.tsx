@@ -1,15 +1,17 @@
 import type { NextPage } from 'next'
-
-import Video from '@/components/ui/Video';
-import { Overview } from '@/components/ui/Overview/Overview';
-import EmbedSoundCloud from '@/components/ui/EmbedSoundCloud';
-
-import { ResponsiveCard } from '@/components/ui/Cards';
-import { ColumnsListParent, ColumnsListChild } from '@/components/ui/Layouts/ColumnsList';
-import { Section } from '@/components/ui/Layouts/Sections';
-
 import React from 'react';
 
+import Video from '@/components/ui/Video';
+import {
+    Overview,
+    Section,
+    PageContentsWrapper
+} from '@/components/ui/Layouts';
+
+// page overviews
+import { MusicsOverview } from '../Musics/Musics';
+import { BlogsOverview } from '@/components/pages/Blogs/Blogs';
+import { ContactOverview } from '@/components/pages/Contact/Contact';
 
 // dev sample
 import { blogData } from '@/samples/BlogData'
@@ -17,48 +19,28 @@ import { blogData } from '@/samples/BlogData'
 
 export const Top: NextPage = () => {
     return (
-        <div className="w-full pt-20 pb-16 md:pb-24">
+        <PageContentsWrapper page="top">
             <Section>
-                <Video/>
+                <Video
+                    url="https://www.youtube.com/embed/_XCwIrCPAys"
+                    title="Youtube Video"
+                />
             </Section>
             <Section>
                 <Overview page="musics">
-                    <EmbedSoundCloud
-                        embedUrl="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/23436938&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-                        artistHref="https://soundcloud.com/baron1_3"
-                        songHref="https://soundcloud.com/baron1_3/sets/vocaloid"
-                        artistName="騒音のない世界"
-                        songName="Vocaloid Music"
-                        size={{height: "400px"}}
-                    />
+                    <MusicsOverview/>
                 </Overview>
             </Section>
             <Section>
                 <Overview page="blogs">
-                    <ColumnsListParent>
-                        {blogData.map((blog) => (
-                            <ColumnsListChild key={blog.slug}>
-                                <article>
-                                    <ResponsiveCard
-                                        href={`/blog/${blog.slug}`}
-                                        description={blog.description}
-                                        title={blog.title}
-                                        img={blog.img}
-                                        tags={blog.tags}
-                                    />
-                                </article>
-                            </ColumnsListChild>
-                        ))}
-                    </ColumnsListParent>
+                    <BlogsOverview/>
                 </Overview>
             </Section>
             <Section>
-                <Overview page="contact" hideLink={true}>
-                    <div className={`sm:grid sm:grid-cols-2 sm:gap-10`}>
-                        contact
-                    </div>
+                <Overview page="contact" hideLink>
+                    <ContactOverview/>
                 </Overview>
             </Section>
-        </div>
+        </PageContentsWrapper>
     )
 }

@@ -1,0 +1,49 @@
+.input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem 1.75rem;
+    font-size: 1em;
+    transition: 0.3s;
+    border: 1px solid #1b2538;
+    border-radius: 4px;
+    outline: none;
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.input:hover {
+    border-color: #1b2538;
+    color: #1b2538;
+}
+
+.input::placeholder {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.input:focus::placeholder {
+    color: transparent;
+    transition: .2s;
+}
+
+
+.description {
+    position: absolute;
+    z-index: 1;
+    padding: 0 5px;
+    background-color: white;
+    color: #1b2538;
+    transition: 0.3s;
+}
+
+.icon {
+    position: absolute;
+    left: 0.5rem;
+    top: 20%;
+    z-index: 1;
+}

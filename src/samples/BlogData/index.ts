@@ -11,36 +11,36 @@ export const blogData: BlogData[] = [
             src: Twitter.src,
             alt: "test1"
         },
-        tags: ["test", "test", "test"]
+        tags: ["test1", "test2", "test3"]
     },
     {
-        title: "test1",
-        slug: "test1",
+        title: "test2",
+        slug: "test2",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.",
         img: {
             src: Twitter.src,
-            alt: "test1"
+            alt: "test2"
         },
-        tags: ["test", "test", "test"]
+        tags: ["test1", "test2", "test3"]
     },
     {
-        title: "test1",
-        slug: "test1",
+        title: "test3",
+        slug: "test3",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.",
         img: {
             src: Twitter.src,
-            alt: "test1"
+            alt: "test3"
         },
-        tags: ["test", "test", "test"]
+        tags: ["test1", "test2", "test3"]
     },
     {
-        title: "test1",
-        slug: "test1",
+        title: "test4",
+        slug: "test4",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.",
         img: {
             src: Twitter.src,
-            alt: "test1"
+            alt: "test4"
         },
-        tags: ["test", "test", "test"]
+        tags: ["test1", "test2", "test3"]
     }
 ]

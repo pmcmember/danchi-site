@@ -1,4 +1,4 @@
-import { PageAssociation } from "../page.type";
+import { PageAssociation } from "../pages.type";
 
 const colors: PageAssociation = new Map([
     ["top", "#ffffff"],

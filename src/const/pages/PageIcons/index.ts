@@ -1,4 +1,4 @@
-import { PageAssociation } from "../page.type";
+import { PageAssociation } from "../pages.type";
 import { IconType } from 'react-icons';
 import {
     FaEnvelope,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PageColors, PageTitles, PageNames, PageIcons } from '@/const/pages';
-import { LinkButton } from '../Buttons/LinkButton';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 
 type Props = {
     page: PageNames;

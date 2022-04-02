@@ -1,14 +1,3 @@
-import type { NextPage } from 'next'
-import Router from 'next/router'
+import Top from '@/components/pages/Top'
 
-
-const TopPage: NextPage = () => {
-    Router.push("/")
-    
-    return (<></>)
-}
-
-
-
-
-export default TopPage
+export default Top
