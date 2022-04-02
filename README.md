@@ -8,7 +8,7 @@ DANCHi 公式サイト
 | ------------- | ----------------------------------------------------------- |
 | Node.js / npm | https://qiita.com/mk185/items/7ad004bf202f400daea1          |
 | TypeScript    | https://qiita.com/eiji-noguchi/items/8c1d3741ac9f2857b230   |
-| Reqct.js      | https://qiita.com/rspmharada7645/items/25c496aee87973bcc7a5 |
+| React.js      | https://qiita.com/rspmharada7645/items/25c496aee87973bcc7a5 |
 | Next.js       | https://qiita.com/masarufuruya/items/2db55c6b514297e805b6   |
 
 ## ローカルでの実行方法
