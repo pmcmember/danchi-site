@@ -13,7 +13,7 @@ export class FormatDate {
      * @param dateDelim 出力する日付の区切り文字
      * @returns yyyy/MM/dd形式の日付文字列
      */
-    public static getDate = (date: Date, dateDelim: FormatDate.AllowedDelim = "/"): string => {
+    public static getDate = (date: Date = new Date(), dateDelim: FormatDate.AllowedDelim = "/"): string => {
         FormatDate.inspectionDateFormat(date);
         return date.getFullYear() + dateDelim
             + FormatDate.toDoubleDigit(date.getMonth() + 1) + dateDelim
@@ -26,7 +26,7 @@ export class FormatDate {
      * @param timeDelim 出力する時間の区切り文字
      * @returns 
      */
-    public static getTime = (time: Date, timeDelim: FormatDate.AllowedDelim = ":"): string => {
+    public static getTime = (time: Date = new Date(), timeDelim: FormatDate.AllowedDelim = ":"): string => {
         FormatDate.inspectionDateFormat(time);
         return FormatDate.toDoubleDigit(time.getHours()) + timeDelim
             + FormatDate.toDoubleDigit(time.getMinutes()) + timeDelim
@@ -40,7 +40,7 @@ export class FormatDate {
      * @param timeDelim 出力する時間の区切り文字
      * @returns  yyyy/MM/dd HH:mm:ss形式の日時文字列
      */
-    public static getDateTime = (dateTime: Date, dateDelim?: FormatDate.AllowedDelim, timeDelim?: FormatDate.AllowedDelim): string => {
+    public static getDateTime = (dateTime: Date = new Date(), dateDelim?: FormatDate.AllowedDelim, timeDelim?: FormatDate.AllowedDelim): string => {
         FormatDate.inspectionDateFormat(dateTime);
         return FormatDate.getDate(dateTime, dateDelim) + " " + FormatDate.getTime(dateTime, timeDelim);
     }
