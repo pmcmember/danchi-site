@@ -8,8 +8,8 @@ export namespace FormatDate {
 export class FormatDate {
 
     /**
-     * yyyy/MM/dd形式の日付文字列を返却する(デフォルトで現在日時を出力)
-     * @param date 出力する日付を指定したい場合指定
+     * yyyy/MM/dd形式の日付文字列を返却する
+     * @param date 日付を指定(未設定時は現在日を設定)
      * @param dateDelim 出力する日付の区切り文字
      * @returns yyyy/MM/dd形式の日付文字列
      */
@@ -21,8 +21,8 @@ export class FormatDate {
     }
 
     /**
-     * hh:mm:ss形式の時刻文字列を返却する(デフォルトで現在日時を出力)
-     * @param time 出力する時間を指定したい場合指定
+     * hh:mm:ss形式の時刻文字列を返却する
+     * @param time 時刻を指定(未設定時は現在時刻を設定)
      * @param timeDelim 出力する時間の区切り文字
      * @returns 
      */
@@ -34,8 +34,8 @@ export class FormatDate {
     }
 
     /**
-     * yyyy/MM/dd HH:mm:ss形式の日時文字列を返却する(デフォルトで現在日時を出力)
-     * @param dateTime 出力する日時を指定したい場合指定
+     * yyyy/MM/dd HH:mm:ss形式の日時文字列を返却する
+     * @param dateTime 日時を指定(未設定時は現在日時を設定)
      * @param dateDelim 出力する日付の区切り文字
      * @param timeDelim 出力する時間の区切り文字
      * @returns  yyyy/MM/dd HH:mm:ss形式の日時文字列
@@ -46,9 +46,9 @@ export class FormatDate {
     }
 
     /**
-     * 日時情報に設定する文字列の0埋めを実施する
-     * @param src 変換元の日付の値
-     * @returns 0埋めした日付の各要素
+     * 二桁まで0埋めした数値文字列を返却する
+     * @param src 変換元の値
+     * @returns 2桁まで0埋めした数値文字列
      */
     private static toDoubleDigit = (src: number | string): string => {
         const strDate = src.toString();
