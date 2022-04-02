@@ -1,5 +1,5 @@
 # danchi-site
-DANChi 公式サイト
+DANCHi 公式サイト
 
 ## 事前準備
 開発に使用する各種ツールをインストールする
@@ -14,10 +14,12 @@ DANChi 公式サイト
 ## ローカルでの実行方法
 プロジェクトのルートディレクトリで ターミナルから以下のコマンドを実行する
 
+```bash
 - npm install(初回のみ)
 - npm run dev
+```
 
-ブラウザから http://localhost:3000 にアクセスし、DANChiのサイトが表示出来たら成功
+ブラウザから http://localhost:3000 にアクセスし、DANCHiのサイトが表示出来たら成功
 
 
 ## Next.js 
