@@ -15,9 +15,9 @@ export class FormatDate {
      */
     public static getDate = (date: Date, dateDelim: FormatDate.AllowedDelim = "/"): string => {
         FormatDate.inspectionDateFormat(date);
-        return (date.getFullYear()) + dateDelim
-            + (FormatDate.toDoubleDigit(date.getMonth() + 1)) + dateDelim
-            + (FormatDate.toDoubleDigit(date.getDate()))
+        return date.getFullYear() + dateDelim
+            + FormatDate.toDoubleDigit(date.getMonth() + 1) + dateDelim
+            + FormatDate.toDoubleDigit(date.getDate());
     }
 
     /**
@@ -29,8 +29,8 @@ export class FormatDate {
     public static getTime = (time: Date, timeDelim: FormatDate.AllowedDelim = ":"): string => {
         FormatDate.inspectionDateFormat(time);
         return FormatDate.toDoubleDigit(time.getHours()) + timeDelim
-            + FormatDate.toDoubleDigit(time.getMinutes())
-            + timeDelim + FormatDate.toDoubleDigit(time.getSeconds());
+            + FormatDate.toDoubleDigit(time.getMinutes()) + timeDelim
+            + FormatDate.toDoubleDigit(time.getSeconds());
     }
 
 
