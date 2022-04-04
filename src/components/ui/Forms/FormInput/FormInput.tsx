@@ -56,7 +56,7 @@ export const FormInput: React.VFC<Props> = ({
                         <Icon/>
                     </InputAdornment>
                 }
-                required
+                // required
                 multiline
                 minRows={multiline? 8: undefined}
             />
