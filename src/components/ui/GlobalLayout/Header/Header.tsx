@@ -2,10 +2,11 @@ import React from 'react';
 
 import styles from "./Header.module.css"
 
-import { PageIcons } from '@/const/pages'
-
-
+import { PageIcons, PageNames, PageTitles } from '@/const/pages'
 import Link from 'next/link';
+import { useRouter }from 'next/router';
+
+
 
 type Props = {
     style?: React.CSSProperties;
@@ -13,8 +14,10 @@ type Props = {
 }
 
 export const Header: React.VFC<Props> = ({style, className}) => {
-    const contactPageName = "contact"
-    const ContactIcon = PageIcons.get(contactPageName)!
+    const contactPageName: PageNames = "contact"
+    const ContactIcon = PageIcons.get(contactPageName)!;
+    const currentPage = useRouter().pathname.split("/")[1] || "top";
+
     return (
         <header
             style={style}
@@ -38,6 +41,31 @@ export const Header: React.VFC<Props> = ({style, className}) => {
                         </Link>
                     </div>
                 </div>
+            </div>
+            <div className="">
+                <nav className="rmd:overflow-x-scroll">
+                    <ul className={`flex items-center`}>
+                        {Array.from(PageTitles.keys())
+                        .map((page) => (
+                            <li
+                                className={`text-center flex-shrink-0 flex-grow bg-white`}
+                                key={page}
+                            >
+                                <Link href={`/${page}`}>
+                                    <a className={`${currentPage === page?"bg-slate-50" : ""} w-full px-5 border-x border-x-slate-300 flex justify-center items-center`}>
+                                        <span className="mr-2">
+                                            {(() => {
+                                                const Icon = PageIcons.get(page);
+                                                return Icon? <Icon/>: "";
+                                            })()}
+                                        </span>
+                                        {PageTitles.get(page)}
+                                    </a>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
         </header>
     )

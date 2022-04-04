@@ -2,13 +2,10 @@ import React from 'react';
 
 import { ImageIconButton } from '@/components/ui/Buttons';
 
-import SoundCloudIcon from '@/assets/soundcloud-icon.png'
-import TiktokIcon from '@/assets/tiktok-icon.png'
-import TwitterIcon from '@/assets/twitter-icon.png'
-import YoutubeIcon from '@/assets/youtube-icon.png'
 import Link from 'next/link';
 
 import { PageTitles } from '@/const/pages'
+import { LinkWithSNSImage } from '@/const/links';
 
 
 type Props = {
@@ -17,45 +14,6 @@ type Props = {
 }
 
 export const Footer: React.VFC<Props> = ({style, className}) => {
-    const iconWidthSize = "40"
-    const iconHeightSize = "40"
-    const snsInfo = [
-        {
-            icon: {
-                src: SoundCloudIcon.src,
-                width: iconWidthSize,
-                height: iconHeightSize
-            },
-            href: "https://soundcloud.com/danchi-bgm"
-        },
-        {
-            icon: {
-                src: TiktokIcon.src,
-                width: iconWidthSize,
-                height: iconHeightSize
-            },
-            href: "https://www.tiktok.com/tag/danchi"
-        },
-        {
-            icon: {
-                src: TwitterIcon.src,
-                width: iconWidthSize,
-                height: iconHeightSize
-            },
-            href: "https://twitter.com/DANCHi_YKHM"
-        },
-        {
-            icon: {
-                src: YoutubeIcon.src,
-                width: iconWidthSize,
-                height: iconHeightSize
-            },
-            href: "https://www.youtube.com/channel/UCOMQvlBsJ3AqnkYeIdFSwaw"
-        }
-    ]
-
-
-
     return (
         <footer
             style={style}
@@ -81,13 +39,17 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                 {/* sns */}
                 <nav>
                     <ul className={`flex mx-auto justify-center`}>
-                        {snsInfo.map((sns) => (
-                            <li className={`mx-2`} key={sns.href}>
-                                <ImageIconButton
-                                    {...sns}
-                                />
-                            </li>
-                        ))}
+                        {Array.from(LinkWithSNSImage.keys()).map((key) => {
+                            const sns = LinkWithSNSImage.get(key)!
+                            return (
+                                <li className={`mx-2`} key={key}>
+                                    <ImageIconButton
+                                        icon={sns.img}
+                                        href={sns.href}
+                                    />
+                                </li>
+                            )
+                        })}
                     </ul>
                 </nav>
 

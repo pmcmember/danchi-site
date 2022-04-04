@@ -22,7 +22,7 @@ export const GlobalLayout: React.VFC<Props> = ({children, currentPage}) => {
                 className="fixed h-12"
             />
 
-            <div className="mt-12">
+            <div className="mt-20">
                 {currentPage !== "top" && (
                     <PageLabel page={currentPage}/>
                 )}
