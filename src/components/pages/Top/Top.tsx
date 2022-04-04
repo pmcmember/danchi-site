@@ -20,6 +20,7 @@ import { blogData } from '@/samples/BlogData'
 export const Top: NextPage = () => {
     return (
         <PageContentsWrapper page="top">
+            <div className="pt-16"/>
             <Section>
                 <Video
                     url="https://www.youtube.com/embed/_XCwIrCPAys"
