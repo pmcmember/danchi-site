@@ -8,9 +8,16 @@ type Props = {
     children: React.ReactNode;
     hideLink?: boolean;
     hideHeader?: boolean;
+    contentsTwoColumn?: boolean
 }
 
-export const Overview: React.VFC<Props> = ({page, children, hideLink, hideHeader}) => {
+export const Overview: React.VFC<Props> = ({
+    page,
+    children,
+    hideLink,
+    hideHeader,
+    contentsTwoColumn
+}) => {
     const PageIcon = PageIcons.get(page)!
 
     return (
@@ -29,7 +36,7 @@ export const Overview: React.VFC<Props> = ({page, children, hideLink, hideHeader
                 </div>
             )}
             <div className="w-full py-10 px-0 bg-white">
-                <div className="w-11/12 m-auto sm:w-4/5">
+                <div className={`${contentsTwoColumn? "sm:w-11/12": "sm:w-4/5"} w-11/12 m-auto`}>
                     <div>
                         {children}
                     </div>
