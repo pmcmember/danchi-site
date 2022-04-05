@@ -52,7 +52,7 @@ export const Header: React.VFC<Props> = ({style, className}) => {
                                 key={page}
                             >
                                 <Link href={`/${page}`}>
-                                    <a className={`${currentPage === page?"bg-slate-50" : ""} w-full px-5 border-x border-x-slate-300 flex justify-center items-center`}>
+                                    <a className={`${currentPage === page?"bg-slate-50" : ""} hover:bg-slate-100 duration-300 w-full px-5 border-x border-x-slate-300 flex justify-center items-center`}>
                                         <span className="mr-2">
                                             {(() => {
                                                 const Icon = PageIcons.get(page);

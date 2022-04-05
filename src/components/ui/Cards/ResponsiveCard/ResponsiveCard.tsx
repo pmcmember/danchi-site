@@ -16,7 +16,7 @@ type Props = {
 
 export const ResponsiveCard: React.VFC<Props> = ({img, title, description, tags, href}) => {
     return (
-        <article className="inline-block">
+        <article className="inline-block hover:opacity-80 duration-300">
             <Link href={href}>
                 <a>
                     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white rsm:max-w-full rsm:flex">

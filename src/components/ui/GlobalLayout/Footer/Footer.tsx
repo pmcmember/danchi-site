@@ -58,9 +58,11 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                     <ul className={`grid grid-cols-2 sm:mx-auto sm:my-5 sm:flex sm:justify-center`}>
                         {Array.from(PageTitles.keys())
                         .map((page) => (
-                            <li className={`text-center text-slate-200 border-2 border-slate-100 sm:mx-2 sm:border-none`} key={page}>
+                            <li className={`hover:bg-slate-700 duration-300 text-center text-slate-200 border-2 border-slate-100 sm:mx-2 sm:border-none`} key={page}>
                                 <Link href={`/${page}`}>
-                                    <a className="w-full inline-block">{PageTitles.get(page)}</a>
+                                    <a className="w-full inline-block">
+                                        {PageTitles.get(page)}
+                                    </a>
                                 </Link>
                             </li>
                         ))}
