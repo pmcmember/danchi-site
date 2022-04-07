@@ -210,9 +210,15 @@ const BlogSidebar: React.VFC= () => {
         >
           <header>
             <div className="text-center">
-              <Image
+              {/* <Image
                 width="200"
                 height="200"
+                src={Twitter.src}
+                className="aspect-square"
+              /> */}
+              <img
+                width="200px"
+                height="200px"
                 src={Twitter.src}
                 className="aspect-square"
               />
