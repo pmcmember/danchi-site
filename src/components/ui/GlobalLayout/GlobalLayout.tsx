@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './GlobalLayout.module.css'
 import {
     Header,
     Footer,
@@ -19,13 +20,11 @@ export const GlobalLayout: React.VFC<Props> = ({children, currentPage}) => {
     return (
         <div className="relative">
             <Header
-                className="fixed h-12"
+                className="fixed h-12 z-40"
             />
 
             <div className="mt-20">
-                {currentPage !== "top" && (
-                    <PageLabel page={currentPage}/>
-                )}
+                <PageLabel page={currentPage}/>
             </div>
 
             <Main
@@ -40,3 +39,4 @@ export const GlobalLayout: React.VFC<Props> = ({children, currentPage}) => {
         </div>
     )
 }
+

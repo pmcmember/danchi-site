@@ -7,7 +7,13 @@ type Props = {
 
 export const PageLabel: React.VFC<Props> = ({page}) => {
     const PageIcon = PageIcons.get(page)!
-    return (
+
+    return page === "top" ? (
+        <div className="py-20 text-slate-800 text-center">
+            <h1 className="font-bold text-3xl tracking-wider mb-5">無料BGMサイト</h1>
+            <div className="">新しいBGMをお探しの方へ、無料でBGM配信中</div>
+        </div>
+    ) : (
         <div
             className="w-full h-24 flex justify-center items-center"
             style={{background: PageColors.get(page)}}
