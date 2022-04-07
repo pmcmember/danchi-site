@@ -11,9 +11,10 @@ type Props = {
         width: string;
         height: string;
     }>
+    id: string;
 }
 
-export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHref, artistName, songName, size, className}) => {
+export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHref, artistName, songName, size, className, id}) => {
     const DEFAULT_EMBED_WIDTH = "100%"
     const DEFAULT_EMBED_HEIGHT = "450px"
 
@@ -26,6 +27,8 @@ export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHre
                 frameBorder="no"
                 allow="autoplay"
                 src={embedUrl}
+                title="soundcloud"
+                id={id}
             />
             <div
                 style={{fontSize: "10px", color: "#cccccc",lineBreak: "anywhere",wordBreak: "normal",overflow: "hidden",whiteSpace: "nowrap",textOverflow: "ellipsis", fontFamily: "Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif", fontWeight: "100"}}
