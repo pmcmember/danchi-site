@@ -31,11 +31,11 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                     }}
                 >
                     <Link href="/">
-                        DANCHI
+                        DANCHi
                     </Link>
                 </h2>
             </div>
-            <div className={`flex flex-col gap-3`}>
+            <div className={`flex flex-col gap-8 sm:gap-3`}>
                 {/* sns */}
                 <nav>
                     <ul className={`flex mx-auto justify-center`}>
@@ -55,12 +55,14 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
 
                 {/* pages */}
                 <nav>
-                    <ul className={`grid grid-cols-2 sm:mx-auto sm:my-5 sm:flex sm:justify-center`}>
+                    <ul className={`sm:mx-auto sm:my-5 sm:gap-4 sm:flex sm:justify-center`}>
                         {Array.from(PageTitles.keys())
                         .map((page) => (
-                            <li className={`text-center text-slate-200 border-2 border-slate-100 sm:mx-2 sm:border-none`} key={page}>
+                            <li className={`hover:bg-slate-700 duration-300 text-center text-slate-200`} key={page}>
                                 <Link href={`/${page}`}>
-                                    <a className="w-full inline-block">{PageTitles.get(page)}</a>
+                                    <a className="w-full inline-block">
+                                        {PageTitles.get(page)}
+                                    </a>
                                 </Link>
                             </li>
                         ))}
@@ -68,7 +70,7 @@ export const Footer: React.VFC<Props> = ({style, className}) => {
                 </nav>
             </div>
             <div className={`text-center bg-black`} style={{height: "30px", marginTop: "20px"}} >
-                <div className={`text-white`}>©DANCHI</div>
+                <div className={`text-white`}>©DANCHi</div>
             </div>
         </footer>
     )

@@ -1,7 +1,7 @@
 import { omitText } from "./omitText";
-import { FormatDate } from './FormatDate';
+import { FormatDateUtil } from './FormatDateUtil';
 
 export {
     omitText,
-    FormatDate
+    FormatDateUtil
 }

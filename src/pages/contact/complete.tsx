@@ -1,3 +1,3 @@
-import type { ContactComplete } from '@/components/pages/Contact'
+import { ContactComplete } from '@/components/pages/Contact'
 
 export default ContactComplete

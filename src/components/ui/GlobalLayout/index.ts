@@ -10,5 +10,5 @@ export {
     Header,
     Footer,
     Main,
-    PageLabel
+    PageLabel,
 }

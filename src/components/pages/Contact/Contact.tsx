@@ -1,3 +1,4 @@
+import React from 'react';
 import type { NextPage } from 'next'
 import {
     ContactFormParams,
@@ -27,6 +28,10 @@ export const Contact: NextPage = () => {
         >
             <Section>
                 <Overview page={pageName} hideHeader hideLink>
+                    <div className="mb-24 text-center">
+                        <h1 className="font-bold text-2xl text-slate-700 mb-4">お問い合わせフォーム</h1>
+                        <div>必須項目を入力後、送信ボタンを押してください</div>
+                    </div>
                     <ContactOverview/>
                 </Overview>
             </Section>
@@ -42,7 +47,11 @@ export const ContactOverview: React.VFC = () => {
         control
     } = useForm<ContactInputs>();
 
-    const onSubmit: SubmitHandler<ContactInputs> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<ContactInputs> = React.useCallback((data) => {
+        console.log(process.env.NEXT_PUBLIC_TEST);
+
+        // TODO: contactのエンドポイントまでリクエスト
+    }, [])
 
     return (
         <>

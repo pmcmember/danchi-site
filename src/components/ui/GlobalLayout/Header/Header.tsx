@@ -14,8 +14,6 @@ type Props = {
 }
 
 export const Header: React.VFC<Props> = ({style, className}) => {
-    const contactPageName: PageNames = "contact"
-    const ContactIcon = PageIcons.get(contactPageName)!;
     const currentPage = useRouter().pathname.split("/")[1] || "top";
 
     return (
@@ -29,17 +27,10 @@ export const Header: React.VFC<Props> = ({style, className}) => {
                 </div> */}
                 <h1 className={styles.content__center}>
                     <Link href="/">
-                        <a>DANCHI</a>
+                        <a>DANCHi</a>
                     </Link>
                 </h1>
                 <div className={styles.content__right}>
-                    <div className={styles.playBotton}>
-                        <Link href={`/${contactPageName}`}>
-                            <a>
-                                <ContactIcon/>
-                            </a>
-                        </Link>
-                    </div>
                 </div>
             </div>
             <div className="">
@@ -52,7 +43,7 @@ export const Header: React.VFC<Props> = ({style, className}) => {
                                 key={page}
                             >
                                 <Link href={`/${page}`}>
-                                    <a className={`${currentPage === page?"bg-slate-50" : ""} w-full px-5 border-x border-x-slate-300 flex justify-center items-center`}>
+                                    <a className={`${currentPage === page?"bg-slate-50" : ""} hover:bg-slate-100 duration-300 w-full px-5 border-x border-x-slate-300 flex justify-center items-center`}>
                                         <span className="mr-2">
                                             {(() => {
                                                 const Icon = PageIcons.get(page);
@@ -70,5 +61,3 @@ export const Header: React.VFC<Props> = ({style, className}) => {
         </header>
     )
 }
-
-

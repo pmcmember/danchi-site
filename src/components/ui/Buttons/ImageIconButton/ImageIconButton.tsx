@@ -15,11 +15,17 @@ type Props = {
 export const ImageIconButton: React.VFC<Props> = ({icon, href}) => {
     return (
         <Link href={href}>
-            <a>
+            <a className="">
                 <div
                     className={`rounded-full`}
                 >
-                    <Image
+                    {/* <Image
+                        src={icon.src}
+                        className={`rounded-full`}
+                        height={icon.height}
+                        width={icon.width}
+                    /> */}
+                    <img
                         src={icon.src}
                         className={`rounded-full`}
                         height={icon.height}

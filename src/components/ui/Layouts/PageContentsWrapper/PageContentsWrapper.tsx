@@ -22,7 +22,7 @@ export const PageContentsWrapper: React.VFC<Props> = ({
     className,
     maxWidth
 }) => {
-    const SITE_NAME = "DANCHI"
+    const SITE_NAME = "DANCHi"
     const DEFAULT_DESCRIPTION = "フリー音源"
     const pageTitle = `${page === "top" ? "": `${PageTitles.get(page)} | `}${SITE_NAME}`
     const pageDescription = PageDescriptions.get(page) || DEFAULT_DESCRIPTION
