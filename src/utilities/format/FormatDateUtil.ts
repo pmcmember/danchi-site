@@ -1,11 +1,11 @@
-export namespace FormatDate {
+export namespace FormatDateUtil {
     export type AllowedDelim = "/" | ":" | ''
 }
 
 /**
  * 日付の整形を行うUtilクラス
  */
-export class FormatDate {
+export class FormatDateUtil {
 
     /**
      * yyyy/MM/dd形式の日付文字列を返却する
@@ -13,11 +13,11 @@ export class FormatDate {
      * @param dateDelim 出力する日付の区切り文字
      * @returns yyyy/MM/dd形式の日付文字列
      */
-    public static getDate = (date: Date = new Date(), dateDelim: FormatDate.AllowedDelim = "/"): string => {
-        FormatDate.inspectionDateFormat(date);
+    public static getDate = (date: Date = new Date(), dateDelim: FormatDateUtil.AllowedDelim = "/"): string => {
+        FormatDateUtil.inspectionDateFormat(date);
         return date.getFullYear() + dateDelim
-            + FormatDate.toDoubleDigit(date.getMonth() + 1) + dateDelim
-            + FormatDate.toDoubleDigit(date.getDate());
+            + FormatDateUtil.toDoubleDigit(date.getMonth() + 1) + dateDelim
+            + FormatDateUtil.toDoubleDigit(date.getDate());
     }
 
     /**
@@ -26,11 +26,11 @@ export class FormatDate {
      * @param timeDelim 出力する時間の区切り文字
      * @returns 
      */
-    public static getTime = (time: Date = new Date(), timeDelim: FormatDate.AllowedDelim = ":"): string => {
-        FormatDate.inspectionDateFormat(time);
-        return FormatDate.toDoubleDigit(time.getHours()) + timeDelim
-            + FormatDate.toDoubleDigit(time.getMinutes()) + timeDelim
-            + FormatDate.toDoubleDigit(time.getSeconds());
+    public static getTime = (time: Date = new Date(), timeDelim: FormatDateUtil.AllowedDelim = ":"): string => {
+        FormatDateUtil.inspectionDateFormat(time);
+        return FormatDateUtil.toDoubleDigit(time.getHours()) + timeDelim
+            + FormatDateUtil.toDoubleDigit(time.getMinutes()) + timeDelim
+            + FormatDateUtil.toDoubleDigit(time.getSeconds());
     }
 
     /**
@@ -40,9 +40,9 @@ export class FormatDate {
      * @param timeDelim 出力する時間の区切り文字
      * @returns  yyyy/MM/dd HH:mm:ss形式の日時文字列
      */
-    public static getDateTime = (dateTime: Date = new Date(), dateDelim?: FormatDate.AllowedDelim, timeDelim?: FormatDate.AllowedDelim): string => {
-        FormatDate.inspectionDateFormat(dateTime);
-        return FormatDate.getDate(dateTime, dateDelim) + " " + FormatDate.getTime(dateTime, timeDelim);
+    public static getDateTime = (dateTime: Date = new Date(), dateDelim?: FormatDateUtil.AllowedDelim, timeDelim?: FormatDateUtil.AllowedDelim): string => {
+        FormatDateUtil.inspectionDateFormat(dateTime);
+        return FormatDateUtil.getDate(dateTime, dateDelim) + " " + FormatDateUtil.getTime(dateTime, timeDelim);
     }
 
     /**
