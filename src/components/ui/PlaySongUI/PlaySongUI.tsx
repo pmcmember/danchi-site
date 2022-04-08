@@ -4,17 +4,17 @@ import { RealDentButton } from '@/components/ui/Buttons';
 import { useSoundCloud } from '@/hooks/useSoundCloud';
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud'
 import { Modal, Box, CircularProgress } from '@mui/material'
-import { MusicsAPISchema } from '@/repositories/microCMS/musics'
+import { MusicsSchema } from '@/api/@types'
 
 type Props = {
-    soundCloudInfos: MusicsAPISchema[]
+    soundCloudInfos: MusicsSchema[]
 }
 
 export const PlaySongUI: React.VFC<Props> = ({soundCloudInfos}) => {
     const iframeId = "play-song-ui"
     const {onPlayButtonClick, requestNextSong, soundCloudStatus} = useSoundCloud(iframeId);
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
-    const [soundCloudInfo, setSoundCloudInfo] = React.useState<MusicsAPISchema>(soundCloudInfos[Math.floor(Math.random() * soundCloudInfos.length)]);
+    const [soundCloudInfo, setSoundCloudInfo] = React.useState<MusicsSchema>(soundCloudInfos[Math.floor(Math.random() * soundCloudInfos.length)]);
     
     const onPlayButtonClickHandler = React.useCallback(() => {
         soundCloudStatus === "PAUSE" ? (() => {
