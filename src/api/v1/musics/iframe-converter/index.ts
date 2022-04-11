@@ -30,6 +30,13 @@ export type Methods = {
             scSongHref?: string | undefined
             scSongTitle?: string | undefined
             scSrc?: string | undefined
+          } & {
+            id: string
+          } & {
+            createdAt: string
+            publishedAt: string
+            revisedAt: string
+            updatedAt: string
           }
 
           id: string
@@ -42,12 +49,19 @@ export type Methods = {
             scSongHref?: string | undefined
             scSongTitle?: string | undefined
             scSrc?: string | undefined
+          } & {
+            id: string
+          } & {
+            createdAt: string
+            publishedAt: string
+            revisedAt: string
+            updatedAt: string
           }
 
           status: ('DRAFT' | 'PUBLISH')[]
         }
 
-        out: {
+        old: {
           draftKey: string
 
           draftValue: {
@@ -58,6 +72,13 @@ export type Methods = {
             scSongHref?: string | undefined
             scSongTitle?: string | undefined
             scSrc?: string | undefined
+          } & {
+            id: string
+          } & {
+            createdAt: string
+            publishedAt: string
+            revisedAt: string
+            updatedAt: string
           }
 
           id: string
@@ -70,6 +91,13 @@ export type Methods = {
             scSongHref?: string | undefined
             scSongTitle?: string | undefined
             scSrc?: string | undefined
+          } & {
+            id: string
+          } & {
+            createdAt: string
+            publishedAt: string
+            revisedAt: string
+            updatedAt: string
           }
 
           status: ('DRAFT' | 'PUBLISH')[]

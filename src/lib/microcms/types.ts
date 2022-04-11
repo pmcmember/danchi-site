@@ -1,15 +1,20 @@
-export type MicroCMSWebhookRequest<T> = {
+import { MicroCMSListContent } from 'microcms-js-sdk'
+
+export type MicroCMSWebhookRequest<T extends MicroCMSListContent> = {
     service: string;
     api: string;
     id: string | null;
     type: string;
     contents: {
-        [key in "out" | "new"]: {
-            id: string;
-            status: Array<"DRAFT" | "PUBLISH">;
-            draftKey: string | null;
-            draftValue: T | null;
-            publishValue: T | null;
-        } | null
+        old: MicroCMSWebhookContents<T> | null;
+        new: MicroCMSWebhookContents<T> | null
     } | null;
+}
+
+type MicroCMSWebhookContents<T extends MicroCMSListContent> = {
+    id: string;
+    status: Array<"DRAFT" | "PUBLISH">;
+    draftKey: string | null;
+    draftValue: T | null;
+    publishValue: T | null;
 }

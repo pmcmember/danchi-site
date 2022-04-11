@@ -4,7 +4,7 @@ export type AuthRequestHeaders = {
   'X-Api-Key': string
 }
 
-export type MusicsIframeConverterRequest = {
+export type IframeConverterRequest = {
   api: string
 
   contents: {
@@ -19,6 +19,13 @@ export type MusicsIframeConverterRequest = {
         scSongHref?: string | undefined
         scSongTitle?: string | undefined
         scSrc?: string | undefined
+      } & {
+        id: string
+      } & {
+        createdAt: string
+        publishedAt: string
+        revisedAt: string
+        updatedAt: string
       }
 
       id: string
@@ -31,12 +38,19 @@ export type MusicsIframeConverterRequest = {
         scSongHref?: string | undefined
         scSongTitle?: string | undefined
         scSrc?: string | undefined
+      } & {
+        id: string
+      } & {
+        createdAt: string
+        publishedAt: string
+        revisedAt: string
+        updatedAt: string
       }
 
       status: ('DRAFT' | 'PUBLISH')[]
     }
 
-    out: {
+    old: {
       draftKey: string
 
       draftValue: {
@@ -47,6 +61,13 @@ export type MusicsIframeConverterRequest = {
         scSongHref?: string | undefined
         scSongTitle?: string | undefined
         scSrc?: string | undefined
+      } & {
+        id: string
+      } & {
+        createdAt: string
+        publishedAt: string
+        revisedAt: string
+        updatedAt: string
       }
 
       id: string
@@ -59,6 +80,13 @@ export type MusicsIframeConverterRequest = {
         scSongHref?: string | undefined
         scSongTitle?: string | undefined
         scSrc?: string | undefined
+      } & {
+        id: string
+      } & {
+        createdAt: string
+        publishedAt: string
+        revisedAt: string
+        updatedAt: string
       }
 
       status: ('DRAFT' | 'PUBLISH')[]
