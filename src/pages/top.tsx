@@ -1,3 +1,5 @@
-import Top from '@/components/pages/Top'
+import Top from "./index";
 
-export default Top
+export default Top;
+
+export {getStaticProps} from "./index";

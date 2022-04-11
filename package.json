@@ -14,7 +14,8 @@
     "doc:open": "ts-node bin/openapiUtil.ts open ./docker-compose.openapi.yml",
     "doc:stop": "ts-node bin/openapiUtil.ts stop ./docker-compose.openapi.yml",
     "doc:quit": "ts-node bin/openapiUtil.ts quit ./docker-compose.openapi.yml",
-    "aspida:create": "openapi2aspida"
+    "aspida:make": "openapi2aspida",
+    "aspida:remake": "git rm -r src/api/* && openapi2aspida"
   },
   "dependencies": {
     "@aspida/fetch": "^1.9.1",

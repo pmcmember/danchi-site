@@ -6,8 +6,10 @@ import {
 } from '@/components/ui/Layouts';
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud';
 import { PageNames, PageTitles } from '@/const/pages';
+import { Props } from '@/pages/musics'
+import { MusicsResult, MusicsResultList } from '@/api/@types';
 
-export const Musics: NextPage = () => {
+export const Musics: NextPage<Props> = ({musics}) => {
     const pageName: PageNames = "musics";
 
     return (
@@ -17,25 +19,44 @@ export const Musics: NextPage = () => {
         >
             <Section>
                 <Overview page={pageName} hideHeader hideLink>
-                    <MusicsOverview/>
+                    <MusicsOverview contents={musics}/>
                 </Overview>
             </Section>
         </PageContentsWrapper>
     )
 }
 
-export const MusicsOverview: React.VFC = () => {
+
+type MusicsOverviewProps = {
+    contents: MusicsResultList | MusicsResult
+}
+
+export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({contents}) => {
     return (
         <>
-            <EmbedSoundCloud
-                embedUrl="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1231793908&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-                artistHref="https://soundcloud.com/danchi-bgm"
-                songHref="https://soundcloud.com/danchi-bgm/futto"
-                artistName="DANCHi(BGM提供部)"
-                songName="FUTTO"
-                size={{height: "400px"}}
-                id="test"
-            />
+            {"contents" in contents ? (
+                (contents as MusicsResultList).contents.map((content) => (
+                    <EmbedSoundCloud
+                        embedUrl={content.scSrc || ""}
+                        artistHref={content.scArtistHref || ""}
+                        songHref={content.scSongHref || ""}
+                        artistName={content.scArtistName|| ""}
+                        songTitle={content.scSongTitle || ""}
+                        size={{height: "400px"}}
+                        id={content.scSongTitle || ""}
+                    />
+                ))
+            ) : (
+                <EmbedSoundCloud
+                    embedUrl={contents.scSrc || ""}
+                    artistHref={contents.scArtistHref || ""}
+                    songHref={contents.scSongHref || ""}
+                    artistName={contents.scArtistName|| ""}
+                    songTitle={contents.scSongTitle || ""}
+                    size={{height: "400px"}}
+                    id={contents.scSongTitle || ""}
+                />
+            )}
         </>
     )
 }

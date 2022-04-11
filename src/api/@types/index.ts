@@ -1,10 +1,5 @@
 /* eslint-disable */
-export type AuthRequestHeaders = {
-  Authorization: string
-  'X-Api-Key': string
-}
-
-export type IframeConverterRequest = {
+export type MusicsIframeConverterRequest = {
   api: string
 
   contents: {
@@ -12,7 +7,7 @@ export type IframeConverterRequest = {
       draftKey: string
 
       draftValue: {
-        iframeRaw: string
+        rawIframe: string
         scApiUrl?: string | undefined
         scArtistHref?: string | undefined
         scArtistName?: string | undefined
@@ -31,7 +26,7 @@ export type IframeConverterRequest = {
       id: string
 
       publishValue: {
-        iframeRaw: string
+        rawIframe: string
         scApiUrl?: string | undefined
         scArtistHref?: string | undefined
         scArtistName?: string | undefined
@@ -54,7 +49,7 @@ export type IframeConverterRequest = {
       draftKey: string
 
       draftValue: {
-        iframeRaw: string
+        rawIframe: string
         scApiUrl?: string | undefined
         scArtistHref?: string | undefined
         scArtistName?: string | undefined
@@ -73,7 +68,7 @@ export type IframeConverterRequest = {
       id: string
 
       publishValue: {
-        iframeRaw: string
+        rawIframe: string
         scApiUrl?: string | undefined
         scArtistHref?: string | undefined
         scArtistName?: string | undefined
@@ -103,7 +98,7 @@ export type StandardResponse = {
 }
 
 /** microCMS list api Response */
-export type BlogsListResponse = {
+export type BlogsResultList = {
   contents: ({
     author: string[]
     categories: string[]
@@ -132,7 +127,7 @@ export type BlogsListResponse = {
   totalCount: number
 }
 
-export type BlogsObjectResponse = {
+export type BlogsResult = {
   author: string[]
   categories: string[]
   content: string
@@ -155,9 +150,9 @@ export type BlogsObjectResponse = {
 }
 
 /** microCMS list api Response */
-export type MusicsListResponse = {
+export type MusicsResultList = {
   contents: ({
-    iframeRaw: string
+    rawIframe: string
     scApiUrl?: string | undefined
     scArtistHref?: string | undefined
     scArtistName?: string | undefined
@@ -177,8 +172,8 @@ export type MusicsListResponse = {
   totalCount: number
 }
 
-export type MusicsObjectResponse = {
-  iframeRaw: string
+export type MusicsResult = {
+  rawIframe: string
   scApiUrl?: string | undefined
   scArtistHref?: string | undefined
   scArtistName?: string | undefined
@@ -193,7 +188,7 @@ export type MusicsObjectResponse = {
 }
 
 export type MusicsSchema = {
-  iframeRaw: string
+  rawIframe: string
   scApiUrl?: string | undefined
   scArtistHref?: string | undefined
   scArtistName?: string | undefined
@@ -215,7 +210,7 @@ export type BlogsSchema = {
     width?: number | undefined
   } | undefined
 
-  tags?: string[] | undefined
+  tags?: string | undefined
   title: string
 }
 

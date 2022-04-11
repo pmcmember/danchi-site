@@ -7,7 +7,7 @@ export type Methods = {
     /** 成功時のレスポンス */
     resBody: {
       contents: ({
-        iframeRaw: string
+        rawIframe: string
         scApiUrl?: string | undefined
         scArtistHref?: string | undefined
         scArtistName?: string | undefined

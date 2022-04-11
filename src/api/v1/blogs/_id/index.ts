@@ -6,32 +6,25 @@ export type Methods = {
 
     /** 成功時のレスポンス */
     resBody: {
-      contents: ({
-        author: string[]
-        categories: string[]
-        content: string
-        description: string
+      author: string[]
+      categories: string[]
+      content: string
+      description: string
 
-        /** microCMS image */
-        image?: {
-          height?: number | undefined
-          url: string
-          width?: number | undefined
-        } | undefined
+      /** microCMS image */
+      image?: {
+        height?: number | undefined
+        url: string
+        width?: number | undefined
+      } | undefined
 
-        tags?: string[] | undefined
-        title: string
-      } & {
-        id: string
-      } & {
-        createdAt: string
-        publishedAt: string
-        revisedAt: string
-        updatedAt: string
-      })[]
-      limit: number
-      offset: number
-      totalCount: number
+      tags?: string[] | undefined
+      title: string
+    } & {
+      createdAt: string
+      publishedAt: string
+      revisedAt: string
+      updatedAt: string
     }
 
     resHeaders: {

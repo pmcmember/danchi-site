@@ -23,7 +23,7 @@ export type Methods = {
           draftKey: string
 
           draftValue: {
-            iframeRaw: string
+            rawIframe: string
             scApiUrl?: string | undefined
             scArtistHref?: string | undefined
             scArtistName?: string | undefined
@@ -42,7 +42,7 @@ export type Methods = {
           id: string
 
           publishValue: {
-            iframeRaw: string
+            rawIframe: string
             scApiUrl?: string | undefined
             scArtistHref?: string | undefined
             scArtistName?: string | undefined
@@ -65,7 +65,7 @@ export type Methods = {
           draftKey: string
 
           draftValue: {
-            iframeRaw: string
+            rawIframe: string
             scApiUrl?: string | undefined
             scArtistHref?: string | undefined
             scArtistName?: string | undefined
@@ -84,7 +84,7 @@ export type Methods = {
           id: string
 
           publishValue: {
-            iframeRaw: string
+            rawIframe: string
             scApiUrl?: string | undefined
             scArtistHref?: string | undefined
             scArtistName?: string | undefined

@@ -13,12 +13,13 @@ import { PlaySongUI } from '@/components/ui/PlaySongUI';
 import { MusicsOverview } from '@/components/pages/Musics/Musics';
 import { BlogsOverview } from '@/components/pages/Blogs/Blogs';
 import { ContactOverview } from '@/components/pages/Contact/Contact';
+import { Props } from '@/pages';
 
 // dev sample
 import { blogData } from '@/samples/BlogData'
 
 
-export const Top: NextPage = () => {
+export const Top: NextPage<Props> = ({musics}) => {
     return (
         <PageContentsWrapper page="top">
             <div className="md:pt-16"/>
@@ -30,7 +31,7 @@ export const Top: NextPage = () => {
             </Section>
             <Section>
                 <Overview page="musics">
-                    <MusicsOverview/>
+                    <MusicsOverview contents={musics.contents[0]}/>
                 </Overview>
             </Section>
             <Section>
@@ -45,35 +46,7 @@ export const Top: NextPage = () => {
             </Section>
 
             <PlaySongUI
-                soundCloudInfos={[
-                    {
-                        iframeRaw: "dammy",
-                        scSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/465705123&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
-                        scArtistName: "dammy",
-                        scArtistHref: "aaa",
-                        scSongTitle: "aaa",
-                        scSongHref: "aaa",
-                        scApiUrl: "https://api.soundcloud.com/tracks/465705123"
-                    },
-                    {
-                        iframeRaw: "dammy",
-                        scSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/427416225&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
-                        scArtistName: "dammy",
-                        scArtistHref: "aaa",
-                        scSongTitle: "aaa",
-                        scSongHref: "aaa",
-                        scApiUrl: "https://api.soundcloud.com/tracks/427416225"
-                    },
-                    {
-                        iframeRaw: "dammy",
-                        scSrc: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/462277161&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
-                        scArtistName: "dammy",
-                        scArtistHref: "aaa",
-                        scSongTitle: "aaa",
-                        scSongHref: "aaa",
-                        scApiUrl: "https://api.soundcloud.com/tracks/462277161"
-                    }
-                ]}
+                soundCloudInfos={musics.contents}
             />
         </PageContentsWrapper>
     )
