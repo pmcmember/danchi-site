@@ -14,7 +14,16 @@ type Props = {
     id: string;
 }
 
-export const EmbedSoundCloud: React.VFC<Props> = ({embedUrl, artistHref, songHref, artistName, songTitle, size, className, id}) => {
+export const EmbedSoundCloud: React.VFC<Props> = ({
+    embedUrl,
+    artistHref,
+    songHref,
+    artistName,
+    songTitle,
+    size,
+    className,
+    id
+}) => {
     const DEFAULT_EMBED_WIDTH = "100%"
     const DEFAULT_EMBED_HEIGHT = "450px"
 

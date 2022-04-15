@@ -11,14 +11,15 @@ import { useRouter }from 'next/router';
 type Props = {
     style?: React.CSSProperties;
     className?: string;
+    isHide: boolean
 }
 
-export const Header: React.VFC<Props> = ({style, className}) => {
+export const Header: React.VFC<Props> = ({style, className, isHide}) => {
     const currentPage = useRouter().pathname.split("/")[1] || "top";
 
     return (
         <header
-            style={style}
+            style={{transform: `${isHide ? "translateY(-150%)" : "translateY(0)"}`, transition: ".4s"}}
             className={`${styles.header} ${className || ""}`}
         >
             <div className={styles.content}>

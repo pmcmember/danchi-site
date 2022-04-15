@@ -2,35 +2,44 @@ import React from 'react';
 import Link from 'next/link';
 
 import styles from './ResponsiveCard.module.css';
+import { MicroCMSImage } from 'microcms-js-sdk'
+import { BlogsSchema } from '@/api/@types'
+import { DefaultImage } from '@/const/images';
 
 type Props = {
-    img: {
-        src: string;
-        alt: string;
-    };
-    title: string;
-    description: string;
-    tags?: string[];
+    image: BlogsSchema["image"];
+    title: BlogsSchema["title"];
+    description: BlogsSchema["description"];
+    tags?: BlogsSchema["tags"];
     href: string;
 }
 
-export const ResponsiveCard: React.VFC<Props> = ({img, title, description, tags, href}) => {
+export const ResponsiveCard: React.VFC<Props> = ({image, title, description, tags, href}) => {
     return (
-        <article className="inline-block hover:opacity-80 duration-300">
+        <article className="text-xl inline-block hover:opacity-80 duration-300">
             <Link href={href}>
                 <a>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white rsm:max-w-full rsm:flex">
-                        <div className={`aspect-video w-full rsm:aspect-square rsm:h-full rsm:w-full rsm:flex-1 ${styles.rsmWidth50px}`}>
-                            <div className="overflow-hidden h-full w-full bg-cover" style={{backgroundImage: `url(${img.src})`}}/>
+                    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white rsm:max-w-full">
+                        <div className={`${styles.cardImageWrapper} ${styles.rsmWidth50px}`}>
+                            <img
+                                className={`w-full h-auto ${styles.cardImageContent}`}
+                                src={image?.url || DefaultImage.src}
+                            />
                         </div>
-                        <div className="px-6 py-4 rsm:pl-4 rsm:pr-2 rsm:flex-2">
-                            <div className="font-bold text-xl mb-2 line-clamp-1">{title}</div>
-                            <p className="text-gray-700 text-base line-clamp-3">{description}</p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2 rsm:px-2 rsm:flex-1">
-                            {tags?.map((tag) => (
-                                <Budge key={tag}>{tag}</Budge>
-                            ))}
+                        <div className="relative bg-white">
+                            <div className="px-6 py-4 rsm:pl-4 rsm:pr-2">
+                                <div className="font-bold text-xl mb-2">{title}</div>
+                                <p className="text-gray-700 text-base">{description}</p>
+                            </div>
+                            <div className="px-6 pt-4 pb-2">
+                                {tags ? (
+                                    tags?.map((tag) => (
+                                    <Budge key={tag.tag}>{tag.tag}</Budge>
+                                    ))
+                                ) : (
+                                    <div style={{fontSize: "10px"}}>タグ無し</div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </a>
