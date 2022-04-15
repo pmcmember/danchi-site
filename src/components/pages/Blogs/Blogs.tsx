@@ -9,22 +9,13 @@ import {
     Section,
     PageContentsWrapper
 } from '@/components/ui/Layouts'
-
-// dev sample
-import { blogData } from '@/samples/BlogData'
-import { Pagination } from '@/components/ui/Pagination'
+// import { Pagination } from '@/components/ui/Pagination'
 import { PageTitles } from '@/const/pages'
+import { Props } from './getStaticProps'
+import Twitter from "@/assets/twitter-icon.png";
+import { Pagination } from '@mui/material'
 
-export const Blogs: NextPage = () => {
-    const router = useRouter();
-    // page id(pid)をページパスから抽出
-    // pidが配列の場合(pid以下に階層がある場合)はpidを抽出
-    // stringの場合はそのまま抽出
-    // undefinedの場合は1ページ目と同義なので1
-    const pid: string =
-        Array.isArray(router.query.pid)? router.query.pid[0]
-        : router.query.pid || "1";
-
+export const Blogs: NextPage<Props> = ({blogs, currentPage, totalPages}) => {
     return (
         <PageContentsWrapper
             page="blogs"
@@ -34,9 +25,10 @@ export const Blogs: NextPage = () => {
                 <Overview page="blogs" hideHeader hideLink>
                     <BlogsOverview
                         paginationConf={{
-                            currentPageId: Number(pid),
-                            numberOfPages: 8
+                            currentPageId: Number(currentPage),
+                            totalPages: Number(totalPages)
                         }}
+                        blogs={blogs}
                     />
                 </Overview>
             </Section>
@@ -48,38 +40,53 @@ export const Blogs: NextPage = () => {
 type BlogsOverviewProps = {
     paginationConf?: {
         currentPageId: number;
-        numberOfPages: number;
+        totalPages: number;
     }
+    blogs: Props['blogs']
 }
+
 export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({
-    paginationConf
+    paginationConf,
+    blogs
 }) => {
     return (
         <>
-            <ColumnsList.Parent>
-                {blogData.map((blog) => (
-                    <ColumnsList.Child key={blog.slug}>
-                        <ResponsiveCard
-                            href={`/blogs/contents/${blog.slug}`}
-                            description={blog.description}
-                            title={blog.title}
-                            img={blog.img}
-                            tags={blog.tags}
-                        />
-                    </ColumnsList.Child>
-                ))}
-            </ColumnsList.Parent>
-            
-            {paginationConf && (
-                <div className="text-center mt-10 sm:mt-20">
-                    <div className="m-auto">
-                        <Pagination
-                            currentNumber={paginationConf.currentPageId}
-                            basePath={`/blogs`}
-                            numberOfPages={paginationConf.numberOfPages}
-                        />
-                    </div>
-                </div>
+            {blogs?.contents ? (
+                <>
+                    <ColumnsList.Parent>
+                        {blogs.contents.map((blog) => (
+                            <ColumnsList.Child key={blog.id}>
+                                <ResponsiveCard
+                                    href={`/blogs/contents/${blog.id}`}
+                                    description={blog.description}
+                                    title={blog.title}
+                                    image={blog.image || {
+                                        url: Twitter.src,
+                                        width: 50,
+                                        height: 50
+                                    }}
+                                    tags={blog.tags}
+                                />
+                            </ColumnsList.Child>
+                        ))}
+                    </ColumnsList.Parent>
+                    
+                    {paginationConf && (
+                        <div className="text-center mt-10 sm:mt-20">
+                            <div className="flex justify-center">
+                                <Pagination
+                                    count={paginationConf.totalPages}
+                                    page={paginationConf.currentPageId}
+                                    variant="outlined"
+                                    shape="rounded"
+                                    color="primary"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </>
+            ) : (
+                <div>コンテンツが存在しませんでした。</div>
             )}
         </>
     )

@@ -1,0 +1,90 @@
+/* タイトル(1)用スタイル */
+.blogContents > h1 {
+    --tw-border-opacity: 1;
+    border-color: rgb(148 163 184 / var(--tw-border-opacity));
+    font-weight: bold;
+    font-size: 2.25rem/* 36px */;
+    line-height: 2.5rem/* 40px */;
+    border-bottom: 1px solid;
+    padding-bottom: 0.5rem;
+    
+}
+
+/* タイトル(2)用スタイル */
+.blogContents > h2 {
+    font-weight: bold;
+    font-size: 1.875rem/* 30px */;
+    line-height: 2.25rem/* 36px */;
+    border-left: 5px solid rgb(23, 23, 23);
+    padding-left: 15px;
+}
+
+/* タイトル(3)用スタイル */
+.blogContents > h3 {
+    font-weight: bold;
+    font-size: 1.5rem/* 24px */;
+    line-height: 2rem/* 32px */;
+    border-left: 5px solid rgb(23, 23, 23);
+    padding-left: 15px;
+}
+
+/* タイトル(4)用スタイル */
+.blogContents > h4 {
+    font-weight: bold;
+    font-size: 1.25rem/* 20px */;
+    line-height: 1.75rem/* 28px */;
+    border-left: 5px solid rgb(23, 23, 23);
+    padding-left: 15px;
+}
+
+/* タイトル(5)用スタイル */
+.blogContents > h5 {
+    font-weight: bold;
+    font-size: 1.25rem/* 20px */;
+    line-height: 1.75rem/* 28px */;
+    border-left: 5px solid rgb(23, 23, 23);
+    padding-left: 15px;
+}
+
+/* パラグラフ用スタイル */
+.blogContents > p {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* 引用ブロック用スタイル */
+.blogContents > blockquote {
+    border-left: 4px rgb(184, 184, 184) solid;
+    padding-left: 15px;
+    color: gray;
+    margin: 5px 0;
+}
+
+/* コードブロック用スタイル */
+.blogContents > pre {
+    background: rgb(31, 31, 31);
+    color: white;
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin: 5px 0;
+}
+
+/* リスト用スタイル */
+.blogContents > ul {
+    list-style:outside;
+    padding-left: 35px;
+}
+
+/* 番号付きリスト用スタイル */
+.blogContents > ol {
+    list-style: decimal;
+    padding-left: 35px;
+}
+
+/* アンカー用スタイル */
+.blogContents > a {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(80, 80, 255);
+    background: red;
+}

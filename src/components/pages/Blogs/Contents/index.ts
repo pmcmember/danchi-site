@@ -1,5 +1,5 @@
 import { BlogsContents } from "./BlogsContents";
 
-export {
-    BlogsContents
-}
+export default BlogsContents
+export * from './getStaticProps'
+export * from './getStaticPaths'

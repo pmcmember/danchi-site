@@ -28,10 +28,6 @@ export const Contact: NextPage = () => {
         >
             <Section>
                 <Overview page={pageName} hideHeader hideLink>
-                    <div className="mb-24 text-center">
-                        <h1 className="font-bold text-2xl text-slate-700 mb-4">お問い合わせフォーム</h1>
-                        <div>必須項目を入力後、送信ボタンを押してください</div>
-                    </div>
                     <ContactOverview/>
                 </Overview>
             </Section>
@@ -55,6 +51,10 @@ export const ContactOverview: React.VFC = () => {
 
     return (
         <>
+            <div className="mb-24 text-center">
+                <h1 className="font-bold text-2xl text-slate-700 mb-4">お問い合わせフォーム</h1>
+                <div>必須項目を入力後、送信ボタンを押してください</div>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="username"

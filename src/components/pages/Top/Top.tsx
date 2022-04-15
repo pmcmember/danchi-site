@@ -7,36 +7,33 @@ import {
     Section,
     PageContentsWrapper
 } from '@/components/ui/Layouts';
-import { PlaySongUI } from '@/components/ui/PlaySongUI';
+import { PlaySongUI } from '@/components/ui/UIs';
 
 // page overviews
 import { MusicsOverview } from '@/components/pages/Musics/Musics';
 import { BlogsOverview } from '@/components/pages/Blogs/Blogs';
 import { ContactOverview } from '@/components/pages/Contact/Contact';
-import { Props } from '@/pages';
-
-// dev sample
-import { blogData } from '@/samples/BlogData'
+import { Props } from './getStaticProps'
 
 
-export const Top: NextPage<Props> = ({musics}) => {
+export const Top: NextPage<Props> = ({musics, blogs}) => {
     return (
         <PageContentsWrapper page="top">
             <div className="md:pt-16"/>
             <Section>
                 <Video
-                    url="https://www.youtube.com/embed/_XCwIrCPAys"
+                    url="https://www.youtube.com/embed/jrwWiLUzCBI"
                     title="Youtube Video"
                 />
             </Section>
             <Section>
                 <Overview page="musics">
-                    <MusicsOverview contents={musics.contents[0]}/>
+                    <MusicsOverview contents={musics}/>
                 </Overview>
             </Section>
             <Section>
                 <Overview page="blogs">
-                    <BlogsOverview/>
+                    <BlogsOverview blogs={blogs}/>
                 </Overview>
             </Section>
             <Section>
@@ -46,7 +43,7 @@ export const Top: NextPage<Props> = ({musics}) => {
             </Section>
 
             <PlaySongUI
-                soundCloudInfos={musics.contents}
+                soundCloudContents={musics.contents}
             />
         </PageContentsWrapper>
     )

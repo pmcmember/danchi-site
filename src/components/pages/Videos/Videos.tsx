@@ -7,7 +7,7 @@ import {
 import { PageNames } from '@/const/pages';
 
 export const Videos: NextPage = () => {
-    const pageName: PageNames = "contact"
+    const pageName: PageNames = "videos"
 
     return (
         <PageContentsWrapper
