@@ -1,5 +1,2 @@
-import { useSoundCloud } from "./useSoundCloud";
-
-export {
-    useSoundCloud
-}
+export * from "./useSoundCloud";
+export * from './useModal';

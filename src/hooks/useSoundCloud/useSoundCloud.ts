@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-export type SoundCloudStatus = keyof SoundCloudEvents | "INACTIVE";
+export type SoundCloudStatus = keyof SoundCloudEvents
 export type SoundCloudEvents = {
     CLICK_BUY: "buyClicked"
     CLICK_DOWNLOAD: "downloadClicked"
@@ -19,15 +18,19 @@ export type SoundCloudEvents = {
 type OnPlayButtonClick = () => Promise<void>;
 type RequestNextSong = (url: string) => Promise<void>;
 
-export type UseSoundCloud = (iframeId: string) => {
+type Props = {
+    iframeId: string
+}
+
+export type UseSoundCloud = (props: Props) => {
     onPlayButtonClick: OnPlayButtonClick,
     requestNextSong: RequestNextSong,
     soundCloudStatus: SoundCloudStatus
 }
 
 
-export const useSoundCloud: UseSoundCloud = (iframeId) => {
-    const [status, setStatus] = React.useState<SoundCloudStatus>("INACTIVE");
+export const useSoundCloud: UseSoundCloud = ({iframeId}) => {
+    const [status, setStatus] = React.useState<SoundCloudStatus>("READY");
     // const [SCEvents, setSCEvents] = React.useState<SoundCloudEvents>();
     const [widget, setWidget] = React.useState<any>();
 
@@ -39,70 +42,61 @@ export const useSoundCloud: UseSoundCloud = (iframeId) => {
             
             // setSCEvents(SoundCloudWidget.events);
             setWidget(widget);
-            setStatus("READY");
 
             // イベントのバインド
-            widget.bind(SoundCloudWidget.events.FINISH, () => {
-                setStatus("FINISH")
+            Object.keys(SoundCloudWidget.events).map((event) => {
+                const _event = event as keyof SoundCloudEvents
+                widget.bind(SoundCloudWidget.events[event], () => {
+                    setStatus(_event)
+                })
             })
 
-            widget.bind(SoundCloudWidget.events.ERROR, () => {
-                setStatus("ERROR")
-            })
+            // return () => {
+            //     // イベントのアンバインド
+            //     Object.keys(SoundCloudWidget.events).map((event) => {
+            //         const _event = event as keyof SoundCloudEvents
+            //         widget.unbind(SoundCloudWidget.events[event], () => {
+            //             setStatus(_event)
+            //         })
+            //     })
+            // }
         } catch(e) {
             setStatus("ERROR");
         }
     }, []);
 
     React.useEffect(() => {
+        console.log(status);
+    }, [status])
 
-    }, [])
-    
+
     const onPlayButtonClick: OnPlayButtonClick = React.useCallback(() => {
         if( ! widget) {
             return Promise.resolve();
         }
 
-        const result = status === "PLAY" || status === "PLAY_PROGRESS" ? (
-            Promise.resolve(widget.pause())
-                .then(() => {
-                    setStatus("PAUSE")
-                })
-                .catch(() => {
-                    setStatus("ERROR")
-                })
-        ) : (
-            Promise.resolve(widget.play())
-                .then(() => {
-                    setStatus("PLAY")
-                })
-                .catch(() => {
-                    setStatus("ERROR")
-                })
-        ) 
-
-        return result;
+        return Promise.resolve(widget.toggle())
+            .catch(() => {
+                setStatus("ERROR")
+            });
     }, [widget, status, setStatus])
 
     const requestNextSong: RequestNextSong = React.useCallback((url: string) => {
         if( ! widget) {
             return Promise.resolve();
         }
-
-        setStatus("SEEK");
-
+        
+        setStatus("LOAD_PROGRESS")
         return widget.load(url)
-            .then(() => {
-                setStatus("READY")
-            })
-            .catch(() => {
-                setStatus("ERROR");
-            })
+        .catch(() => {
+            setStatus("ERROR");
+        })
     }, [widget, setStatus])
 
     return {
         onPlayButtonClick,
         requestNextSong,
         soundCloudStatus: status
+        // soundCloudStatus: "SEEK"
     }
 }
