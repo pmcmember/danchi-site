@@ -17,9 +17,11 @@ export const pagesPath = {
     $url: (url?: { hash?: string }) => ({ pathname: '/contact' as const, hash: url?.hash })
   },
   musics: {
-    _pid: (pid: string | number) => ({
-      $url: (url?: { hash?: string }) => ({ pathname: '/musics/[pid]' as const, query: { pid }, hash: url?.hash })
-    }),
+    categories: {
+      _category: (category: string | number) => ({
+        $url: (url?: { hash?: string }) => ({ pathname: '/musics/categories/[category]' as const, query: { category }, hash: url?.hash })
+      })
+    },
     $url: (url?: { hash?: string }) => ({ pathname: '/musics' as const, hash: url?.hash })
   },
   top: {
