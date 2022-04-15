@@ -1,5 +1,5 @@
 export namespace FormatDateUtil {
-    export type AllowedDelim = "/" | ":" | ''
+    export type AllowedDelim = "/" | ":" | "-" | ''
 }
 
 /**
