@@ -1,22 +1,40 @@
 # danchi-site
 DANCHi 公式サイト
 
-## 事前準備
-開発に使用する各種ツールをインストールする
+## 参考資料
+- プロジェクトにて使用するlib / FW一覧
 
-| ツール        | 手順                                                        |
-| ------------- | ----------------------------------------------------------- |
-| Node.js / npm | https://qiita.com/mk185/items/7ad004bf202f400daea1          |
-| TypeScript    | https://qiita.com/eiji-noguchi/items/8c1d3741ac9f2857b230   |
-| React.js      | https://qiita.com/rspmharada7645/items/25c496aee87973bcc7a5 |
-| Next.js       | https://qiita.com/masarufuruya/items/2db55c6b514297e805b6   |
+    | lib / FW / ツール | 説明                                               | 参考          |
+    | ----------------- | ------------------------------------------------- | ------------- |
+    | yarn              | パッケージマネージャ                               | ・https://qiita.com/akitxxx/items/c97ff951ca31298f3f24          |
+    | TypeScript        | 型定義できるJavaScript。AltJS                      | ・https://qiita.com/EBIHARA_kenji/items/4de2a1ee6e2a541246f6   |
+    | React.js          | 宣言的なViewをコンポーネントベースで作成できるJavaScriptライブラリ | ・https://ja.reactjs.org/ |
+    | Next.js           | Reactベースのフレームワーク(静的サイトジェネレータ)。 | Next.jsについて<br>・https://qiita.com/Yuki_Oshima/items/5c0dfd8f7af8fb76af8f<br>・https://nextjs-ja-translation-docs.vercel.app/<br><br>静的サイトジェネレータについて<br>・https://www.science.co.jp/document_jamstack_blog/27767/   |
+    | aspida            | APIデータの型定義                                   | ・https://zenn.dev/solufa/articles/getting-started-with-aspida    |
+    | tailwindcss       | cssライブラリ。HTMLにcssクラスを挿入するのみでcssが充てられる。 | tailwindcssについて<br>・https://tailwindcss.jp/<br><br>チートシート<br>・https://nerdcave.com/tailwind-cheat-sheet   |
+
+
+- サイト内コンテンツ管理(CMS)はMicroCMSにて行っています。
+    - https://microcms.io/
+
+
+## 初期構築
+- yarnコマンドがインストールされていない場合は、下記コマンドを実行し、yarnコマンドをインストールしてください。
+    ```bash
+    $ npm install -g yarn
+    $ yarn --version
+        ⇒バージョンが表示されること
+    ```
+
+- プロジェクトのトップディレクトリで、下記コマンドを実行し、必要パッケージをインストールしてください。
+    ```bash
+    $ yarn install(初回のみ)
+    ```
 
 ## ローカルでの実行方法
-プロジェクトのルートディレクトリで ターミナルから以下のコマンドを実行する
-
+プロジェクトのトップディレクトリに移動し、下記コマンドを実行してください。
 ```bash
-- npm install(初回のみ)
-- npm run dev
+$ yarn run dev
 ```
 
 ブラウザから http://localhost:3000 にアクセスし、DANCHiのサイトが表示出来たら成功
