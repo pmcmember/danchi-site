@@ -2,6 +2,5 @@ import MusicsCategories from '@/components/pages/Musics/Categories'
 
 export default MusicsCategories;
 export {
-    getStaticPaths,
-    getStaticProps
+    getServerSideProps
 } from '@/components/pages/Musics/Categories'
