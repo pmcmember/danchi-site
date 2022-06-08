@@ -1,8 +1,7 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from "next";
 import { MusicsSongCategories, MusicsResultList } from '@/api/@types'
 import { client } from '@/lib/aspida';
 import { Params } from './getStaticPaths'
-
 
 export type Props = Partial<{
     musics: MusicsResultList;
@@ -10,7 +9,7 @@ export type Props = Partial<{
     category: string;
 }>
 
-export const getStaticProps: GetStaticProps<Props, Params> = async ({params}) => {
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
     const category = params?.category || ""
     const musicsFetchResult: MusicsResultList = await client.v1.musics.$get({
         query: {

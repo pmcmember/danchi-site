@@ -16,15 +16,26 @@ import {
     IoIosShuffle,
     IoIosInfinite
 } from 'react-icons/io';
-import { IconButton, Tooltip } from '@mui/material'
 import { PlayerTransIcon } from '@/components/ui/TransIcons'
 import { CircularProgress } from '@mui/material'
 import Link from 'next/link'
+import { AiOutlineSearch } from 'react-icons/ai';
+import {
+    IconButton,
+    Tooltip,
+    FormControl, 
+    Chip
+} from '@mui/material'
+import { SearchInput } from '@/components/ui/Inputs';
+import { useRouter } from 'next/router'
+
 
 
 
 export const Musics: NextPage<Props> = ({musics, categories}) => {
+    const [searchContent, setSearchContent] = React.useState<string>("");
     const pageName: PageNames = "musics";
+    const router = useRouter();
 
     return (
         <PageContentsWrapper
@@ -34,10 +45,43 @@ export const Musics: NextPage<Props> = ({musics, categories}) => {
             <Section>
                 <Overview page={pageName} hideHeader hideLink>
                     {categories && (
-                        <div className="mb-10 text-blue-400 underline">
-                            <Link href={`/musics/categories/${categories[0].name}`}>
-                                <a>カテゴリ一覧はこちら</a>
-                            </Link>
+                        <div className="flex flex-col gap-4 mb-24">
+                            <FormControl className="w-full flex flex-col gap-5">
+                                <SearchInput
+                                    value={searchContent}
+                                    onFormChange={(e) => setSearchContent(e.target.value)}
+                                    onSearchButtonClick={() => router.push(`/musics/categories/${searchContent}`)}
+                                    placeholder="カテゴリ"
+                                />
+                                <div className="flex flex-wrap gap-3">
+                                    {categories.map((c) => (
+                                        <Link
+                                            key={c.name}
+                                            href={`/musics/categories/${c.name}`}
+                                        >
+                                            <a>
+                                                <Chip
+                                                    className="cursor-pointer"
+                                                    label={c.name}
+                                                    variant="outlined"
+                                                />
+                                            </a>
+                                        </Link>
+                                    ))}
+                                </div>
+                                {/* <InputLabel id="select-music-categories">カテゴリ</InputLabel>
+                                <Select
+                                    labelId="select-music-categories"
+                                    label="カテゴリ"
+                                    onChange={onCategorySelectChange}
+                                >
+                                    {categories.map((d) => (
+                                        <MenuItem value={d.name}>
+                                            {d.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select> */}
+                            </FormControl>
                         </div>
                     )}
                     {musics ? (
@@ -76,7 +120,18 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
     });
     const [currentSong, setCurrentSong] = React.useState<MusicsResultList["contents"][0]>(contents.contents[0])
     const { onPlayButtonClick, requestNextSong, soundCloudStatus } = useSoundCloud({iframeId: iframeId})
-    
+
+    /**
+     * contentsの内容が変更した際の挙動
+     */
+    React.useEffect(() => {
+        setCurrentSong(contents.contents[0])
+    }, [contents])
+
+
+    /**
+     * 楽曲が流れ終えた際の挙動
+     */
     React.useEffect(() => {
         if(soundCloudStatus === "FINISH") {
             switch(true) {
@@ -129,6 +184,9 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
         setCurrentSong,
     ])
 
+    /**
+     * 再生ボタンを押した際のハンドラ
+     */
     const onPlayButtonClickHandler = React.useCallback(async (song: MusicsResultList["contents"][0]) => {
         if(song.scApiUrl !== currentSong.scApiUrl) {
             setCurrentSong(song)
@@ -138,102 +196,106 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
         await onPlayButtonClick();
     }, [currentSong, setCurrentSong, requestNextSong, onPlayButtonClick])
 
+    
     return (
         <>
             {contents.contents.length > 0 ? (
                 <div
                     className={`flex flex-col gap-3 ${soundCloudStatus === "ERROR" || soundCloudStatus === "LOAD_PROGRESS" ? "pointer-events-none" : ""}`}
                 >
-                    <EmbedSoundCloud
-                        // requestNextSong関数にてURLのロードを行っているため
-                        // currentSong(useStateで管理している変数)は使用しない
-                        embedUrl={contents.contents[0].scSrc || ""}
-                        artistHref={contents.contents[0].scArtistHref || ""}
-                        songHref={contents.contents[0].scSongHref || ""}
-                        artistName={contents.contents[0].scArtistName|| ""}
-                        songTitle={contents.contents[0].scSongTitle || ""}
-                        size={{height: "165px"}}
-                        // className={"pointer-events-none"}
-                        id={iframeId}
-                    />
-                    <ul className="flex gap-2">
-                        <li>
-                            <Tooltip title="リピート">
-                                <IconButton
-                                    onClick={() => {
-                                        setSongConfig((sc) => ({repeat: ! sc.repeat, shuffle: false, auto: false}))
-                                    }}
-                                    color={songConfig.repeat ? "primary": "default"}
-                                >
-                                    <IoIosInfinite/>
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="シャッフル">
-                                <IconButton
-                                    onClick={() => {
-                                        setSongConfig((sc) => ({repeat: false, shuffle: ! sc.shuffle, auto: false}))
-                                    }}
-                                    color={songConfig.shuffle ? "primary": "default"}
-                                    >
-                                    <IoIosShuffle/>
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="自動再生">
-                                <IconButton
-                                    onClick={() => {
-                                        setSongConfig((sc) => ({repeat: false, shuffle: false, auto: ! sc.auto}))
-                                    }}
-                                    color={songConfig.auto ? "primary": "default"}
-                                >
-                                    <IoIosRepeat/>
-                                </IconButton>
-                            </Tooltip>
-                        </li>
-                    </ul>
-                    {isContentsReloading ? (
-                        <CircularProgress/>
-                    ) : (
-                        <ul>
-                            {contents.contents.map((song) => (
-                                <li key={song.id}>
-                                    <div
-                                        className="cursor-pointer border border-zinc-400 px-3 py-2 w-full flex items-center"
-                                        onClick={() => {
-                                            onPlayButtonClickHandler(song)
-                                        }}    
-                                    >
-                                        <div className="flex flex-col gap-2">
-                                            <h2 className="text-lg">
-                                                {song.scSongTitle || "タイトルなし"}
-                                            </h2>
-                                            {song.songCategories && (
-                                                <ul className="flex gap-2">
-                                                    {song.songCategories.map((category) => (
-                                                        <li
-                                                            style={{fontSize: "10px"}}
-                                                            className="rounded-full bg-zinc-400 text-white px-2 py-1"
-                                                            key={`${song.id}-${category.songCategory}`}
-                                                        >{`#${category.songCategory}`}</li>
-                                                    ))}
-                                                </ul>
+                        <CircularProgress className={`${isContentsReloading? "inline-block": "hidden"}`}/>
+                        <div className={`${isContentsReloading? "hidden": "block"}`}>
+                            <EmbedSoundCloud
+                                // requestNextSong関数にてURLのロードを行っているため
+                                // currentSong(useStateで管理している変数)は使用しない
+                                embedUrl={contents.contents[0].scSrc || ""}
+                                artistHref={contents.contents[0].scArtistHref || ""}
+                                songHref={contents.contents[0].scSongHref || ""}
+                                artistName={contents.contents[0].scArtistName|| ""}
+                                songTitle={contents.contents[0].scSongTitle || ""}
+                                size={{height: "165px"}}
+                                // className={"pointer-events-none"}
+                                id={iframeId}
+                            />
+                            <ul className="flex gap-2">
+                                <li>
+                                    <Tooltip title="リピート">
+                                        <IconButton
+                                            onClick={() => {
+                                                setSongConfig((sc) => ({repeat: ! sc.repeat, shuffle: false, auto: false}))
+                                            }}
+                                            color={songConfig.repeat ? "primary": "default"}
+                                            >
+                                            <IoIosInfinite/>
+                                        </IconButton>
+                                    </Tooltip>
+                                </li>
+                                <li>
+                                    <Tooltip title="シャッフル">
+                                        <IconButton
+                                            onClick={() => {
+                                                setSongConfig((sc) => ({repeat: false, shuffle: ! sc.shuffle, auto: false}))
+                                            }}
+                                            color={songConfig.shuffle ? "primary": "default"}
+                                            >
+                                            <IoIosShuffle/>
+                                        </IconButton>
+                                    </Tooltip>
+                                </li>
+                                <li>
+                                    <Tooltip title="自動再生">
+                                        <IconButton
+                                            onClick={() => {
+                                                setSongConfig((sc) => ({repeat: false, shuffle: false, auto: ! sc.auto}))
+                                            }}
+                                            color={songConfig.auto ? "primary": "default"}
+                                        >
+                                            <IoIosRepeat/>
+                                        </IconButton>
+                                    </Tooltip>
+                                </li>
+                            </ul>
+                            <ul>
+                                {contents.contents.map((song) => (
+                                    <li key={song.id}>
+                                        <div
+                                            className="cursor-pointer border border-zinc-400 px-3 py-2 w-full flex items-center"
+                                            onClick={() => {
+                                                onPlayButtonClickHandler(song)
+                                            }}    
+                                        >
+                                            <div className="flex flex-col gap-1">
+                                                <h2 className="text-base">
+                                                    {song.scSongTitle || "タイトルなし"}
+                                                </h2>
+                                                {song.songCategories && (
+                                                    <ul className="flex gap-3">
+                                                        {song.songCategories.map((category) => (
+                                                            <li
+                                                                style={{fontSize: "10px"}}
+                                                                className="rounded-full text-zinc-500"
+                                                                key={`${song.id}-${category.songCategory}`}
+                                                            >{`#${category.songCategory}`}</li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                            {song.scApiUrl && (
+                                                <div className="ml-auto">
+                                                    <IconButton
+                                                        color={currentSong.id === song.id? "primary": "default"}
+                                                    >
+                                                        <PlayerTransIcon
+                                                            status={currentSong.id === song.id? soundCloudStatus: "PAUSE"}
+                                                        />
+                                                    </IconButton>
+                                                </div>
                                             )}
                                         </div>
-                                        {song.scApiUrl && (
-                                            <div className="ml-auto">
-                                                <IconButton
-                                                    color={currentSong.id === song.id? "primary": "default"}
-                                                >
-                                                    <PlayerTransIcon
-                                                        status={currentSong.id === song.id? soundCloudStatus: "PAUSE"}
-                                                    />
-                                                </IconButton>
-                                            </div>
-                                        )}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                 </div>
             ) : (
                 <div>お探しの曲は見つかりませんでした。</div>

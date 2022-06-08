@@ -15,7 +15,7 @@ export const PlayerTransIcon: React.VFC<Props> = ({status}) => {
             {status === "PLAY_PROGRESS" ? (
                 <BsFillPauseFill/>
             ) : status === "LOAD_PROGRESS" || status === "PLAY"? (
-                <CircularProgress/>
+                <CircularProgress style={{width: "1em", height: "1em"}}/>
             ) : status === "ERROR"? (
                 <div className="relative">
                     <div
