@@ -15,10 +15,6 @@ export const Main: React.VFC<Props> = ({children, style, className}) => {
             style={style}
             className={`${styles.house} ${className || ""}`}
         >
-            <div className={styles.house__roof}>
-                <div className={styles.house__roof__leftT}/>
-                <div className={styles.house__roof__rightT}/>
-            </div>
             <div className={`${styles.house__body}`} style={{backgroundImage: `url(${BgImage.src})`, backgroundSize: "7%"}}>
                 <main className={styles.house__body__content} style={{background: "transparent"}}>
                     {children}

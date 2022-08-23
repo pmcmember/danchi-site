@@ -1,0 +1,31 @@
+.card {
+    @apply bg-white;
+    @apply w-full;
+}
+
+/* .head {
+    @apply ;
+} */
+
+.img {
+    @apply aspect-square overflow-hidden relative rounded-md;
+    @apply w-full;
+}
+
+/* .body {
+    @apply ;
+} */
+
+.title {
+    @apply font-bold text-lg;
+    @apply my-5;
+}
+
+.tags {
+    @apply flex gap-2 flex-wrap;
+}
+
+.tag {
+    @apply rounded-md p-1 text-xs inline-block;
+    @apply bg-amber-300;
+}
