@@ -1,0 +1,29 @@
+.section {
+    @apply w-full;
+    @apply mx-auto;
+    padding: calc(40px + 10vw) 6vw;
+}
+
+.container {
+    @apply relative my-0 mx-auto;
+    max-width: 1500px;
+}
+
+.head {
+    @apply flex items-center;
+}
+
+.title {
+    @apply text-4xl font-bold;
+    @apply pb-2 mb-6;
+    border-bottom: 2px dashed;
+}
+
+.content {
+    @apply mt-24;
+}
+
+.pageLink {
+    @apply text-lg;
+    margin-left: auto;
+}

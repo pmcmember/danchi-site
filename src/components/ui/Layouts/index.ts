@@ -1,12 +1,5 @@
-import * as ColumnsList from './ColumnsList';
-import { Overview } from './Overview';
-import { Section } from './Section';
-import { PageContentsWrapper } from './PageContentsWrapper';
-
-
-export {
-    ColumnsList,
-    Overview,
-    Section,
-    PageContentsWrapper
-}
+export * from './ColumnsList'
+export * from './Overview'
+export * from './Section'
+export * from './PageContentsWrapper'
+export * from './Menu'
