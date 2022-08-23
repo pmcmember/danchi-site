@@ -1,0 +1,17 @@
+.menus {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu {
+    max-width: calc((100% - (60px * 3)) / 4);
+    flex-basis: calc((100% - (60px * 3)) / 4);
+    margin-right: 60px;
+    margin-bottom: 60px;
+    /* max-width: 260px;
+    flex-basis: 260px; */
+}
+
+.menu:nth-child(4n) {
+    margin-right: 0;
+}
