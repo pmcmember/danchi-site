@@ -1,0 +1,99 @@
+/**
+ * 概要スタイル
+ */
+.overview {
+    @apply relative;
+}
+.overview__content {
+    @apply flex flex-col gap-3;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.songList__list {
+    @apply cursor-pointer border border-zinc-400 px-3 py-2 w-full flex items-center;
+}
+
+/**
+ * 曲情報スタイル
+ */
+
+.song {
+    @apply flex flex-col gap-1;
+}
+
+.song__title {
+    @apply text-base;
+}
+
+.song__description {
+    @apply text-xs text-zinc-700;
+}
+
+.song__tags {
+    @apply flex gap-3;
+}
+
+.song__tag {
+    @apply rounded-full text-zinc-500 text-xs;
+}
+
+@screen rsm {
+    .songTag__tag {
+        font-size: 10px !important;
+    }
+}
+
+/**
+ * searchスタイル
+ */
+
+.search {
+    @apply w-full flex flex-col gap-5;
+}
+
+/**
+ * categoryスタイル
+ */
+.category {
+    background: rgba();
+}
+
+.category__section {
+}
+
+.category__title {
+    margin: 10px;
+}
+
+.category__lists {
+    @apply flex flex-wrap gap-3;
+}
+
+.category__list {
+    @apply cursor-pointer;
+}
+
+/**
+ * errorwrapのスタイル
+ */
+.errorwrap {
+    @apply absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.errorwrap * {
+    pointer-events: none;
+}
+
+.errorwrap__text {
+    @apply text-lg absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
