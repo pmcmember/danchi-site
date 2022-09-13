@@ -1,93 +1,80 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-import { ResponsiveCard } from '@/components/ui/Cards'
+import { StandardCard } from '@/components/ui/Cards'
 
 import {
-    ColumnsList,
+    ColumnsListParent,
+    ColumnsListChild,
     Overview,
     Section,
-    PageContentsWrapper
+    PageContentsWrapper,
+    Menu,
 } from '@/components/ui/Layouts'
 // import { Pagination } from '@/components/ui/Pagination'
-import { PageTitles } from '@/const/pages'
+import { PageNames, PageTitles } from '@/const/pages'
 import { Props } from './getStaticProps'
-import Twitter from "@/assets/twitter-icon.png";
-import { Pagination } from '@mui/material'
+import Twitter from '@/assets/twitter-icon.png'
+import { Chip, Pagination, Stack } from '@mui/material'
+import { Image } from '@/components/ui/Image'
 
-export const Blogs: NextPage<Props> = ({blogs, currentPage, totalPages}) => {
+export const Blogs: NextPage<Props> = ({ blogs, currentPage, totalPages }) => {
+    const pageName: PageNames = 'blogs'
     return (
-        <PageContentsWrapper
-            page="blogs"
-            className="bg-white"
-        >
-            <Section>
-                <Overview page="blogs" hideHeader hideLink>
-                    <BlogsOverview
-                        paginationConf={{
-                            currentPageId: Number(currentPage),
-                            totalPages: Number(totalPages)
-                        }}
-                        blogs={blogs}
-                    />
-                </Overview>
+        <PageContentsWrapper page={pageName} className="bg-white">
+            <Section title="活動報告">
+                <BlogsOverview
+                    paginationConf={{
+                        currentPageId: Number(currentPage),
+                        totalPages: Number(totalPages),
+                    }}
+                    blogs={blogs}
+                />
             </Section>
         </PageContentsWrapper>
     )
 }
 
-
 type BlogsOverviewProps = {
     paginationConf?: {
-        currentPageId: number;
-        totalPages: number;
+        currentPageId: number
+        totalPages: number
     }
     blogs: Props['blogs']
 }
 
 export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({
     paginationConf,
-    blogs
+    blogs,
 }) => {
     return (
-        <>
-            {blogs?.contents ? (
-                <>
-                    <ColumnsList.Parent>
-                        {blogs.contents.map((blog) => (
-                            <ColumnsList.Child key={blog.id}>
-                                <ResponsiveCard
-                                    href={`/blogs/contents/${blog.id}`}
-                                    description={blog.description}
-                                    title={blog.title}
-                                    image={blog.image || {
-                                        url: Twitter.src,
-                                        width: 50,
-                                        height: 50
-                                    }}
-                                    tags={blog.tags}
-                                />
-                            </ColumnsList.Child>
-                        ))}
-                    </ColumnsList.Parent>
-                    
-                    {paginationConf && (
-                        <div className="text-center mt-10 sm:mt-20">
-                            <div className="flex justify-center">
-                                <Pagination
-                                    count={paginationConf.totalPages}
-                                    page={paginationConf.currentPageId}
-                                    variant="outlined"
-                                    shape="rounded"
-                                    color="primary"
-                                />
-                            </div>
-                        </div>
-                    )}
-                </>
-            ) : (
-                <div>コンテンツが存在しませんでした。</div>
-            )}
-        </>
+        <Menu
+            contents={blogs.contents.map((blog) => (
+                <StandardCard
+                    title={blog.title}
+                    href={`/blogs/contents/${blog.id}`}
+                    Description={
+                        blog.tags && (
+                            <Stack direction="row">
+                                {blog.tags.map((tag) => (
+                                    <Chip
+                                        key={tag.fieldId}
+                                        label={tag.tag}
+                                        className={`mr-3 bg-amber-300`}
+                                    />
+                                ))}
+                            </Stack>
+                        )
+                    }
+                    Image={
+                        <Image
+                            src={blog.image?.url}
+                            alt={`${blog.title}のイメージ`}
+                            className="object-cover"
+                        />
+                    }
+                />
+            ))}
+        />
     )
 }

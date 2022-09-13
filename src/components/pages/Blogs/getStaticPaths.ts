@@ -1,7 +1,7 @@
 import { client } from '@/lib/aspida'
 import { GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from 'node:querystring'
-import { BlogsResultList } from '@/api/@types'
+import { BlogListResponse } from '@/api/@types'
 
 export type Params = ParsedUrlQuery & {
     pid: string
@@ -10,7 +10,7 @@ export type Params = ParsedUrlQuery & {
 export const PER_PAGE = 10
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-    const blogsFetchResult: BlogsResultList = await client.v1.blogs.$get()
+    const blogsFetchResult: BlogListResponse = await client.v1.blogs.$get()
     const totalPages = Math.ceil(blogsFetchResult.totalCount / PER_PAGE)
 
     /**

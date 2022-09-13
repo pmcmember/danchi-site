@@ -1,17 +1,17 @@
 import { GetStaticProps } from 'next'
 import { client } from '@/lib/aspida'
-import { BlogsResultList } from '@/api/@types'
+import { BlogListResponse } from '@/api/@types'
 import { Params, PER_PAGE } from './getStaticPaths'
 import { PaginationProps } from '@/const/pages'
 
 export type Props = {
-    blogs: BlogsResultList
+    blogs: BlogListResponse
 } & PaginationProps
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
     params,
 }) => {
-    const result: BlogsResultList = await client.v1.blogs.$get({
+    const result: BlogListResponse = await client.v1.blogs.$get({
         query: {
             limit: PER_PAGE,
             offset: (Number(params?.pid || 1) - 1) * PER_PAGE,

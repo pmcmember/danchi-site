@@ -1,5 +1,5 @@
-import { Blogs } from './Blogs';
+import { Blogs } from './Blogs'
 
-export default Blogs;
-export * from './getStaticProps'
-export * from './getStaticPaths'
+export default Blogs
+export { getStaticProps } from './getStaticProps'
+export { getStaticPaths } from './getStaticPaths'
