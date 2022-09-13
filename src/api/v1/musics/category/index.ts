@@ -42,8 +42,23 @@ export type Methods = {
     } | undefined
 
     query: {
-      /** 削除するカテゴリの名前を指定する。カンマ区切りで複数指定可能 */
-      name: string
+      /**
+       * 曲カテゴリ削除APIの削除対象検索条件
+       * 
+       * - type
+       *   カテゴリの種別を指定する
+       *   下記から選択
+       *   - songGenres
+       *   - songImages
+       * 
+       * - name
+       *   カテゴリ名を指定する。<br>
+       *   複数指定したい場合はカンマ区切りで指定する。
+       */
+      MusicSongCategoryDeleteSelector: {
+        name: string
+        type: 'songGenres' | 'songImages'
+      }
     }
 
     status: 200

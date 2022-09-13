@@ -119,7 +119,6 @@ export type MusicSongCategoryResponse = {
   /**
    * パーティションキー
    * カテゴリーの種類(曲のイメージやジャンルなど)
-   * base64 encode文字列
    */
   type: 'songGenres' | 'songImages'
 }
@@ -135,7 +134,6 @@ export type MusicSongCategoryListResponse = {
   /**
    * パーティションキー
    * カテゴリーの種類(曲のイメージやジャンルなど)
-   * base64 encode文字列
    */
   type: 'songGenres' | 'songImages'
 }[]
@@ -368,3 +366,190 @@ export type MusicSongCategoryAddRequest = {
   /** MicroCMSに登録されているカテゴリ種別(曲イメージ、ジャンルなどの種別名) */
   type: 'songGenres' | 'songImages'
 }[]
+
+/**
+ * ブログ一覧を取得する際の取得条件
+ * 
+ * - offset
+ *   何件目から取得するかを指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
+ * 
+ * - limit
+ *   取得件数を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+ * 
+ * - orders
+ *   取得するコンテンツの並び替えを行う。(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+ * 
+ * - fields
+ *   コンテンツの中で取得する要素を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h7462d83de4
+ * 
+ * - ids
+ *   コンテンツのIDをカンマ区切りで指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
+ * 
+ * - filters
+ *   コンテンツの絞り込み条件を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
+ */
+export type BlogListSelector = {
+  fields?: string | undefined
+  filters?: string | undefined
+  ids?: string | undefined
+  limit?: number | undefined
+  offset?: number | undefined
+  orders?: string | undefined
+}
+
+/**
+ * 曲一覧を取得する際の取得条件
+ * 
+ * - offset
+ *   何件目から取得するかを指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
+ * 
+ * - limit
+ *   取得件数を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+ * 
+ * - orders
+ *   取得するコンテンツの並び替えを行う。(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+ * 
+ * - fields
+ *   コンテンツの中で取得する要素を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h7462d83de4
+ * 
+ * - ids
+ *   コンテンツのIDをカンマ区切りで指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
+ * 
+ * - filters
+ *   コンテンツの絞り込み条件を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
+ */
+export type MusicListSelector = {
+  fields?: string | undefined
+  filters?: string | undefined
+  ids?: string | undefined
+  limit?: number | undefined
+  offset?: number | undefined
+  orders?: string | undefined
+}
+
+/**
+ * musics検索の検索条件<br>
+ * 
+ * - value
+ *   検索対象の文字(必須)
+ * 
+ * - orders
+ *   取得するコンテンツの並び替えを行う。(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+ * 
+ * - offset
+ *   何件目から取得するかを指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
+ * 
+ * - limit
+ *   取得件数を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+ */
+export type MusicSearchByAnyValueSelector = {
+  value: string
+} & {
+  limit?: number | undefined
+  offset?: number | undefined
+  orders?: string | undefined
+}
+
+/**
+ * カテゴリによる曲検索処理の検索条件<br>
+ * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする
+ * 
+ * - type
+ *   検索するカテゴリの種別を指定(必須)<br>
+ *   カンマ区切りで複数指定可能
+ * 
+ * - name
+ *   検索するカテゴリを指定する。(必須)<br>
+ *   カンマ区切りで複数指定可能
+ * 
+ * - condition
+ *   type、nameが複数指定された場合の検索条件(任意)<br>
+ *   デフォルトでorで検索される。<br>
+ *   指定できる値
+ *   - and
+ *   - or
+ * 
+ * - orders
+ *   取得するコンテンツの並び替えを行う。(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+ * 
+ * - offset
+ *   何件目から取得するかを指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
+ * 
+ * - limit
+ *   取得件数を指定(任意)<br>
+ *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+ */
+export type MusicSearchByCategorySelector = {
+  condition?: 'and' | 'or' | undefined
+  name: string
+  type: string
+} & {
+  limit?: number | undefined
+  offset?: number | undefined
+  orders?: string | undefined
+}
+
+/** 曲カテゴリのスキーマ */
+export type MusicSongCategorySelector = {
+  /**
+   * ソートキー
+   * ジャンル名
+   * MicroCMSに登録してあるカテゴリ名と同一
+   */
+  name: string
+  /**
+   * パーティションキー
+   * カテゴリーの種類(曲のイメージやジャンルなど)
+   */
+  type: 'songGenres' | 'songImages'
+}
+
+/**
+ * 動画一覧を取得する際の検索条件
+ * 
+ * - maxResults
+ *   maxResults パラメータには、結果セットとして返されるアイテムの最大数を指定します。
+ *   0 以上 50 以下の値を指定できます。デフォルト値は 5 です。
+ * 
+ * - pageToken
+ *   pageToken パラメータには、返される結果セットに含める特定のページを指定します。
+ *   API レスポンスでは、nextPageToken と prevPageToken プロパティは取得可能な他のページを表します。
+ * 
+ * - order
+ *   指定されたパラメータをもとにリストの並び替えを行います。
+ *   下記指定できるパラメータ一覧です。
+ *   - date
+ *     リソースを作成日の新しい順に並べます。
+ *   - rating
+ *     リソースを評価の高い順に並べます。
+ *   - relevance
+ *     リソースを検索クエリの関連性が高い順に並べます。このパラメータのデフォルト値です。
+ *   - title
+ *     リソースをタイトルのアルファベット順に並べます。
+ *   - videoCount
+ *     アップロード動画の番号順（降順）にチャンネルを並べます。
+ *   - viewCount
+ *     リソースを再生回数の多い順に並べます。
+ */
+export type VideoListSelector = {
+  maxResults?: number | undefined
+  order?: 'date' | 'rating' | 'relevance' | 'title' | 'videoCount' | 'viewCount' | undefined
+  pageToken?: string | undefined
+}

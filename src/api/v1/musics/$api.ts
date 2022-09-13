@@ -84,6 +84,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       category: {
         /**
          * 検索対象のカテゴリをリクエストに含めて、MicroCMSに登録されている曲を検索する。
+         * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする。
          * 何も引っ掛からなかった場合は404を返す。
          * @returns 検索結果の曲情報一覧レスポンス
          */
@@ -91,6 +92,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           fetch<Methods4['get']['resBody'], BasicHeaders, Methods4['get']['status']>(prefix, PATH3, GET, option).json(),
         /**
          * 検索対象のカテゴリをリクエストに含めて、MicroCMSに登録されている曲を検索する。
+         * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする。
          * 何も引っ掛からなかった場合は404を返す。
          * @returns 検索結果の曲情報一覧レスポンス
          */
@@ -100,16 +102,18 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           `${prefix}${PATH3}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
       },
       /**
-       * 任意の文字列でMicroCMSに登録されている曲を検索する。
-       * タイトル・曲説明・所属しているカテゴリに対して検索をかけ、検索対象文字列が含んでいれば結果として出力する。
+       * 任意の文字列でMicroCMSに登録されている曲を検索する。<br>
+       * タイトル・説明など、MicroCMS上のテキストフィールドにて登録したデータに対して検索をかける。<br>
+       * 検索対象文字列が含んでいれば結果として出力する。<br>
        * 何も引っ掛からなかった場合は404でレスポンスを返す。
        * @returns 検索結果の曲情報一覧レスポンス
        */
       get: (option: { query: Methods3['get']['query'], headers?: Methods3['get']['reqHeaders'] | undefined, config?: T | undefined }) =>
         fetch<Methods3['get']['resBody'], BasicHeaders, Methods3['get']['status']>(prefix, PATH2, GET, option).json(),
       /**
-       * 任意の文字列でMicroCMSに登録されている曲を検索する。
-       * タイトル・曲説明・所属しているカテゴリに対して検索をかけ、検索対象文字列が含んでいれば結果として出力する。
+       * 任意の文字列でMicroCMSに登録されている曲を検索する。<br>
+       * タイトル・説明など、MicroCMS上のテキストフィールドにて登録したデータに対して検索をかける。<br>
+       * 検索対象文字列が含んでいれば結果として出力する。<br>
        * 何も引っ掛からなかった場合は404でレスポンスを返す。
        * @returns 検索結果の曲情報一覧レスポンス
        */

@@ -10,6 +10,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   return {
     /**
      * 検索対象のカテゴリをリクエストに含めて、MicroCMSに登録されている曲を検索する。
+     * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする。
      * 何も引っ掛からなかった場合は404を返す。
      * @returns 検索結果の曲情報一覧レスポンス
      */
@@ -17,6 +18,7 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, PATH0, GET, option).json(),
     /**
      * 検索対象のカテゴリをリクエストに含めて、MicroCMSに登録されている曲を検索する。
+     * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする。
      * 何も引っ掛からなかった場合は404を返す。
      * @returns 検索結果の曲情報一覧レスポンス
      */
