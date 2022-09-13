@@ -4,18 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:next": "next dev",
+    "dev:next": "export APP_ENV=local && next dev",
     "dev:path": "pathpida --ignorePath .gitignore --watch",
-    "build": "pathpida --ignorePath .gitignore && next build",
+    "dev:open": "open http://localhost:3000",
+    "build": "pathpida --ignorePath .gitignore && export APP_ENV=dev && next build",
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "doc:start": "ts-node bin/openapiUtil.ts start ./docker-compose.openapi.yml",
-    "doc:open": "ts-node bin/openapiUtil.ts open ./docker-compose.openapi.yml",
-    "doc:stop": "ts-node bin/openapiUtil.ts stop ./docker-compose.openapi.yml",
-    "doc:quit": "ts-node bin/openapiUtil.ts quit ./docker-compose.openapi.yml",
+    "s3:cp": "aws s3 cp ./out s3://danchi-web-site-test --recursive",
+    "s3:view": "open http://danchi-web-site-test.s3-website-ap-northeast-1.amazonaws.com/",
     "aspida:make": "openapi2aspida",
-    "aspida:remake": "git rm -r src/api/* && openapi2aspida"
+    "aspida:remake": "rm -rf src/api/* && openapi2aspida",
+    "deploy:test": "npm run build && npm run export && npm run s3:cp && npm run s3:view"
   },
   "dependencies": {
     "@aspida/fetch": "^1.9.1",
