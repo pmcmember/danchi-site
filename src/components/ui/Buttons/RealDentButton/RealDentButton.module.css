@@ -5,14 +5,13 @@
     align-items: center;
     position: relative;
     text-decoration: none;
-    color: white;
+    color: rgb(20, 20, 20);
     border-radius: 50%;
     text-align: center;
     background: #f7f7f7;
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 }
-
 
 .realDentButton__content {
     /*ボタン自体*/
@@ -25,13 +24,18 @@
     height: 90%;
     width: 90%;
     font-size: 40px;
-    background-image: linear-gradient(rgb(253, 106, 70) 0%, rgb(255, 170, 148) 100%);
-    text-shadow: 1px 1px 1px rgba(255, 71, 25, 0.66);
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
+    background-image: linear-gradient(
+        rgb(241, 244, 25) 0%,
+        rgb(252, 255, 203) 100%
+    );
+    text-shadow: 1px 1px 1px rgba(181, 216, 6, 0.66);
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        0 2px 2px rgba(0, 0, 0, 0.19);
     border-bottom: solid 2px #b5b5b5;
 }
 
 .realDentButton__contentClicked {
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 2px 2px rgba(0, 0, 0, 0.19);
     border-bottom: solid 2px #d8d8d8;
 }
