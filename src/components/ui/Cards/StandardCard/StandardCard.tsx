@@ -1,31 +1,42 @@
 import Link from 'next/link'
-import style from './SquareImageCard.module.css'
+import styles from './StandardCard.module.css'
 
 type Props = {
     title: string
-    tags?: string[]
+    Description: React.ReactElement | React.ReactNode
     Image: React.ReactElement
     href: string
+    aspect?: 'aspect-video' | 'aspect-square' | 'aspect-article'
 }
 
-export const SquareImageCard: React.FC<Props> = ({
+export const StandardCard: React.FC<Props> = ({
     title,
-    tags,
+    Description,
     Image,
     href,
+    aspect,
 }) => (
-    <article className={style.card}>
+    <article className={styles.card}>
         <Link href={href}>
-            <a className={style.head}>
-                <figure className={style.img}>{Image}</figure>
+            <a>
+                <div className={styles.head}>
+                    <figure
+                        className={`${styles.img} ${
+                            aspect === 'aspect-video'
+                                ? styles.video_aspect
+                                : aspect === 'aspect-square'
+                                ? styles.square_aspect
+                                : styles.article_aspect
+                        }`}
+                    >
+                        {Image}
+                    </figure>
+                </div>
+                <div className={styles.body}>
+                    <h3 className={styles.title}>{title}</h3>
+                    <div className={styles.description}>{Description}</div>
+                </div>
             </a>
         </Link>
-        <div className={style.body}>
-            <h3 className={style.title}>{title}</h3>
-            <ul className={style.tags}>
-                {tags &&
-                    tags.map((tag) => <li className={style.tag}>{tag}</li>)}
-            </ul>
-        </div>
     </article>
 )

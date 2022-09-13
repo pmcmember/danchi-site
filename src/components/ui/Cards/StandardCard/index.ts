@@ -1,1 +1,1 @@
-export * from './SquareImageCard'
+export * from './StandardCard'
