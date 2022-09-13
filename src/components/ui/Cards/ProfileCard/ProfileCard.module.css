@@ -1,0 +1,58 @@
+/**
+ * プロフィールカード用スタイル
+ */
+.profileCard {
+    @apply w-full rounded-3xl border border-black px-3 pt-3 pb-8;
+}
+
+.profileCard__header {
+    @apply mb-8;
+}
+
+.profileCard__userinfo {
+    @apply flex items-center gap-4;
+    @apply mb-5;
+}
+
+.profileCard__image {
+    @apply rounded-full;
+}
+
+.profileCard__imageWrap {
+    @apply relative;
+    width: 60px;
+    height: 60px;
+}
+
+.profileCard__user {
+    @apply font-bold text-xl mb-2;
+}
+
+.profileCard__contact {
+    @apply border border-slate-300;
+    @apply rounded-full;
+    @apply flex gap-2 items-center px-2;
+    @apply text-xs;
+}
+
+.profileCard__contactIcon {
+    @apply opacity-30;
+}
+
+.profileCard__content {
+    @apply flex flex-col gap-4;
+}
+
+.profileCard__lists {
+    @apply flex flex-col gap-3;
+}
+
+.profileCard__list {
+    @apply border-2 border-slate-900;
+}
+
+.profileCard__sns {
+    @apply flex justify-center items-center gap-4;
+    @apply hover:opacity-60;
+    @apply px-1 py-2;
+}

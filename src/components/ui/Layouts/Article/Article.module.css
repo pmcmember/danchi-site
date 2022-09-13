@@ -1,0 +1,13 @@
+.article {
+    @apply w-full;
+    @apply mx-auto;
+}
+
+.container {
+    @apply relative my-0 mx-auto;
+    max-width: 1500px;
+}
+
+.content {
+    @apply mt-24;
+}
