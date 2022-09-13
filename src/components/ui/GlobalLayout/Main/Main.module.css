@@ -26,18 +26,17 @@
 }
 
 .house__body {
-    background: #fd7373;  /* default background color */
+    background: #fd7373; /* default background color */
     width: 100%;
 }
 
 .house__body__content {
-    background: white;  /* default background color */
+    background: white; /* default background color */
     /* width: 90%;
     max-width: 1000px; */
-    margin: auto;
+    margin: auto auto 150px;
     /* max-width: 90%; */
 }
-
 
 @media (max-width: 800px) {
     .house__roof__leftT {

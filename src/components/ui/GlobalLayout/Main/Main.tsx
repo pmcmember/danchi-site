@@ -12,12 +12,7 @@ export const Main: React.VFC<Props> = ({ children, style, className }) => {
     return (
         <div style={style} className={`${styles.house} ${className || ''}`}>
             <div className={`${styles.house__body}`}>
-                <main
-                    className={styles.house__body__content}
-                    style={{ background: 'transparent' }}
-                >
-                    {children}
-                </main>
+                <main className={styles.house__body__content}>{children}</main>
             </div>
         </div>
     )
