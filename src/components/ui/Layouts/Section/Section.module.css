@@ -1,7 +1,6 @@
 .section {
     @apply w-full;
     @apply mx-auto;
-    padding: calc(40px + 10vw) 6vw;
 }
 
 .container {

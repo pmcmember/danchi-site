@@ -7,7 +7,7 @@ type Props = {
     children: React.ReactNode
     className?: string
     bgColor?: 'yellow' | 'blue' | 'red'
-    title: string
+    title?: string
     pageLink?: PageNames
 }
 
@@ -18,7 +18,6 @@ export const Section: React.VFC<Props> = ({
     bgColor,
     pageLink,
 }) => {
-    console.log(bgColor)
     const backgroundColor =
         bgColor === 'yellow'
             ? 'bg-yellow-200'
@@ -32,12 +31,15 @@ export const Section: React.VFC<Props> = ({
             className={`${styles.section} ${
                 className || ''
             } ${backgroundColor}`}
+            style={title ? { padding: 'calc(40px + 10vw) 6vw' } : {}}
         >
             <div className={styles.container}>
                 <div className={styles.head}>
-                    <h2>
-                        <span className={styles.title}>{title}</span>
-                    </h2>
+                    {title && (
+                        <h2>
+                            <span className={styles.title}>{title}</span>
+                        </h2>
+                    )}
                     {pageLink && (
                         <a className={styles.pageLink}>
                             <Link href={`/${pageLink}`}>show more...</Link>
