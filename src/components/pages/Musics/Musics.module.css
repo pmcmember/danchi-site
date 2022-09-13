@@ -3,15 +3,18 @@
  */
 .overview {
     @apply relative;
-}
-.overview__content {
-    @apply flex flex-col gap-3;
     max-width: 1200px;
     margin: auto;
 }
+.overview__content {
+    @apply flex flex-col gap-3;
+}
 
 .songList__list {
-    @apply cursor-pointer border border-zinc-400 px-3 py-2 w-full flex items-center;
+    @apply cursor-pointer px-3 py-2 w-full;
+    @apply border border-zinc-400;
+    @apply grid items-center;
+    grid-template-columns: calc(100% - 40px) 40px;
 }
 
 /**
@@ -31,11 +34,14 @@
 }
 
 .song__tags {
-    @apply flex gap-3;
+    @apply flex flex-wrap;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .song__tag {
-    @apply rounded-full text-zinc-500 text-xs;
+    @apply text-zinc-500 text-xs;
+    @apply mr-3;
 }
 
 @screen rsm {

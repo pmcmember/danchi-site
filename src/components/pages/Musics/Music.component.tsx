@@ -48,6 +48,8 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
         MusicListResponse['contents'][0] | undefined
     >(contents.contents[0])
     const [searchContent, setSearchContent] = React.useState<string>('')
+    const [matchCategories, setMatchCategories] =
+        React.useState<MusicSongCategoryListResponse>([])
     const [isContentsReloading, setIsContentsReloading] =
         React.useState<boolean>(false)
     const { onPlayButtonClick, requestNextSong, soundCloudStatus } =
@@ -138,28 +140,92 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
         [currentSong, setCurrentSong, requestNextSong, onPlayButtonClick]
     )
 
-    const onSearchButtonClick = async (content: string) => {
-        setIsContentsReloading(true)
-        const result = await client.v1.musics.search.$get({
-            query: {
-                value: content,
-            },
+    const onSearchFormChangeHandler = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const value = e.target.value
+        setSearchContent(value)
+
+        const matchCategories = categories?.filter((c) => {
+            return value && c.name.match(new RegExp(`.*${value}.*`))
         })
+        setMatchCategories(matchCategories || [])
+    }
+
+    const onSearchButtonClick = async (
+        content: string,
+        matchCategories: MusicSongCategoryListResponse
+    ) => {
+        setIsContentsReloading(true)
+
+        console.log(content, matchCategories)
+
+        const result =
+            matchCategories.length > 0
+                ? // マッチしているカテゴリで検索を実施する
+                  await (async () => {
+                      const query = matchCategories.reduce((pre, crr) => {
+                          return {
+                              type:
+                                  (pre?.type ? pre.type + ',' : '') + crr.type,
+                              name:
+                                  (pre?.name ? pre.name + ',' : '') + crr.name,
+                          }
+                      }, {} as { type: string; name: string })
+
+                      return await client.v1.musics.search.category.$get({
+                          query: {
+                              condition: 'or',
+                              ...query,
+                          },
+                      })
+                  })()
+                : content
+                ? // 全文検索を実施する
+                  await client.v1.musics.search.$get({
+                      query: {
+                          value: content,
+                      },
+                  })
+                : // 全権取得する
+                  await client.v1.musics.$get()
+
         setSongs(result?.contents || [])
         setIsContentsReloading(false)
     }
 
-    const onCategoryButtonClickHandler = async (
-        tag: MusicSongCategoryResponse
-    ) => {
-        setIsContentsReloading(true)
-        setSearchContent(tag.name)
-        const result = await client.v1.musics.search.category.$get({
-            query: tag,
-        })
-        setSongs(result.contents || [])
-        setIsContentsReloading(false)
-    }
+    const onCategoryButtonClickHandler = React.useCallback(
+        async (tag: MusicSongCategoryResponse) => {
+            const matchCategoriesFindResult = matchCategories.find(
+                (m) => m.name === tag.name
+            )
+            let searchContent: string = ''
+            let requestMatchCategories: MusicSongCategoryListResponse = []
+
+            if (matchCategoriesFindResult) {
+                requestMatchCategories = matchCategories.filter(
+                    (m) => m.name !== tag.name
+                )
+                setMatchCategories(requestMatchCategories)
+                setSearchContent((content) =>
+                    content.replace(new RegExp(`,? *${tag.name} *,?`), '')
+                )
+            } else {
+                requestMatchCategories = [...matchCategories, tag]
+                setMatchCategories(requestMatchCategories)
+
+                setSearchContent(
+                    requestMatchCategories.reduce(
+                        (pre, crr) => (pre ? pre + ' , ' : '') + crr.name,
+                        ''
+                    )
+                )
+            }
+
+            await onSearchButtonClick(searchContent, requestMatchCategories)
+        },
+        [onSearchButtonClick, matchCategories, setMatchCategories]
+    )
 
     return (
         <div className={styles.overview}>
@@ -168,14 +234,15 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
                     <h2 className={styles.errorwrap__text}>
                         エラーが発生したため、現在利用できません。
                         <br />
-                        お手数おかけし申し訳ございませんが、一度リロードして頂いたのち、再度ご利用いただきますようお願いいたします。
+                        申し訳ございませんが、一度リロードして頂いたのち、再度ご利用いただきますようお願いいたします。
                     </h2>
                 </div>
             )}
             <SearchForm
                 searchContent={searchContent}
-                onFormChange={setSearchContent}
+                onFormChange={onSearchFormChangeHandler}
                 categories={categories}
+                matchCategories={matchCategories}
                 onCategoryButtonClick={onCategoryButtonClickHandler}
                 onSearchButtonClick={onSearchButtonClick}
             />
@@ -224,11 +291,15 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
 
 type SearchForm = {
     searchContent: string
-    onFormChange: (value: string) => void
-    onSearchButtonClick: (searchContent: string) => Promise<void>
+    onFormChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onSearchButtonClick: (
+        searchContent: string,
+        matchCategories: MusicSongCategoryListResponse
+    ) => Promise<void>
     onCategoryButtonClick: (
         category: MusicSongCategoryResponse
     ) => Promise<void>
+    matchCategories: MusicSongCategoryListResponse
     categories?: MusicSongCategoryListResponse
 }
 
@@ -237,72 +308,68 @@ const SearchForm: React.FC<SearchForm> = ({
     onFormChange,
     onSearchButtonClick,
     onCategoryButtonClick,
+    matchCategories,
     categories,
-}) => (
-    <div className="flex flex-col gap-4 mb-24">
-        <FormControl className={styles.search}>
-            <SearchInput
-                value={searchContent}
-                onFormChange={(e) => onFormChange(e.target.value)}
-                onSearchButtonClick={() => onSearchButtonClick(searchContent)}
-                placeholder="曲検索"
-            />
-            {categories && (
-                <div className={styles.category}>
-                    <div className={styles.category__section}>
-                        <h3 className={styles.category__title}>ジャンル</h3>
-                        <ul className={styles.category__lists}>
-                            {categories
-                                .filter((c) => c.type === 'songGenres')
-                                .map((c) => (
-                                    <li
-                                        key={c.name}
-                                        className={styles.ycategory__list}
-                                    >
-                                        <Chip
-                                            label={c.name}
-                                            variant="outlined"
-                                            onClick={() =>
-                                                onCategoryButtonClick({
-                                                    type: c.type,
-                                                    name: c.name,
-                                                })
-                                            }
-                                        />
-                                    </li>
-                                ))}
-                        </ul>
+}) => {
+    const CategoryList: React.FC<{
+        type: MusicSongCategoryResponse['type']
+    }> = ({ type }) => (
+        <ul className={styles.category__lists}>
+            {categories
+                ?.filter((c) => c.type === type)
+                .map((c) => (
+                    <li key={c.name} className={styles.ycategory__list}>
+                        <Chip
+                            label={c.name}
+                            variant="outlined"
+                            onClick={() =>
+                                onCategoryButtonClick({
+                                    type: c.type,
+                                    name: c.name,
+                                })
+                            }
+                            color={
+                                matchCategories.find((m) => {
+                                    return m.type === type && m.name === c.name
+                                })
+                                    ? 'primary'
+                                    : undefined
+                            }
+                        />
+                    </li>
+                ))}
+        </ul>
+    )
+
+    return (
+        <div className="flex flex-col gap-4 mb-24">
+            <FormControl className={styles.search}>
+                {categories && (
+                    <div className={styles.category}>
+                        <div className={styles.category__section}>
+                            <h3 className={styles.category__title}>ジャンル</h3>
+                            <CategoryList type="songGenres" />
+                        </div>
+                        <div className={styles.category__section}>
+                            <h3 className={styles.category__title}>
+                                曲のイメージ
+                            </h3>
+                            <CategoryList type="songImages" />
+                        </div>
                     </div>
-                    <div className={styles.category__section}>
-                        <h3 className={styles.category__title}>曲のイメージ</h3>
-                        <ul className={styles.category__lists}>
-                            {categories
-                                .filter((c) => c.type === 'songImages')
-                                .map((c) => (
-                                    <li
-                                        key={c.name}
-                                        className={styles.category__list}
-                                    >
-                                        <Chip
-                                            className="cursor-pointer"
-                                            label={c.name}
-                                            variant="outlined"
-                                            onClick={() =>
-                                                onCategoryButtonClick({
-                                                    type: c.type,
-                                                    name: c.name,
-                                                })
-                                            }
-                                        />
-                                    </li>
-                                ))}
-                        </ul>
-                    </div>
-                </div>
-            )}
-        </FormControl>
-    </div>
-)
+                )}
+                <SearchInput
+                    value={searchContent}
+                    onFormChange={onFormChange}
+                    onSearchButtonClick={() =>
+                        onSearchButtonClick(searchContent, matchCategories)
+                    }
+                    placeholder="曲検索"
+                />
+            </FormControl>
+        </div>
+    )
+}
 
 type SongConfigs = {
     content: SongConfig
