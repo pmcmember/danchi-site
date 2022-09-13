@@ -1,55 +1,63 @@
-import React from 'react';
-import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
-import { RealDentButton } from '@/components/ui/Buttons';
-import { useSoundCloud, useModal } from '@/hooks';
+import React from 'react'
+import { RealDentButton } from '@/components/ui/Buttons'
+import { useSoundCloud, useModal } from '@/hooks'
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud'
-import { Box, CircularProgress } from '@mui/material'
-import { MusicsResultList } from '@/api/@types'
-import { PlayerTransIcon } from '@/components/ui/TransIcons';
-import {FaUser, } from 'react-icons/fa'
-import {IoIosMusicalNotes} from 'react-icons/io'
+import { Box } from '@mui/material'
+import { MusicListResponse } from '@/api/@types'
+import { PlayerTransIcon } from '@/components/ui/TransIcons'
+import { FaUser } from 'react-icons/fa'
+import { IoIosMusicalNotes } from 'react-icons/io'
 import Link from 'next/link'
 
 type Props = {
-    soundCloudContents: MusicsResultList["contents"]
+    soundCloudContents: MusicListResponse['contents']
 }
 
-export const PlaySongUI: React.VFC<Props> = ({soundCloudContents}) => {
-    const iframeId = "play-song-ui"
-    const {onPlayButtonClick, requestNextSong, soundCloudStatus} = useSoundCloud({iframeId});
-    const {setIsModalOpen, Modal} = useModal({})
-    const [currentSong, setCurrentSong] = React.useState<MusicsResultList['contents'][0]>(soundCloudContents[Math.floor(Math.random() * soundCloudContents.length)]);
-    
+export const PlaySongUI: React.VFC<Props> = ({ soundCloudContents }) => {
+    const iframeId = 'play-song-ui'
+    const { onPlayButtonClick, requestNextSong, soundCloudStatus } =
+        useSoundCloud({ iframeId })
+    const { setIsModalOpen, Modal } = useModal({})
+    const [currentSong, setCurrentSong] = React.useState<
+        MusicListResponse['contents'][0]
+    >(soundCloudContents[Math.floor(Math.random() * soundCloudContents.length)])
+
     const onPlayButtonClickHandler = React.useCallback(() => {
-        soundCloudStatus === "PAUSE" || soundCloudStatus === "SEEK" ? (() => {
-            const scInfo = soundCloudContents[Math.floor(Math.random() * soundCloudContents.length)]
-            
-            setCurrentSong(scInfo);
-            requestNextSong(scInfo.scApiUrl || "")
-            .then(() => {
-                onPlayButtonClick();
-            })
-        })() : (() => {
-            onPlayButtonClick()
-        })();
-    }, [soundCloudStatus, setCurrentSong, requestNextSong, onPlayButtonClick]);
+        soundCloudStatus === 'PAUSE' || soundCloudStatus === 'SEEK'
+            ? (() => {
+                  const scInfo =
+                      soundCloudContents[
+                          Math.floor(Math.random() * soundCloudContents.length)
+                      ]
+
+                  setCurrentSong(scInfo)
+                  requestNextSong(scInfo.scApiUrl || '').then(() => {
+                      onPlayButtonClick()
+                  })
+              })()
+            : (() => {
+                  onPlayButtonClick()
+              })()
+    }, [soundCloudStatus, setCurrentSong, requestNextSong, onPlayButtonClick])
 
     React.useEffect(() => {
-        if(soundCloudStatus === "FINISH") {
-            const currentSongIndex = soundCloudContents.findIndex((c) => c.id === currentSong.id);
+        if (soundCloudStatus === 'FINISH') {
+            const currentSongIndex = soundCloudContents.findIndex(
+                (c) => c.id === currentSong.id
+            )
 
-            const nextSong = 
-                (currentSongIndex + 1) >= soundCloudContents.length || currentSongIndex === -1
-                ? soundCloudContents[0]
-                : soundCloudContents[currentSongIndex + 1]
-            
-            if( ! nextSong.scApiUrl) return
+            const nextSong =
+                currentSongIndex + 1 >= soundCloudContents.length ||
+                currentSongIndex === -1
+                    ? soundCloudContents[0]
+                    : soundCloudContents[currentSongIndex + 1]
 
-            setCurrentSong(nextSong);
+            if (!nextSong.scApiUrl) return
 
-            requestNextSong(nextSong.scApiUrl)
-            .then(() => {
-                onPlayButtonClick();
+            setCurrentSong(nextSong)
+
+            requestNextSong(nextSong.scApiUrl).then(() => {
+                onPlayButtonClick()
             })
         }
     }, [
@@ -60,14 +68,13 @@ export const PlaySongUI: React.VFC<Props> = ({soundCloudContents}) => {
         setCurrentSong,
     ])
 
-
     return (
         <>
             <div className="fixed bottom-5 right-5 sm:bottom-16 sm:right-5">
-                {soundCloudStatus === "PLAY_PROGRESS" && (
+                {soundCloudStatus === 'PLAY_PROGRESS' && (
                     <div
                         className="bg-white cursor-pointer py-2 -translate-y-2 flex justify-center items-center rounded-full border border-slate-800"
-                        style={{fontSize: "10px", width: "90px"}}
+                        style={{ fontSize: '10px', width: '90px' }}
                         onClick={() => setIsModalOpen(true)}
                     >
                         楽曲詳細
@@ -75,60 +82,72 @@ export const PlaySongUI: React.VFC<Props> = ({soundCloudContents}) => {
                 )}
                 <RealDentButton
                     size="90px"
-                    disabled={soundCloudStatus === "ERROR"}
+                    disabled={soundCloudStatus === 'ERROR'}
                     onClick={onPlayButtonClickHandler}
                 >
-                    <span className="translate-y-1" style={{fontSize: "10px"}}>ランダム再生</span>
+                    <span
+                        className="translate-y-1"
+                        style={{ fontSize: '10px' }}
+                    >
+                        ランダム再生
+                    </span>
                     <span className="text-5xl text-blue-900">
-                        <PlayerTransIcon status={soundCloudStatus}/>
+                        <PlayerTransIcon status={soundCloudStatus} />
                     </span>
                 </RealDentButton>
             </div>
             <div className="hidden">
                 <EmbedSoundCloud
-                    embedUrl={currentSong.scSrc || ""}
-                    artistHref={currentSong.scArtistHref || ""}
-                    artistName={currentSong.scArtistName || ""}
-                    songHref={currentSong.scSongHref || ""}
-                    songTitle={currentSong.scSongTitle || ""}
+                    embedUrl={currentSong.scSrc || ''}
+                    artistHref={currentSong.scArtistHref || ''}
+                    artistName={currentSong.scArtistName || ''}
+                    songHref={currentSong.scSongHref || ''}
+                    songTitle={currentSong.scSongTitle || ''}
                     id={iframeId}
                 />
             </div>
             <Modal>
                 <Box className="bg-white w-10/12 p-8 rounded-xl absolute">
                     <div>
-                        <div className="font-bold text-2xl border-b border-slate-800 pb-3 mb-6">流れている曲詳細</div>
+                        <div className="font-bold text-2xl border-b border-slate-800 pb-3 mb-6">
+                            流れている曲詳細
+                        </div>
                         <ul className="flex flex-col gap-4">
                             <li className="flex gap-2 items-center">
-                                <FaUser className="text-2xl"/>
+                                <FaUser className="text-2xl" />
                                 <a href={currentSong.scArtistHref}>
                                     {currentSong.scArtistName}
                                 </a>
                             </li>
                             <li className="flex gap-2 items-center">
-                                <IoIosMusicalNotes className="text-2xl"/>
+                                <IoIosMusicalNotes className="text-2xl" />
                                 <a href={currentSong.scSongHref}>
                                     {currentSong.scSongTitle}
                                 </a>
                             </li>
-                            {currentSong?.songCategories ? (
-                                <ul className="flex gap-2">
-                                    {currentSong.songCategories.map((category) => (
-                                        <li
-                                            style={{fontSize: "10px"}}
-                                            key={`${currentSong.id}-${category.songCategory}`}
-                                        >
-                                            <Link href={`/musics/categories/${category.songCategory}`}>
-                                                <a className="rounded-full bg-slate-500 text-white px-2 py-1">
-                                                    {`#${category.songCategory}`}
-                                                </a>
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            ): (
-                                <></>
-                            )}
+
+                            <ul className="flex gap-2">
+                                {currentSong.songGenres.value.map((genre) => (
+                                    <li
+                                        style={{ fontSize: '10px' }}
+                                        key={`${currentSong.id}-${genre}`}
+                                    >
+                                        <div className="rounded-full bg-slate-500 text-white px-2 py-1">
+                                            {`#${genre}`}
+                                        </div>
+                                    </li>
+                                ))}
+                                {currentSong.songImages.value.map((image) => (
+                                    <li
+                                        style={{ fontSize: '10px' }}
+                                        key={`${currentSong.id}-${image}`}
+                                    >
+                                        <div className="rounded-full bg-slate-500 text-white px-2 py-1">
+                                            {`#${image}`}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                         </ul>
                     </div>
                     <div
