@@ -1,37 +1,42 @@
-import { BlogsResultList } from '@/api/@types'
-import { SquareImageCard } from '@/components/ui/Cards'
+import React from 'react'
+import {
+    BlogListResponse,
+    MusicListResponse,
+    MusicSongCategoryListResponse,
+    VideoListResponse,
+} from '@/api/@types'
 import { Section } from '@/components/ui/Layouts'
 import styles from './Top.module.css'
 import { Image } from '@/components/ui/Image'
-import { ContactOverview } from '../Contact/Contact'
-import { Menu } from '@/components/ui/Layouts'
+import { ContactOverview } from '@/components/pages/Contact/Contact'
+import { MusicsOverview } from '@/components/pages/Musics'
+import { BlogsOverview } from '@/components/pages/Blogs/Blogs'
+import { VideosOverview } from '@/components/pages/Videos/Videos'
 
 type HeroImage = {
     src: string
-    subTitle: string
     title: string
 }
 
-export const HeroImage: React.FC<HeroImage> = ({ src, subTitle, title }) => (
-    <div
-        className={styles.hiroImage}
-        style={{ backgroundImage: `url(${src})` }}
-    >
-        <div>
-            <p className={styles.hiroImage__text}>{subTitle}</p>
+export const HeroImage: React.FC<HeroImage> = ({ src, title }) => (
+    <div className={styles.hiroImage}>
+        <div className={styles.hiroImage__textWrap}>
             <h2 className={styles.hiroImage__title}>{title}</h2>
         </div>
+        <Image src={src} />
     </div>
 )
 
 type Profile = {
     imgSrc: string
+    title: string
     profileText: string
 }
 
-export const Profile: React.FC<Profile> = ({ imgSrc, profileText }) => (
+export const Profile: React.FC<Profile> = ({ imgSrc, title, profileText }) => (
     <div className={styles.profile}>
         <div className={styles.profile__left}>
+            <h2 className={styles.profile__title}>{title}</h2>
             <div className={styles.profile__text}>{profileText}</div>
         </div>
         <div className={styles.profile__partition}></div>
@@ -45,11 +50,13 @@ export const Profile: React.FC<Profile> = ({ imgSrc, profileText }) => (
     </div>
 )
 
-type EyeCatch = {}
+type EyeCatch = {
+    imgSrc: string
+}
 
-export const EyeCatch: React.FC<EyeCatch> = () => (
+export const EyeCatch: React.FC<EyeCatch> = ({ imgSrc }) => (
     <div className={styles.eyeCatch}>
-        <Image />
+        <Image src={imgSrc} />
     </div>
 )
 
@@ -59,114 +66,72 @@ type BaseSectionType = {
 }
 
 type BlogsSection = {
-    contents: BlogsResultList
+    contents: BlogListResponse
 } & BaseSectionType
 
-export const BlogsSection: React.FC<BlogsSection> = ({
-    contents,
-    className,
-    bgColor,
-}) => (
-    <Section
-        title="活動報告"
-        className={className}
-        bgColor={bgColor}
-        pageLink={'blogs'}
-    >
-        <Menu
-            contents={contents.contents.map((content) => (
-                <SquareImageCard
-                    title={content.title}
-                    href={content.id}
-                    tags={content.tags && content.tags.map((t) => t.tag)}
-                    Image={
-                        <Image
-                            src={content.image?.url}
-                            alt={`${content.title}のイメージ`}
-                            className="object-cover"
-                        />
-                    }
-                />
-            ))}
-        />
-    </Section>
+export const BlogsSection: React.FC<BlogsSection> = React.memo(
+    ({ contents, className, bgColor }) => (
+        <Section
+            title="活動報告"
+            className={className}
+            bgColor={bgColor}
+            pageLink={'blogs'}
+        >
+            <BlogsOverview blogs={contents} />
+        </Section>
+    )
 )
 
 type MusicsSection = {
-    contents: BlogsResultList
+    contents: MusicListResponse
+    categories: MusicSongCategoryListResponse
 } & BaseSectionType
 
 export const MusicsSection: React.FC<MusicsSection> = ({
     contents,
+    categories,
     className,
     bgColor,
 }) => (
     <Section
-        title="音楽作品"
+        title="フリーBGM"
         className={className}
         bgColor={bgColor}
         pageLink={'musics'}
     >
-        <Menu
-            contents={contents.contents.map((content) => (
-                <SquareImageCard
-                    title={content.title}
-                    href={content.id}
-                    tags={content.tags && content.tags.map((t) => t.tag)}
-                    Image={
-                        <Image
-                            src={content.image?.url}
-                            alt={`${content.title}のイメージ`}
-                            className="object-cover"
-                        />
-                    }
-                />
-            ))}
-        />
+        <MusicsOverview contents={contents} categories={categories} />
     </Section>
 )
 
 type VideosSection = {
-    contents: BlogsResultList
+    contents: VideoListResponse
 } & BaseSectionType
 
-export const VideosSection: React.FC<VideosSection> = ({
-    contents,
-    className,
-    bgColor,
-}) => (
-    <Section
-        title="動画作品"
-        className={className}
-        bgColor={bgColor}
-        pageLink={'videos'}
-    >
-        <Menu
-            contents={contents.contents.map((content) => (
-                <SquareImageCard
-                    title={content.title}
-                    href={content.id}
-                    tags={content.tags && content.tags.map((t) => t.tag)}
-                    Image={
-                        <Image
-                            src={content.image?.url}
-                            alt={`${content.title}のイメージ`}
-                            className="object-cover"
-                        />
-                    }
-                />
-            ))}
-        />
-    </Section>
+export const VideosSection: React.FC<VideosSection> = React.memo(
+    ({ contents, className, bgColor }) => (
+        <Section
+            title="動画作品"
+            className={className}
+            bgColor={bgColor}
+            pageLink={'videos'}
+        >
+            <VideosOverview contents={contents} />
+        </Section>
+    )
 )
 
 type ContactSection = {} & BaseSectionType
 
-export const ContactSection: React.FC<ContactSection> = ({
-    className,
-    bgColor,
-}) => (
-    <Section title="お問い合わせ" className={className} bgColor={bgColor}>
-        <ContactOverview />
-    </Section>
+export const ContactSection: React.FC<ContactSection> = React.memo(
+    ({ className, bgColor }) => {
+        return (
+            <Section
+                title="お問い合わせ"
+                className={className}
+                bgColor={bgColor}
+            >
+                <ContactOverview />
+            </Section>
+        )
+    }
 )

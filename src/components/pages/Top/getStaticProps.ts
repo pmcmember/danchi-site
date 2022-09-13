@@ -1,21 +1,36 @@
-import { GetStaticProps } from 'next';
-import { BlogsResultList, MusicsResultList } from '@/api/@types'
-import { client } from '@/lib/aspida';
-
+import { GetStaticProps } from 'next'
+import {
+    BlogListResponse,
+    MusicListResponse,
+    MusicSongCategoryListResponse,
+    VideoListResponse,
+} from '@/api/@types'
+import { client } from '@/lib/aspida'
 
 export type Props = {
-    musics: MusicsResultList
-    blogs: BlogsResultList
+    musics: MusicListResponse
+    categories: MusicSongCategoryListResponse
+    blogs: BlogListResponse
+    videos: VideoListResponse
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const musicsFetchResult: MusicsResultList = await client.v1.musics.$get();
-    const blogsFetchResult: BlogsResultList = await client.v1.blogs.$get()
+    const musicsFetchResult = await client.v1.musics.$get()
+    const blogsFetchResult = await client.v1.blogs.$get()
+    const videosFetchResult = await client.v1.videos.$get({
+        query: {
+            maxResults: 8,
+        },
+    })
+    const categoriesFetchResult: MusicSongCategoryListResponse =
+        await client.v1.musics.category.$get()
 
     return {
         props: {
             musics: musicsFetchResult,
-            blogs: blogsFetchResult
-        }
+            categories: categoriesFetchResult,
+            blogs: blogsFetchResult,
+            videos: videosFetchResult,
+        },
     }
 }
