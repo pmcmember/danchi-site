@@ -1,20 +1,57 @@
+/**
+ * blogのスタイル
+ */
+.blog {
+    @apply w-11/12 m-auto;
+}
+
+.blog__content {
+    @apply flex flex-col lg:flex-row rlg:gap-40;
+}
+
+.blog__button {
+    @apply mt-24;
+}
+
+/**
+ * 目次のスタイル
+ */
+.tableOfContents {
+    @apply bg-gray-200 px-8 pt-4 pb-8 rounded-lg;
+}
+
+.tableOfContents__title {
+    @apply text-center mb-4;
+    @apply text-2xl font-bold;
+}
+
+.tableOfContents__lists {
+    @apply list-disc ml-4 flex flex-col gap-4;
+}
+
+.tableOfContents__list {
+    @apply text-xl;
+}
+
+/**
+ * 記事内容スタイル
+ */
 /* タイトル(1)用スタイル */
 .blogContents > h1 {
     --tw-border-opacity: 1;
     border-color: rgb(148 163 184 / var(--tw-border-opacity));
     font-weight: bold;
-    font-size: 2.25rem/* 36px */;
-    line-height: 2.5rem/* 40px */;
+    font-size: 2.25rem /* 36px */;
+    line-height: 2.5rem /* 40px */;
     border-bottom: 1px solid;
     padding-bottom: 0.5rem;
-    
 }
 
 /* タイトル(2)用スタイル */
 .blogContents > h2 {
     font-weight: bold;
-    font-size: 1.875rem/* 30px */;
-    line-height: 2.25rem/* 36px */;
+    font-size: 1.875rem /* 30px */;
+    line-height: 2.25rem /* 36px */;
     border-left: 5px solid rgb(23, 23, 23);
     padding-left: 15px;
 }
@@ -22,8 +59,8 @@
 /* タイトル(3)用スタイル */
 .blogContents > h3 {
     font-weight: bold;
-    font-size: 1.5rem/* 24px */;
-    line-height: 2rem/* 32px */;
+    font-size: 1.5rem /* 24px */;
+    line-height: 2rem /* 32px */;
     border-left: 5px solid rgb(23, 23, 23);
     padding-left: 15px;
 }
@@ -31,8 +68,8 @@
 /* タイトル(4)用スタイル */
 .blogContents > h4 {
     font-weight: bold;
-    font-size: 1.25rem/* 20px */;
-    line-height: 1.75rem/* 28px */;
+    font-size: 1.25rem /* 20px */;
+    line-height: 1.75rem /* 28px */;
     border-left: 5px solid rgb(23, 23, 23);
     padding-left: 15px;
 }
@@ -40,8 +77,8 @@
 /* タイトル(5)用スタイル */
 .blogContents > h5 {
     font-weight: bold;
-    font-size: 1.25rem/* 20px */;
-    line-height: 1.75rem/* 28px */;
+    font-size: 1.25rem /* 20px */;
+    line-height: 1.75rem /* 28px */;
     border-left: 5px solid rgb(23, 23, 23);
     padding-left: 15px;
 }
@@ -71,7 +108,7 @@
 
 /* リスト用スタイル */
 .blogContents > ul {
-    list-style:outside;
+    list-style: outside;
     padding-left: 35px;
 }
 
@@ -87,4 +124,66 @@
     text-decoration: underline;
     color: rgb(80, 80, 255);
     background: red;
+}
+
+/**
+ * サイドバースタイル
+ */
+.sidebar {
+    @apply lg:ml-auto lg:pl-10 lg:w-4/12 xl:pl-24 xl:w-1/4;
+    @apply rlg:w-full;
+}
+
+.sidebar__content {
+    @apply flex flex-col gap-20;
+}
+
+/**
+ * プロフィールスタイル
+ */
+.profileCard {
+    margin: auto;
+}
+
+@screen xl {
+    .profileCard {
+        max-width: 85%;
+    }
+}
+
+@screen rlg {
+    .profileCard {
+        @apply gap-4;
+        display: grid !important;
+        max-width: 95%;
+        grid-template-columns: 50% 1fr;
+    }
+}
+
+@screen rsm {
+    .profileCard {
+        max-width: 100%;
+        display: block !important;
+    }
+}
+
+/**
+ * 関連記事スタイル
+ */
+.related {
+    @apply font-bold text-lg mb-4;
+}
+
+.related__title {
+    @apply font-bold text-lg mb-4;
+}
+
+.related__lists {
+    @apply flex flex-col gap-4;
+    @apply rlg:grid rlg:grid-cols-2 gap-8;
+    @apply rsm:flex;
+}
+
+.related__list {
+    @apply mx-auto;
 }
