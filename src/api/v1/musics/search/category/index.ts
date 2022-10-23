@@ -17,45 +17,35 @@ export type Methods = {
 
     query: {
       /**
-       * カテゴリによる曲検索処理の検索条件<br>
-       * type、nameの複数指定する際はカンマ区切りで縦列を合わせてリクエストする
-       * 
-       * - type
-       *   検索するカテゴリの種別を指定(必須)<br>
-       *   カンマ区切りで複数指定可能
-       * 
-       * - name
-       *   検索するカテゴリを指定する。(必須)<br>
-       *   カンマ区切りで複数指定可能
-       * 
-       * - condition
-       *   type、nameが複数指定された場合の検索条件(任意)<br>
-       *   デフォルトでorで検索される。<br>
-       *   指定できる値
-       *   - and
-       *   - or
-       * 
-       * - orders
-       *   取得するコンテンツの並び替えを行う。(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
-       * 
-       * - offset
-       *   何件目から取得するかを指定(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
-       * 
-       * - limit
-       *   取得件数を指定(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+       * 検索するカテゴリの種別を指定<br>
+       * カンマ区切りで複数指定可能
        */
-      MusicSearchByCategorySelector: {
-        condition?: 'and' | 'or' | undefined
-        name: string
-        type: string
-      } & {
-        limit?: number | undefined
-        offset?: number | undefined
-        orders?: string | undefined
-      }
+      type: string
+      /**
+       * 検索するカテゴリを指定する。<br>
+       * カンマ区切りで複数指定可能
+       */
+      name: string
+      /**
+       * type、nameが複数指定された場合の検索条件<br>
+       * デフォルトでorで検索される。<br>
+       */
+      condition?: 'or' | 'and' | undefined
+      /**
+       * 取得したい件数の上限を指定する。レスポンスサイズが5MBを超えるとエラーが発生する。<br>
+       * https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+       */
+      limit?: number | undefined
+      /**
+       * 取得したいデータの並び替えを行う。<br>
+       * https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+       */
+      orders?: string | undefined
+      /**
+       * 何件目から取得するかを指定<br>
+       * https://document.microcms.io/content-api/get-list-contents#h41838110ca
+       */
+      offset?: number | undefined
     }
 
     status: 200

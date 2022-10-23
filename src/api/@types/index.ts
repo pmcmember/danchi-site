@@ -200,7 +200,7 @@ export type VideoListResponse = {
           width: number
         }
 
-        midium: {
+        medium: {
           height: number
           url: string
           width: number
@@ -219,6 +219,11 @@ export type VideoListResponse = {
   }
 
   prevPageToken?: string | undefined
+}
+
+/** 汎用的なAPIレスポンス */
+export type ContactResponse = {
+  message: string
 }
 
 /** MicroCMSのmusicのコンテンツ変更時のWebhookAPIリクエスト */
@@ -367,75 +372,78 @@ export type MusicSongCategoryAddRequest = {
   type: 'songGenres' | 'songImages'
 }[]
 
-/**
- * ブログ一覧を取得する際の取得条件
- * 
- * - offset
- *   何件目から取得するかを指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
- * 
- * - limit
- *   取得件数を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
- * 
- * - orders
- *   取得するコンテンツの並び替えを行う。(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
- * 
- * - fields
- *   コンテンツの中で取得する要素を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h7462d83de4
- * 
- * - ids
- *   コンテンツのIDをカンマ区切りで指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
- * 
- * - filters
- *   コンテンツの絞り込み条件を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
- */
+export type ContactRequest = {
+  content: string
+  name?: string | undefined
+  subject: string
+  toAddress?: string | undefined
+}
+
+/** MicroCMSのデータを一覧取得する際のクエリパラメータ */
 export type BlogListSelector = {
+  /**
+   * コンテンツの中で取得する要素を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h7462d83de4
+   */
   fields?: string | undefined
+  /**
+   * コンテンツの絞り込み条件を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
+   */
   filters?: string | undefined
+  /**
+   * コンテンツのIDをカンマ区切りで指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
+   */
   ids?: string | undefined
+  /**
+   * 取得件数を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+   */
   limit?: number | undefined
+  /**
+   * 何件目から取得するかを指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h41838110ca
+   */
   offset?: number | undefined
+  /**
+   * 取得するコンテンツの並び替えを行う。(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+   */
   orders?: string | undefined
 }
 
-/**
- * 曲一覧を取得する際の取得条件
- * 
- * - offset
- *   何件目から取得するかを指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
- * 
- * - limit
- *   取得件数を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
- * 
- * - orders
- *   取得するコンテンツの並び替えを行う。(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
- * 
- * - fields
- *   コンテンツの中で取得する要素を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h7462d83de4
- * 
- * - ids
- *   コンテンツのIDをカンマ区切りで指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
- * 
- * - filters
- *   コンテンツの絞り込み条件を指定(任意)<br>
- *   https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
- */
+/** MicroCMSのデータを一覧取得する際のクエリパラメータ */
 export type MusicListSelector = {
+  /**
+   * コンテンツの中で取得する要素を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h7462d83de4
+   */
   fields?: string | undefined
+  /**
+   * コンテンツの絞り込み条件を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#hdebbdc8e86
+   */
   filters?: string | undefined
+  /**
+   * コンテンツのIDをカンマ区切りで指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h6b992e0fe4
+   */
   ids?: string | undefined
+  /**
+   * 取得件数を指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+   */
   limit?: number | undefined
+  /**
+   * 何件目から取得するかを指定(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#h41838110ca
+   */
   offset?: number | undefined
+  /**
+   * 取得するコンテンツの並び替えを行う。(任意)<br>
+   * https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+   */
   orders?: string | undefined
 }
 

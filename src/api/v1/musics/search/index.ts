@@ -17,31 +17,23 @@ export type Methods = {
     } | undefined
 
     query: {
+      /** 検索対象の文字 */
+      value: string
       /**
-       * musics検索の検索条件<br>
-       * 
-       * - value
-       *   検索対象の文字(必須)
-       * 
-       * - orders
-       *   取得するコンテンツの並び替えを行う。(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
-       * 
-       * - offset
-       *   何件目から取得するかを指定(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#h41838110ca
-       * 
-       * - limit
-       *   取得件数を指定(任意)<br>
-       *   https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
+       * 取得したい件数の上限を指定する。レスポンスサイズが5MBを超えるとエラーが発生する。<br>
+       * https://document.microcms.io/content-api/get-list-contents#h4cd61f9fa1
        */
-      MusicSearchByAnyValueSelector: {
-        value: string
-      } & {
-        limit?: number | undefined
-        offset?: number | undefined
-        orders?: string | undefined
-      }
+      limit?: number | undefined
+      /**
+       * 取得したいデータの並び替えを行う。<br>
+       * https://document.microcms.io/content-api/get-list-contents#hf1af2f632c
+       */
+      orders?: string | undefined
+      /**
+       * 何件目から取得するかを指定<br>
+       * https://document.microcms.io/content-api/get-list-contents#h41838110ca
+       */
+      offset?: number | undefined
     }
 
     status: 200
