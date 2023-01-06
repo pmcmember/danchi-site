@@ -1,12 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
+import React from 'react'
+import Link from 'next/link'
 
 type Props = {
-    href: string;
+    href: string
     children: React.ReactNode
 }
 
-export const LinkButton: React.VFC<Props> = ({href, children}) => {
+export const LinkButton: React.VFC<Props> = ({ href, children }) => {
     return (
         <Link href={href}>
             <a>

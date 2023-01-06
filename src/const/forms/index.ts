@@ -1,17 +1,10 @@
 import {
     ContactFormAttributes,
+    ContactInputs,
     ContactNames,
-    ContactInputs
 } from './forms.type'
 import ContactFormParams from './ContactFormParams'
 
+export { ContactFormParams }
 
-export {
-    ContactFormParams
-}
-
-export type {
-    ContactFormAttributes,
-    ContactNames,
-    ContactInputs
-};
+export type { ContactFormAttributes, ContactNames, ContactInputs }

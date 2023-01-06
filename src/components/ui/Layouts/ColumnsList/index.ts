@@ -1,8 +1,8 @@
-import { ColumnsListChild } from "./ColumnsListChild";
-import { ColumnsListParent } from "./ColumnsListParent";
+import { ColumnsListChild } from './ColumnsListChild'
+import { ColumnsListParent } from './ColumnsListParent'
 
 /**  for example
- * 
+ *
  * <ColumnsListParent>
  *    {data.map((datum) => (
  *        <ColumnsListChild>
@@ -10,12 +10,12 @@ import { ColumnsListParent } from "./ColumnsListParent";
  *        </ColumnsListChild>
  *    ))}
  * </ColumnsListParent>
- * 
+ *
  */
 
 export {
     ColumnsListChild,
     ColumnsListParent,
     ColumnsListParent as Parent,
-    ColumnsListChild as Child
+    ColumnsListChild as Child,
 }

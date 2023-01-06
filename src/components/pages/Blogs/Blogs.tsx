@@ -1,21 +1,12 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 
 import { StandardCard } from '@/components/ui/Cards'
 
-import {
-    ColumnsListParent,
-    ColumnsListChild,
-    Overview,
-    Section,
-    PageContentsWrapper,
-    Menu,
-} from '@/components/ui/Layouts'
+import { Menu, PageContentsWrapper, Section } from '@/components/ui/Layouts'
 // import { Pagination } from '@/components/ui/Pagination'
-import { PageNames, PageTitles } from '@/const/pages'
+import { PageNames } from '@/const/pages'
 import { Props } from './getStaticProps'
-import Twitter from '@/assets/twitter-icon.png'
-import { Chip, Pagination, Stack } from '@mui/material'
+import { Chip, Stack } from '@mui/material'
 import { Image } from '@/components/ui/Image'
 
 export const Blogs: NextPage<Props> = ({ blogs, currentPage, totalPages }) => {
@@ -43,14 +34,12 @@ type BlogsOverviewProps = {
     blogs: Props['blogs']
 }
 
-export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({
-    paginationConf,
-    blogs,
-}) => {
+export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({ blogs }) => {
     return (
         <Menu
             contents={blogs.contents.map((blog) => (
                 <StandardCard
+                    key={blog.id}
                     title={blog.title}
                     href={`/blogs/contents/${blog.id}`}
                     Description={

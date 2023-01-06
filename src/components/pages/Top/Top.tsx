@@ -18,7 +18,6 @@ import {
     Profile,
     VideosSection,
 } from './Top.component'
-import styles from './Top.module.css'
 
 export const Top: NextPage<Props> = ({ musics, blogs, videos, categories }) => (
     <PageContentsWrapper page="top">

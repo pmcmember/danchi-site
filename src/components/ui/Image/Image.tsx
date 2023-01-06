@@ -1,19 +1,26 @@
 import React from 'react'
-import NextImage, { ImageProps } from 'next/image'
+import { ImageProps, StaticImageData } from 'next/image'
 import DefaultImage from '@/assets/default-image.png'
 
-type Props = Omit<ImageProps, 'layout' | 'src'> & { src?: ImageProps['src'] }
+type Props = Omit<ImageProps, 'layout' | 'src'> & {
+    src?: string | StaticImageData
+    alt?: string
+}
 
 export const Image: React.FC<Props> = (props) => {
-    const src: string =
-        typeof props.src === 'string' ? props.src : (props.src as any).src
+    const src: string = !props.src
+        ? DefaultImage.src
+        : typeof props.src === 'string'
+        ? props.src
+        : props.src.src
     return (
         <img
             {...props}
-            src={src || DefaultImage.src}
+            src={src}
             className={`object-cover absolute top-0 left-0 w-full h-full ${
                 props.className || ''
             }`}
+            alt={props.alt}
             // layout="fill"
         />
         // <NextImage

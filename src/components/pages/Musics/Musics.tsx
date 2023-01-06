@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React from 'react'
-import { Overview, Section, PageContentsWrapper } from '@/components/ui/Layouts'
+import { PageContentsWrapper, Section } from '@/components/ui/Layouts'
 import { PageNames } from '@/const/pages'
 import { Props } from './getStaticProps'
 import { PlaySongUI } from '@/components/ui/UIs'

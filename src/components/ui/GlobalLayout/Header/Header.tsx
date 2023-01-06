@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './Header.module.css'
 
-import { PageIcons, PageNames, PageTitles } from '@/const/pages'
+import { PageIcons, PageTitles } from '@/const/pages'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Image } from '@/components/ui/Image'
@@ -14,7 +14,7 @@ type Props = {
     isHide: boolean
 }
 
-export const Header: React.VFC<Props> = ({ style, className, isHide }) => {
+export const Header: React.VFC<Props> = ({ className, isHide }) => {
     const currentPage = useRouter().pathname.split('/')[1] || 'top'
 
     return (

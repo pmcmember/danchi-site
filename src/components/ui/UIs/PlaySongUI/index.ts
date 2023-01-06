@@ -1,5 +1,3 @@
-import { PlaySongUI } from './PlaySongUI';
+import { PlaySongUI } from './PlaySongUI'
 
-export {
-    PlaySongUI
-}
+export { PlaySongUI }

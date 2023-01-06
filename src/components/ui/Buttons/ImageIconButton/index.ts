@@ -1,5 +1,3 @@
-import { ImageIconButton } from "./ImageIconButton";
+import { ImageIconButton } from './ImageIconButton'
 
-export {
-    ImageIconButton
-}
+export { ImageIconButton }

@@ -1,5 +1,3 @@
-import { PageLabel } from './PageLabel';
+import { PageLabel } from './PageLabel'
 
-export {
-    PageLabel
-}
+export { PageLabel }

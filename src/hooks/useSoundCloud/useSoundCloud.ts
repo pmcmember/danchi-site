@@ -1,10 +1,10 @@
 import React from 'react'
 import {
-    UseSoundCloud,
-    SoundCloudStatus,
-    RequestNextSong,
     OnPlayButtonClick,
-} from './useSoundCloud.type'
+    RequestNextSong,
+    SoundCloudStatus,
+    UseSoundCloud,
+} from '@/hooks'
 
 export const useSoundCloud: UseSoundCloud = ({ iframeId }) => {
     const [status, setStatus] = React.useState<SoundCloudStatus>('READY')
@@ -14,6 +14,7 @@ export const useSoundCloud: UseSoundCloud = ({ iframeId }) => {
     React.useEffect(() => {
         try {
             console.log('useSoundCloud: init')
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
             const SoundCloudWidget = require('soundcloud-widget')
             const widget = new SoundCloudWidget(iframeId)
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Header, Footer, Main, PageLabel } from './index'
+import { Footer, Header, Main } from './index'
 
 import { PageNames } from '@/const/pages'
 
@@ -9,14 +9,14 @@ type Props = {
     currentPage: PageNames
 }
 
-export const GlobalLayout: React.VFC<Props> = ({ children, currentPage }) => {
+export const GlobalLayout: React.VFC<Props> = ({ children }) => {
     const [isHide, setIsHide] = React.useState<boolean>(false)
 
     React.useEffect(() => {
         // ページ最上部からbufferまでの間BottomNavを隠さない
-        const buffer: number = 64
-        let offset: number = 0
-        let lastPosition: number = 0
+        const buffer = 64
+        let offset = 0
+        let lastPosition = 0
 
         const onScroll = () => {
             lastPosition = window.scrollY

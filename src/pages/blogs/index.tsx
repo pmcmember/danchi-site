@@ -1,4 +1,4 @@
-import Blogs from './[pid]';
+import Blogs from './[pid]'
 
 export default Blogs
-export { getStaticProps } from './[pid]';
+export { getStaticProps } from './[pid]'

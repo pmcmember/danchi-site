@@ -1,5 +1,3 @@
-import { Overview } from "./Overview";
+import { Overview } from './Overview'
 
-export {
-    Overview
-}
+export { Overview }

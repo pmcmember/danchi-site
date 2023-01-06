@@ -1,4 +1,4 @@
-import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
+import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs'
 import { CircularProgress } from '@mui/material'
 import { SoundCloudEvents } from '@/hooks'
 
@@ -9,25 +9,31 @@ type Props = {
     status: keyof SoundCloudEvents
 }
 
-export const PlayerTransIcon: React.VFC<Props> = ({status}) => {
+export const PlayerTransIcon: React.VFC<Props> = ({ status }) => {
     return (
         <>
-            {status === "PLAY_PROGRESS" ? (
-                <BsFillPauseFill/>
-            ) : status === "LOAD_PROGRESS" || status === "PLAY"? (
-                <CircularProgress style={{width: "1em", height: "1em"}}/>
-            ) : status === "ERROR"? (
+            {status === 'PLAY_PROGRESS' ? (
+                <BsFillPauseFill />
+            ) : status === 'LOAD_PROGRESS' || status === 'PLAY' ? (
+                <CircularProgress style={{ width: '1em', height: '1em' }} />
+            ) : status === 'ERROR' ? (
                 <div className="relative">
                     <div
                         className="inline-block absolute bg-black border-y border-white"
-                        style={{width: "100%", height: "3px", top: "50%", left: "50%", transform: "translate(-50%, -50%) rotate(45deg)"}}
+                        style={{
+                            width: '100%',
+                            height: '3px',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%) rotate(45deg)',
+                        }}
                     />
-                    <BsFillPlayFill/>
+                    <BsFillPlayFill />
                 </div>
             ) : (
-                <BsFillPlayFill/>
-            // ) : (
-            //     <BsQuestionLg/>
+                <BsFillPlayFill />
+                // ) : (
+                //     <BsQuestionLg/>
             )}
         </>
     )

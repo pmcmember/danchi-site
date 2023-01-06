@@ -33,12 +33,15 @@
     .square_aspect {
         padding-top: initial;
     }
+
     .video_aspect {
         aspect-ratio: var(--v-aspect-ratio);
     }
+
     .article_aspect {
         aspect-ratio: var(--a-aspect-ratio);
     }
+
     .square_aspect {
         aspect-ratio: var(--s-aspect-ratio);
     }

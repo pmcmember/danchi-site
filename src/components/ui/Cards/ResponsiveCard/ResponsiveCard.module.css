@@ -6,11 +6,13 @@
     position: relative;
     width: 100%;
 }
+
 .cardImageWrapper:before {
-    content:"";
+    content: "";
     display: block;
     padding-top: 50%; /* 高さを幅の60%に固定 */
 }
+
 .cardImageContent {
     position: absolute;
     top: 0;

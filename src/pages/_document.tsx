@@ -4,13 +4,13 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="ja">
-                <Head>
+                <Head title={'danchi site'}>
                     {/** TODO: Google AnalyticsかCloudWatch RUMコードの挿入 */}
                     {/* <script type="text/javascript" src="https://w.soundcloud.com/player/api.js"></script> */}
                 </Head>
                 <body>
-                    <Main/>
-                    <NextScript/>
+                    <Main />
+                    <NextScript />
                 </body>
             </Html>
         )

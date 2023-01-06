@@ -1,5 +1,3 @@
 import { ContactComplete } from './Complete'
 
-export {
-    ContactComplete
-}
+export { ContactComplete }

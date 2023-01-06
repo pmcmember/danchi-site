@@ -1,27 +1,26 @@
 import {
-    OutlinedInput,
-    InputAdornment,
     FormControl,
+    InputAdornment,
     InputLabel,
-    Button,
-    OutlinedInputProps
+    OutlinedInput,
+    OutlinedInputProps,
 } from '@mui/material'
 
 import { IconType } from 'react-icons'
 
 type Props = {
-    name: OutlinedInputProps['name'];
-    multiline?: OutlinedInputProps['multiline'];
-    label: OutlinedInputProps['label'];
-    placeholder?: OutlinedInputProps['placeholder'];
-    onChange: OutlinedInputProps['onChange'];
-    onBlur: OutlinedInputProps['onBlur'];
-    value: OutlinedInputProps['value'];
-    ref: OutlinedInputProps['ref'];
-    required: OutlinedInputProps['required'];
-    className?: string;
-    errorText?: string;
-    Icon: IconType;
+    name: OutlinedInputProps['name']
+    multiline?: OutlinedInputProps['multiline']
+    label: OutlinedInputProps['label']
+    placeholder?: OutlinedInputProps['placeholder']
+    onChange: OutlinedInputProps['onChange']
+    onBlur: OutlinedInputProps['onBlur']
+    value: OutlinedInputProps['value']
+    ref: OutlinedInputProps['ref']
+    required: OutlinedInputProps['required']
+    className?: string
+    errorText?: string
+    Icon: IconType
 }
 
 export const FormInput: React.VFC<Props> = ({
@@ -36,9 +35,9 @@ export const FormInput: React.VFC<Props> = ({
     required,
     className,
     errorText,
-    Icon
+    Icon,
 }) => {
-    const labelText = `${label}${required? `(必須)`: ""}`
+    const labelText = `${label}${required ? `(必須)` : ''}`
     return (
         <FormControl className={className}>
             <InputLabel htmlFor={name}>{labelText}</InputLabel>
@@ -50,20 +49,17 @@ export const FormInput: React.VFC<Props> = ({
                 onBlur={onBlur}
                 value={value}
                 ref={ref}
-                error={errorText? true: undefined}
+                error={errorText ? true : undefined}
                 startAdornment={
                     <InputAdornment position="start">
-                        <Icon/>
+                        <Icon />
                     </InputAdornment>
                 }
                 // required
                 multiline
-                minRows={multiline? 8: undefined}
+                minRows={multiline ? 8 : undefined}
             />
-            {errorText && (
-                <div className="text-red-500">{errorText}</div>
-            )}
+            {errorText && <div className="text-red-500">{errorText}</div>}
         </FormControl>
-
     )
 }

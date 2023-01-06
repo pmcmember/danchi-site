@@ -1,5 +1,3 @@
-import { ColumnsListChild } from "./ColumnsListChild";
+import { ColumnsListChild } from './ColumnsListChild'
 
-export {
-    ColumnsListChild
-}
+export { ColumnsListChild }

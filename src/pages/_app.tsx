@@ -6,8 +6,6 @@ import { useRouter } from 'next/router'
 import { PageNames } from '@/const/pages'
 
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import { ThemeProvider } from '@mui/material/styles'
-import theme from '@/lib/material-ui/theme'
 import createEmotionCache from '@/lib/material-ui/createEmotionCache'
 import { Character } from '@/components/ui/Character'
 

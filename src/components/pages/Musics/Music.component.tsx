@@ -2,20 +2,19 @@ import React from 'react'
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud'
 import {
     MusicListResponse,
-    MusicResponse,
     MusicSongCategoryListResponse,
     MusicSongCategoryResponse,
 } from '@/api/@types'
-import { useSoundCloud, SoundCloudStatus } from '@/hooks/useSoundCloud'
-import {
-    IoIosRepeat,
-    IoIosShuffle,
-    IoIosInfinite,
-    IoIosTrendingUp,
-} from 'react-icons/io'
+import { SoundCloudStatus, useSoundCloud } from '@/hooks/useSoundCloud'
+import { IoIosInfinite, IoIosRepeat, IoIosShuffle } from 'react-icons/io'
 import { PlayerTransIcon } from '@/components/ui/TransIcons'
-import { CircularProgress } from '@mui/material'
-import { IconButton, Tooltip, FormControl, Chip } from '@mui/material'
+import {
+    Chip,
+    CircularProgress,
+    FormControl,
+    IconButton,
+    Tooltip,
+} from '@mui/material'
 import styles from './Musics.module.css'
 import { SearchInput } from '@/components/ui/Inputs'
 import { client } from '@/lib/aspida'
@@ -199,8 +198,7 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
             const matchCategoriesFindResult = matchCategories.find(
                 (m) => m.name === tag.name
             )
-            let searchContent: string = ''
-            let requestMatchCategories: MusicSongCategoryListResponse = []
+            let requestMatchCategories: MusicSongCategoryListResponse
 
             if (matchCategoriesFindResult) {
                 requestMatchCategories = matchCategories.filter(

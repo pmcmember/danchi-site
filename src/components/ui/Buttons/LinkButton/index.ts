@@ -1,5 +1,3 @@
-import { LinkButton } from './LinkButton';
+import { LinkButton } from './LinkButton'
 
-export {
-    LinkButton
-}
+export { LinkButton }

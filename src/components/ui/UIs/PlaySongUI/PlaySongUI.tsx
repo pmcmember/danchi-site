@@ -1,13 +1,12 @@
 import React from 'react'
 import { RealDentButton } from '@/components/ui/Buttons'
-import { useSoundCloud, useModal } from '@/hooks'
+import { useModal, useSoundCloud } from '@/hooks'
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud'
 import { Box } from '@mui/material'
 import { MusicListResponse } from '@/api/@types'
 import { PlayerTransIcon } from '@/components/ui/TransIcons'
 import { FaUser } from 'react-icons/fa'
 import { IoIosMusicalNotes } from 'react-icons/io'
-import Link from 'next/link'
 
 type Props = {
     soundCloudContents: MusicListResponse['contents']

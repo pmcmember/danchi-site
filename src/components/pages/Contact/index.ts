@@ -1,8 +1,6 @@
-import { Contact } from './Contact';
+import { Contact } from './Contact'
 import { ContactComplete } from './Complete'
 
-export default Contact;
+export default Contact
 
-export {
-    ContactComplete
-}
+export { ContactComplete }

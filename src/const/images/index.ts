@@ -1,5 +1,3 @@
-import DefaultImage from "./DefaultImage";
+import DefaultImage from './DefaultImage'
 
-export {
-    DefaultImage
-}
+export { DefaultImage }

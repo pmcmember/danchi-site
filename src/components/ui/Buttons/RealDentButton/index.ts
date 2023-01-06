@@ -1,5 +1,3 @@
-import { RealDentButton } from "./RealDentButton";
+import { RealDentButton } from './RealDentButton'
 
-export {
-    RealDentButton
-}
+export { RealDentButton }

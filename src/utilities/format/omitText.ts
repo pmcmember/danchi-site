@@ -1,20 +1,18 @@
 export const omitText = (text: string, length: number): string => {
-    if(/[a-z0-9]/.test(text)){
-        length += 3;
+    if (/^[a-z0-9]+$/.test(text)) {
+        length += 3
     }
-    if(text.length <= length) {
-        return text;
+    if (text.length <= length) {
+        return text
     }
 
-    let resultStr: string = '';
-    let i: number = 0;
-
-    for(let char of text.split('')) {
-        if(length <= i) {
-            break;
+    const result = text.split('').reduce((pre, crr, i) => {
+        if (i > length) {
+            return pre + ''
         }
-        i++;
-        resultStr += char;
-    }
-    return `${resultStr}...`;
+
+        return pre + crr
+    }, '')
+
+    return result.length <= length ? `${result}...` : result
 }

@@ -6,6 +6,7 @@
     max-width: 1200px;
     margin: auto;
 }
+
 .overview__content {
     @apply flex flex-col gap-3;
 }
@@ -62,7 +63,7 @@
  * categoryスタイル
  */
 .category {
-    background: rgba();
+    /*background: rgba();*/
 }
 
 .category__section {

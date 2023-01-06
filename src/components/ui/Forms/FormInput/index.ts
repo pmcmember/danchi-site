@@ -1,5 +1,3 @@
-import { FormInput } from './FormInput';
+import { FormInput } from './FormInput'
 
-export {
-    FormInput
-}
+export { FormInput }

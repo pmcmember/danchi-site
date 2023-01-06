@@ -1,5 +1,3 @@
-import { EmbedSoundCloud } from "./EmbedSoundCloud";
+import { EmbedSoundCloud } from './EmbedSoundCloud'
 
-export {
-    EmbedSoundCloud
-}
+export { EmbedSoundCloud }

@@ -1,5 +1,3 @@
-import { ResponsiveCard } from "./ResponsiveCard";
+import { ResponsiveCard } from './ResponsiveCard'
 
-export {
-    ResponsiveCard
-};
+export { ResponsiveCard }

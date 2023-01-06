@@ -1,5 +1,3 @@
-import { PageContentsWrapper } from "./PageContentsWrapper";
+import { PageContentsWrapper } from './PageContentsWrapper'
 
-export {
-    PageContentsWrapper
-}
+export { PageContentsWrapper }

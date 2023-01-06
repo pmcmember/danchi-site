@@ -2,9 +2,9 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { ContactFormParams, ContactInputs } from '@/const/forms'
 import { PageNames } from '@/const/pages'
-import { Overview, Section, PageContentsWrapper } from '@/components/ui/Layouts'
+import { PageContentsWrapper, Section } from '@/components/ui/Layouts'
 import { outputFormErrorText } from '@/utilities/outputFormErrorText'
-import { useForm, SubmitHandler, FieldError, Controller } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FormInput } from '@/components/ui/Forms/FormInput'
 import { FaPaperPlane } from 'react-icons/fa'
 import { Button } from '@mui/material'
@@ -24,12 +24,11 @@ export const Contact: NextPage = () => {
 export const ContactOverview: React.VFC = () => {
     const {
         handleSubmit,
-        watch,
         formState: { errors },
         control,
     } = useForm<ContactInputs>()
 
-    const onSubmit: SubmitHandler<ContactInputs> = React.useCallback((data) => {
+    const onSubmit: SubmitHandler<ContactInputs> = React.useCallback(() => {
         console.log(process.env.NEXT_PUBLIC_TEST)
 
         // TODO: contactのエンドポイントまでリクエスト

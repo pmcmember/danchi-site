@@ -1,2 +1,2 @@
-export * from './PlaySongUI';
+export * from './PlaySongUI'
 export * from './SwipeUnlockUI'

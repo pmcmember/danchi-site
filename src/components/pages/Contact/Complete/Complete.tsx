@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 
 export const ContactComplete: NextPage = () => {
-    return (
-        <div>contact complete</div>
-    )
+    // eslint-disable-next-line react/react-in-jsx-scope
+    return <div>contact complete</div>
 }

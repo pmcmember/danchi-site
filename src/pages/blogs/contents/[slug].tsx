@@ -1,7 +1,7 @@
-import BlogsContents from '@/components/pages/Blogs/Contents';
+import BlogsContents from '@/components/pages/Blogs/Contents'
 
 export default BlogsContents
 export {
     getStaticProps,
-    getStaticPaths
-} from '@/components/pages/Blogs/Contents';
+    getStaticPaths,
+} from '@/components/pages/Blogs/Contents'

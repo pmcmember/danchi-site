@@ -1,5 +1,3 @@
-import { Select } from './Select';
+import { Select } from './Select'
 
-export {
-    Select
-}
+export { Select }
