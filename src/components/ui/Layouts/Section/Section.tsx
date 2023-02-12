@@ -3,13 +3,16 @@ import Link from 'next/link'
 import React from 'react'
 import styles from './Section.module.css'
 
-type Props = {
-    children: React.ReactNode
+export type BaseSectionType = {
     className?: string
     bgColor?: 'yellow' | 'blue' | 'red'
-    title?: string
     pageLink?: PageNames
 }
+
+type Props = {
+    children: React.ReactNode
+    title?: string
+} & BaseSectionType
 
 export const Section: React.VFC<Props> = ({
     children,

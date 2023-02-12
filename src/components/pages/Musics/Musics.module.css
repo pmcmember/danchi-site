@@ -32,17 +32,32 @@
 
 .song__description {
     @apply text-xs text-zinc-700;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .song__tags {
-    @apply flex flex-wrap;
+    @apply flex;
     white-space: nowrap;
-    width: 100%;
+    max-width: 100%;
+    overflow-x: scroll;
+    /*スクロールバー非表示（IE・Edge）*/
+    -ms-overflow-style: none;
+    /*スクロールバー非表示（Firefox）*/
+    scrollbar-width: none;
+}
+
+/*スクロールバー非表示（Chrome・Safari）*/
+.song__tags::-webkit-scrollbar {
+    display: none;
 }
 
 .song__tag {
     @apply text-zinc-500 text-xs;
     @apply mr-3;
+    @apply rounded-full bg-slate-500 text-white px-2 py-1;
 }
 
 @screen rsm {

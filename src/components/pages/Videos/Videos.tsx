@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import { Props } from './getStaticProps'
 import {
+    BaseSectionType,
     Menu,
-    Overview,
     PageContentsWrapper,
     Section,
 } from '@/components/ui/Layouts'
@@ -17,17 +17,33 @@ export const Videos: NextPage<Props> = ({ videos }) => {
 
     return (
         <PageContentsWrapper page={pageName} className="bg-white">
-            <Section>
-                <Overview page={pageName} hideHeader hideLink>
-                    <VideosOverview contents={videos} />
-                </Overview>
-            </Section>
+            <VideosSection contents={videos} />
         </PageContentsWrapper>
     )
 }
 
 type VideosOverview = {
     contents: VideoListResponse
+}
+
+type VideosSection = VideosOverview & BaseSectionType
+
+export const VideosSection: React.FC<VideosSection> = ({
+    className,
+    bgColor,
+    contents,
+    pageLink,
+}) => {
+    return (
+        <Section
+            title="動画作品"
+            className={className}
+            bgColor={bgColor}
+            pageLink={pageLink}
+        >
+            <VideosOverview contents={contents} />
+        </Section>
+    )
 }
 
 export const VideosOverview: React.VFC<VideosOverview> = ({ contents }) => {

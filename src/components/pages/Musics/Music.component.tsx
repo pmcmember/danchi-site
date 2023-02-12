@@ -19,6 +19,7 @@ import {
 import styles from './Musics.module.css'
 import { SearchInput } from '@/components/ui/Inputs'
 import { client } from '@/lib/aspida'
+import { BaseSectionType, Section } from '@/components/ui/Layouts'
 
 type MusicsOverviewProps = {
     contents: MusicListResponse
@@ -29,6 +30,31 @@ type SongConfig = {
     repeat: boolean
     shuffle: boolean
     auto: boolean
+}
+
+type MusicsSection = MusicsOverviewProps & BaseSectionType
+
+export const MusicsSection: React.FC<MusicsSection> = ({
+    contents,
+    categories,
+    className,
+    bgColor,
+    pageLink,
+}) => {
+    return (
+        <Section
+            title="フリーBGM"
+            className={className}
+            bgColor={bgColor}
+            pageLink={pageLink}
+        >
+            {contents ? (
+                <MusicsOverview contents={contents} categories={categories} />
+            ) : (
+                <>楽曲が存在しません</>
+            )}
+        </Section>
+    )
 }
 
 export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
@@ -58,9 +84,9 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
     /**
      * songsの内容が変更した際の挙動
      */
-    React.useEffect(() => {
-        setCurrentSong(songs[0])
-    }, [songs])
+    // React.useEffect(() => {
+    //     setCurrentSong(songs[0])
+    // }, [songs])
 
     /**
      * 楽曲が流れ終えた際の挙動
@@ -239,6 +265,20 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
                 onCategoryButtonClick={onCategoryButtonClickHandler}
                 onSearchButtonClick={onSearchButtonClick}
             />
+            <EmbedSoundCloud
+                // requestNextSong関数にてURLのロードを行っているため
+                // currentSong(useStateで管理している変数)は使用しない
+                embedUrl={currentSong?.scSrc || ''}
+                artistHref={currentSong?.scArtistHref || ''}
+                songHref={currentSong?.scSongHref || ''}
+                artistName={currentSong?.scArtistName || ''}
+                songTitle={currentSong?.scSongTitle || ''}
+                size={{ height: '165px' }}
+                // className={"pointer-events-none"}
+                id={iframeId}
+            />
+            <SongConfigs content={songConfig} set={setSongConfig} />
+
             {songs.length <= 0 && <div>お探しの曲は見つかりませんでした。</div>}
             <div
                 className={`${styles.overview__content} ${
@@ -257,19 +297,6 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
                     }`}
                 />
                 <div className={`${isContentsReloading ? 'hidden' : 'block'}`}>
-                    <EmbedSoundCloud
-                        // requestNextSong関数にてURLのロードを行っているため
-                        // currentSong(useStateで管理している変数)は使用しない
-                        embedUrl={currentSong?.scSrc || ''}
-                        artistHref={currentSong?.scArtistHref || ''}
-                        songHref={currentSong?.scSongHref || ''}
-                        artistName={currentSong?.scArtistName || ''}
-                        songTitle={currentSong?.scSongTitle || ''}
-                        size={{ height: '165px' }}
-                        // className={"pointer-events-none"}
-                        id={iframeId}
-                    />
-                    <SongConfigs content={songConfig} set={setSongConfig} />
                     <SongList
                         onPlayButtonClick={onPlayButtonClickHandler}
                         songs={songs}

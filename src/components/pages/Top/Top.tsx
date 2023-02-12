@@ -9,15 +9,11 @@ import EyeCatchImage from '@/assets/eyeCatch2.jpg'
 
 // page overviews
 import { Props } from './getStaticProps'
-import {
-    BlogsSection,
-    ContactSection,
-    EyeCatch,
-    HeroImage,
-    MusicsSection,
-    Profile,
-    VideosSection,
-} from './Top.component'
+import { EyeCatch, HeroImage, Profile } from './Top.component'
+import { BlogsSection } from '@/components/pages/Blogs/Blogs'
+import { MusicsSection } from '@/components/pages/Musics/Music.component'
+import { VideosSection } from '@/components/pages/Videos/Videos'
+import { ContactSection } from '@/components/pages/Contact'
 
 export const Top: NextPage<Props> = ({ musics, blogs, videos, categories }) => (
     <PageContentsWrapper page="top">
@@ -32,9 +28,13 @@ export const Top: NextPage<Props> = ({ musics, blogs, videos, categories }) => (
                 また湯船に浸かって、ちょっと恥ずかしそうな顔のかわいい奈々を見せてね！ チュッ
                 "
         />
-        <BlogsSection contents={blogs} />
-        <MusicsSection contents={musics} categories={categories} />
-        <VideosSection contents={videos} />
+        <BlogsSection contents={blogs} pageLink={'blogs'} />
+        <MusicsSection
+            contents={musics}
+            categories={categories}
+            pageLink={'musics'}
+        />
+        <VideosSection contents={videos} pageLink={'videos'} />
         <EyeCatch imgSrc={EyeCatchImage.src} />
         <ContactSection />
 

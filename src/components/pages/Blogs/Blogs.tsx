@@ -2,50 +2,73 @@ import type { NextPage } from 'next'
 
 import { StandardCard } from '@/components/ui/Cards'
 
-import { Menu, PageContentsWrapper, Section } from '@/components/ui/Layouts'
+import {
+    BaseSectionType,
+    Menu,
+    PageContentsWrapper,
+    Section,
+} from '@/components/ui/Layouts'
 // import { Pagination } from '@/components/ui/Pagination'
 import { PageNames } from '@/const/pages'
 import { Props } from './getStaticProps'
 import { Chip, Stack } from '@mui/material'
 import { Image } from '@/components/ui/Image'
+import React from 'react'
 
 export const Blogs: NextPage<Props> = ({ blogs, currentPage, totalPages }) => {
     const pageName: PageNames = 'blogs'
     return (
         <PageContentsWrapper page={pageName} className="bg-white">
-            <Section title="活動報告">
-                <BlogsOverview
-                    paginationConf={{
-                        currentPageId: Number(currentPage),
-                        totalPages: Number(totalPages),
-                    }}
-                    blogs={blogs}
-                />
-            </Section>
+            <BlogsSection
+                contents={blogs}
+                paginationConf={{
+                    currentPageId: Number(currentPage),
+                    totalPages: Number(totalPages),
+                }}
+            />
         </PageContentsWrapper>
     )
 }
 
-type BlogsOverviewProps = {
+type BlogsOverview = {
     paginationConf?: {
         currentPageId: number
         totalPages: number
     }
-    blogs: Props['blogs']
+    contents: Props['blogs']
 }
 
-export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({ blogs }) => {
+type BlogsSection = BlogsOverview & BaseSectionType
+
+export const BlogsSection: React.FC<BlogsSection> = ({
+    contents,
+    paginationConf,
+    className,
+    bgColor,
+    pageLink,
+}) => (
+    <Section
+        title="活動報告"
+        pageLink={pageLink}
+        className={className}
+        bgColor={bgColor}
+    >
+        <BlogsOverview contents={contents} paginationConf={paginationConf} />
+    </Section>
+)
+
+export const BlogsOverview: React.VFC<BlogsOverview> = ({ contents }) => {
     return (
         <Menu
-            contents={blogs.contents.map((blog) => (
+            contents={contents.contents.map((content) => (
                 <StandardCard
-                    key={blog.id}
-                    title={blog.title}
-                    href={`/blogs/contents/${blog.id}`}
+                    key={content.id}
+                    title={content.title}
+                    href={`/blogs/contents/${content.id}`}
                     Description={
-                        blog.tags && (
+                        content.tags && (
                             <Stack direction="row">
-                                {blog.tags.map((tag) => (
+                                {content.tags.map((tag) => (
                                     <Chip
                                         key={tag.fieldId}
                                         label={tag.tag}
@@ -57,8 +80,8 @@ export const BlogsOverview: React.VFC<BlogsOverviewProps> = ({ blogs }) => {
                     }
                     Image={
                         <Image
-                            src={blog.image?.url}
-                            alt={`${blog.title}のイメージ`}
+                            src={content.image?.url}
+                            alt={`${content.title}のイメージ`}
                             className="object-cover"
                         />
                     }
