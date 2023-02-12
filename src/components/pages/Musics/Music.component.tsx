@@ -2,6 +2,7 @@ import React from 'react'
 import { EmbedSoundCloud } from '@/components/ui/EmbedSoundCloud'
 import {
     MusicListResponse,
+    MusicSearchByCategorySelector,
     MusicSongCategoryListResponse,
     MusicSongCategoryResponse,
 } from '@/api/@types'
@@ -87,9 +88,7 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
 
                     setCurrentSong(nextSong)
 
-                    requestNextSong(nextSong.scApiUrl).then(() => {
-                        onPlayButtonClick()
-                    })
+                    requestNextSong(nextSong.scApiUrl).then(onPlayButtonClick)
                 }
                 break
             case songConfig.auto:
@@ -109,9 +108,7 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
 
                     setCurrentSong(nextSong)
 
-                    requestNextSong(nextSong.scApiUrl).then(() => {
-                        onPlayButtonClick()
-                    })
+                    requestNextSong(nextSong.scApiUrl).then(onPlayButtonClick)
                 }
                 break
         }
@@ -155,72 +152,70 @@ export const MusicsOverview: React.VFC<MusicsOverviewProps> = ({
         content: string,
         matchCategories: MusicSongCategoryListResponse
     ) => {
+        const searchByCategory = async (
+            matchCategories: MusicSongCategoryListResponse
+        ) => {
+            const formattedType = matchCategories.map((m) => m.type).join(',')
+            const formattedName = matchCategories.map((m) => m.name).join(',')
+
+            const query: MusicSearchByCategorySelector = {
+                type: formattedType,
+                name: formattedName,
+                condition: 'or',
+            }
+
+            return await client.v1.musics.search.category.$get({
+                query,
+            })
+        }
+
+        let result: MusicListResponse
+
         setIsContentsReloading(true)
 
         console.log(content, matchCategories)
 
-        const result =
-            matchCategories.length > 0
-                ? // マッチしているカテゴリで検索を実施する
-                  await (async () => {
-                      const query = matchCategories.reduce((pre, crr) => {
-                          return {
-                              type:
-                                  (pre?.type ? pre.type + ',' : '') + crr.type,
-                              name:
-                                  (pre?.name ? pre.name + ',' : '') + crr.name,
-                          }
-                      }, {} as { type: string; name: string })
-
-                      return await client.v1.musics.search.category.$get({
-                          query: {
-                              condition: 'or',
-                              ...query,
-                          },
-                      })
-                  })()
-                : content
-                ? // 全文検索を実施する
-                  await client.v1.musics.search.$get({
-                      query: {
-                          value: content,
-                      },
-                  })
-                : // 全権取得する
-                  await client.v1.musics.$get()
+        if (matchCategories.length > 0) {
+            // カテゴリー検索
+            result = await searchByCategory(matchCategories)
+        } else if (content) {
+            // 全文検索
+            result = await client.v1.musics.search.$get({
+                query: {
+                    value: content,
+                },
+            })
+        } else {
+            // 全件取得
+            result = await client.v1.musics.$get()
+        }
 
         setSongs(result?.contents || [])
         setIsContentsReloading(false)
     }
 
+    /**
+     * カテゴリーボタンが押された際の挙動
+     * @param tag 押されたボタンの情報
+     */
     const onCategoryButtonClickHandler = React.useCallback(
         async (tag: MusicSongCategoryResponse) => {
-            const matchCategoriesFindResult = matchCategories.find(
+            const isAlreadyIncluded = matchCategories.find(
                 (m) => m.name === tag.name
             )
-            let requestMatchCategories: MusicSongCategoryListResponse
 
-            if (matchCategoriesFindResult) {
-                requestMatchCategories = matchCategories.filter(
-                    (m) => m.name !== tag.name
-                )
-                setMatchCategories(requestMatchCategories)
-                setSearchContent((content) =>
-                    content.replace(new RegExp(`,? *${tag.name} *,?`), '')
-                )
-            } else {
-                requestMatchCategories = [...matchCategories, tag]
-                setMatchCategories(requestMatchCategories)
+            // tagがすでにmatchCategoriesに含まれていれば除外、含まれていなければ追加
+            const newMatchCategories = isAlreadyIncluded
+                ? matchCategories.filter((m) => m.name !== tag.name)
+                : [...matchCategories, tag]
+            const newSearchContent = newMatchCategories
+                .map((r) => r.name)
+                .join(' , ')
 
-                setSearchContent(
-                    requestMatchCategories.reduce(
-                        (pre, crr) => (pre ? pre + ' , ' : '') + crr.name,
-                        ''
-                    )
-                )
-            }
+            setMatchCategories(newMatchCategories)
+            setSearchContent(newSearchContent)
 
-            await onSearchButtonClick(searchContent, requestMatchCategories)
+            await onSearchButtonClick(newSearchContent, newMatchCategories)
         },
         [onSearchButtonClick, matchCategories, setMatchCategories]
     )
@@ -316,7 +311,7 @@ const SearchForm: React.FC<SearchForm> = ({
             {categories
                 ?.filter((c) => c.type === type)
                 .map((c) => (
-                    <li key={c.name} className={styles.ycategory__list}>
+                    <li key={c.name} className={styles.category__list}>
                         <Chip
                             label={c.name}
                             variant="outlined"
