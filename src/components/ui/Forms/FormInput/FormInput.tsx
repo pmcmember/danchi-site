@@ -56,7 +56,7 @@ export const FormInput: React.VFC<Props> = ({
                     </InputAdornment>
                 }
                 // required
-                multiline
+                multiline={multiline}
                 minRows={multiline ? 8 : undefined}
             />
             {errorText && <div className="text-red-500">{errorText}</div>}

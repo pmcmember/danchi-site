@@ -2,22 +2,43 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { ContactFormParams, ContactInputs } from '@/const/forms'
 import { PageNames } from '@/const/pages'
-import { PageContentsWrapper, Section } from '@/components/ui/Layouts'
+import {
+    BaseSectionType,
+    PageContentsWrapper,
+    Section,
+} from '@/components/ui/Layouts'
 import { outputFormErrorText } from '@/utilities/outputFormErrorText'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import {
+    Control,
+    Controller,
+    FieldErrors,
+    SubmitHandler,
+    useForm,
+} from 'react-hook-form'
 import { FormInput } from '@/components/ui/Forms/FormInput'
 import { FaPaperPlane } from 'react-icons/fa'
 import { Button } from '@mui/material'
+import { ContactRequest } from '@/api/@types'
+import { client } from '@/lib/aspida'
 
 export const Contact: NextPage = () => {
     const pageName: PageNames = 'contact'
 
     return (
         <PageContentsWrapper page={pageName} className="bg-white">
-            <Section title="お問い合わせ">
-                <ContactOverview />
-            </Section>
+            <ContactSection />
         </PageContentsWrapper>
+    )
+}
+
+export const ContactSection: React.FC<BaseSectionType> = ({
+    className,
+    bgColor,
+}) => {
+    return (
+        <Section title="お問い合わせ" className={className} bgColor={bgColor}>
+            <ContactOverview />
+        </Section>
     )
 }
 
@@ -26,111 +47,43 @@ export const ContactOverview: React.VFC = () => {
         handleSubmit,
         formState: { errors },
         control,
-    } = useForm<ContactInputs>()
+    } = useForm<ContactInputs>({
+        mode: 'onBlur',
+    })
 
-    const onSubmit: SubmitHandler<ContactInputs> = React.useCallback(() => {
-        console.log(process.env.NEXT_PUBLIC_TEST)
+    const onSubmit: SubmitHandler<ContactInputs> = React.useCallback(
+        async (data) => {
+            const body: ContactRequest = {
+                name: data.username,
+                content: data.content,
+                toAddress: data.emailAddress,
+                subject: data.subject,
+            }
 
-        // TODO: contactのエンドポイントまでリクエスト
-    }, [])
+            await client.v1.contact.$post({
+                body,
+            })
+            // TODO: ページ遷移処理を実装
+        },
+        []
+    )
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-                name="username"
+            <CustomInput name={'username'} control={control} errors={errors} />
+            <CustomInput
+                name={'emailAddress'}
                 control={control}
-                defaultValue={
-                    ContactFormParams.get('username')!.defaultValue || ''
-                }
-                rules={ContactFormParams.get('username')!.validationConf}
-                render={({ field }) => (
-                    <FormInput
-                        {...field}
-                        className="w-full mb-10"
-                        required={
-                            ContactFormParams.get('username')!.validationConf
-                                .required
-                        }
-                        errorText={
-                            errors['username']?.type &&
-                            outputFormErrorText(
-                                errors['username'].type,
-                                ContactFormParams.get('username')!
-                                    .validationConf
-                            )
-                        }
-                        label={ContactFormParams.get('username')!.title}
-                        placeholder={
-                            ContactFormParams.get('username')!.placeholder
-                        }
-                        Icon={ContactFormParams.get('username')!.Icon}
-                    />
-                )}
+                errors={errors}
+            />
+            <CustomInput name={'subject'} control={control} errors={errors} />
+            <CustomInput
+                name={'content'}
+                control={control}
+                errors={errors}
+                multiline
             />
 
-            <Controller
-                name="emailAddress"
-                control={control}
-                defaultValue={
-                    ContactFormParams.get('emailAddress')!.defaultValue || ''
-                }
-                rules={ContactFormParams.get('emailAddress')!.validationConf}
-                render={({ field }) => (
-                    <FormInput
-                        {...field}
-                        className="w-full mb-10"
-                        required={
-                            ContactFormParams.get('emailAddress')!
-                                .validationConf.required
-                        }
-                        errorText={
-                            errors['emailAddress']?.type &&
-                            outputFormErrorText(
-                                errors['emailAddress'].type,
-                                ContactFormParams.get('emailAddress')!
-                                    .validationConf
-                            )
-                        }
-                        label={ContactFormParams.get('emailAddress')!.title}
-                        placeholder={
-                            ContactFormParams.get('emailAddress')!.placeholder
-                        }
-                        Icon={ContactFormParams.get('emailAddress')!.Icon}
-                    />
-                )}
-            />
-
-            <Controller
-                name="content"
-                control={control}
-                defaultValue={
-                    ContactFormParams.get('content')!.defaultValue || ''
-                }
-                rules={ContactFormParams.get('content')!.validationConf}
-                render={({ field }) => (
-                    <FormInput
-                        {...field}
-                        className="w-full mb-10"
-                        required={
-                            ContactFormParams.get('content')!.validationConf
-                                .required
-                        }
-                        errorText={
-                            errors['content']?.type &&
-                            outputFormErrorText(
-                                errors['content'].type,
-                                ContactFormParams.get('content')!.validationConf
-                            )
-                        }
-                        label={ContactFormParams.get('content')!.title}
-                        multiline
-                        placeholder={
-                            ContactFormParams.get('content')!.placeholder
-                        }
-                        Icon={ContactFormParams.get('content')!.Icon}
-                    />
-                )}
-            />
             <div className="w-full text-center mt-5">
                 <Button
                     type="submit"
@@ -146,3 +99,41 @@ export const ContactOverview: React.VFC = () => {
         </form>
     )
 }
+
+type CustomInput = {
+    name: keyof ContactInputs
+    multiline?: boolean
+    control: Control<ContactInputs, any>
+    errors: FieldErrors<ContactInputs>
+}
+const CustomInput: React.FC<CustomInput> = ({
+    name,
+    multiline,
+    control,
+    errors,
+}) => (
+    <Controller
+        name={name}
+        control={control}
+        defaultValue={ContactFormParams.get(name)!.defaultValue || ''}
+        rules={ContactFormParams.get(name)!.validationConf}
+        render={({ field }) => (
+            <FormInput
+                {...field}
+                className="w-full mb-10"
+                required={ContactFormParams.get(name)!.validationConf.required}
+                errorText={
+                    errors?.[name]?.type &&
+                    outputFormErrorText(
+                        errors?.[name]?.type || '',
+                        ContactFormParams.get(name)!.validationConf
+                    )
+                }
+                label={ContactFormParams.get(name)!.title}
+                multiline={multiline}
+                placeholder={ContactFormParams.get(name)!.placeholder}
+                Icon={ContactFormParams.get(name)!.Icon}
+            />
+        )}
+    />
+)

@@ -1,6 +1,6 @@
 import { IconType } from 'react-icons'
 
-export type ContactNames = 'username' | 'emailAddress' | 'content'
+export type ContactNames = 'username' | 'emailAddress' | 'content' | 'subject'
 
 export type ContactInputs = { [key in ContactNames]: string }
 

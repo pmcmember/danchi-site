@@ -1,6 +1,7 @@
 import { ContactFormAttributes, ContactNames } from '../forms.type'
 import { FaEnvelope, FaUserCircle } from 'react-icons/fa'
 import { BsFillFileTextFill } from 'react-icons/bs'
+import { MdSubject } from 'react-icons/all'
 
 const contactFormParams: Map<ContactNames, ContactFormAttributes> = new Map([
     [
@@ -28,6 +29,21 @@ const contactFormParams: Map<ContactNames, ContactFormAttributes> = new Map([
             Icon: FaEnvelope,
             validationConf: {
                 required: false,
+                minLength: 0,
+                maxLength: 255,
+            },
+        },
+    ],
+    [
+        'subject',
+        {
+            title: '件名',
+            type: 'text',
+            inputType: 'input',
+            placeholder: '件名を入力してください',
+            Icon: MdSubject,
+            validationConf: {
+                required: true,
                 minLength: 0,
                 maxLength: 255,
             },
