@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "export APP_ENV=local && run-p dev:*",
-    "dev-local": "export APP_ENV=local-only && run-p dev:*",
+    "dev": "APP_ENV=dev run-p dev:*",
+    "dev-local": "APP_ENV=local run-p dev:*",
     "dev:next": "next dev",
     "dev:path": "pathpida --ignorePath .gitignore --watch",
     "dev:open": "open http://localhost:3000",

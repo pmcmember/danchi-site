@@ -1,5 +1,7 @@
 // loadEnv(process.env.APP_ENV)
 
+loadEnv()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -11,12 +13,13 @@ const nextConfig = {
 module.exports = nextConfig
 
 /**
- * @param {string} appEnv
+ * 環境変数をファイルから読み込む
  */
-function loadEnv(appEnv = 'local') {
-    console.log(appEnv)
+function loadEnv() {
+    console.log(process.env.APP_ENV)
+    const appEnv = process.env.APP_ENV || 'local'
     const env = {
-        ...require(`./.env/env.${appEnv}`),
+        ...require(`./.env/${appEnv}.json`),
         NEXT_PUBLIC_APP_ENV: appEnv,
     }
 
